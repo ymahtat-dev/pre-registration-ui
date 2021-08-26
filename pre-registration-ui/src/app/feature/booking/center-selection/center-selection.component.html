@@ -27,8 +27,12 @@
           </span>
           <button mat-button class="center_selection-nearby-btn" (click)="getLocation()">
             {{ 'centerSelection.action_nearBy' | translate }} &nbsp;&nbsp;
-            <mat-icon matTooltip="{{ 'helpText.nearBy' | translate }}" [inline]="true">help_outline</mat-icon></button
-          ><br />
+            <mat-icon matTooltip="{{ 'helpText.nearBy' | translate }}" [inline]="true">help_outline</mat-icon>
+          </button>
+          <span *ngIf="nearbyClicked">
+            <mat-icon (click)="resetPagination();setSearchClick(true);" class="name-delete-button">close</mat-icon>
+          </span>
+          <br />
         </div>
         <span class="spacer"></span>
         <button

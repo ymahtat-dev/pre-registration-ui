@@ -38,6 +38,7 @@ export class CenterSelectionComponent
   enableNextButton = false;
   bookingDataList = [];
   errorlabels: any;
+  nearbyClicked = false;
   apiErrorCodes: any;
   step = 0;
   textDir = localStorage.getItem("dir");
@@ -148,6 +149,7 @@ export class CenterSelectionComponent
 
   async getRecommendedCenters() {
     this.totalItems = 0;
+    this.nearbyClicked = false;
     const locationHierarchy = JSON.parse(
       localStorage.getItem("locationHierarchy")
     );
@@ -228,6 +230,7 @@ export class CenterSelectionComponent
 
   setSearchClick(flag: boolean) {
     this.searchClick = flag;
+    this.nearbyClicked = false;
   }
   onSubmit() {
     this.searchTextFlag = true;
@@ -325,20 +328,25 @@ export class CenterSelectionComponent
 
   getLocation() {
     this.REGISTRATION_CENTRES = [];
+    this.nearbyClicked = true;
+    //console.log(navigator.geolocation);
     if (navigator.geolocation) {
       this.showMap = false;
       navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position.coords);
+        //this.searchClick = true;
         const subs = this.dataService
           .getNearbyRegistrationCenters(position.coords)
           .subscribe(
             (response) => {
+              //console.log(response[appConstants.RESPONSE]["registrationCenters"].length);
               if (
-                response[appConstants.NESTED_ERROR].length === 0 &&
-                response[appConstants.RESPONSE]["registrationCenters"]
-                  .length !== 0
+                response[appConstants.RESPONSE]["registrationCenters"].length !== 0
               ) {
+                //this.searchClick = false;
                 this.displayResults(response[appConstants.RESPONSE]);
               } else {
+                //this.searchClick = false;
                 this.showMessage = true;
                 this.selectedCentre = null;
               }
