@@ -19,7 +19,6 @@ import { LogService } from "src/app/shared/logger/log.service";
 import Utils from "src/app/app.util";
 import { Subscription } from "rxjs";
 import identityStubJson from "../../../../assets/identity-spec.json";
-import { isArray } from "util";
 
 @Component({
   selector: "app-file-upload",
@@ -503,11 +502,11 @@ export class FileUploadComponent implements OnInit, OnDestroy {
         const element = keyArr[index];
         if (element != appConstants.IDSchemaVersionLabel) {
           let elemValue = identityObj[element];
-          this.identityData.forEach((obj) => {
-            if (element === obj.id && obj.controlType === "ageDate" || obj.controlType === "date") {
-              elemValue = elemValue.replace(/\//g, "-") + "T11:46:12.640Z";
-            }
-          });
+          // this.identityData.forEach((obj) => {
+          //   if (element === obj.id && obj.controlType === "ageDate" || obj.controlType === "date") {
+          //     console.log(elemValue);
+          //   }
+          // });
           attributesArr.push({
             "attribute": element,
             "value": elemValue
