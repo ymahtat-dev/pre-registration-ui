@@ -213,7 +213,10 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
-          this.showErrorMessage(error);
+          this.usersInfoArr[index].registrationCenter = "";
+          resolve(true);
+          //suppress the err popup, as reg center maybe added only in one lang
+          //this.showErrorMessage(error);
         });
     });
   }
@@ -274,7 +277,10 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
           labelNames.push(labels.label_name);
           labelRegCntrs.push(labels.label_reg_cntr);
           nameValues.push(userInfo.fullName);
-          regCntrNames.push(userInfo.registrationCenter.name);
+          //console.log(userInfo.registrationCenter.name);
+          if (userInfo.registrationCenter.name) {
+            regCntrNames.push(userInfo.registrationCenter.name);
+          }
           appLangCode.push(userInfo.langCode);
           //set the message in user login lang if available
           let fltrLangs = this.usersInfoArr.filter(userInfoItm => userInfoItm.preRegId == userInfo.preRegId && userInfoItm.langCode == this.langCode);
