@@ -299,7 +299,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
           if (ele.code === fileMetadata[index].docCatCode) {
             indice = index;
             indexLOD = i;
-            ele.selectedrefNumber = fileMetadata[index].refNumber
+            ele.selectedRefNumber = fileMetadata[index].refNumber
               ? fileMetadata[index].refNumber
               : "";
             arr.push(ele);
@@ -310,8 +310,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
             (ele) => ele.code === fileMetadata[indice].docTypCode
           );
           this.LOD[indexLOD].selectedDocName = temp[0].code;
-          this.LOD[indexLOD].selectedrefNumber = arr[0].selectedrefNumber
-            ? arr[0].selectedrefNumber
+          this.LOD[indexLOD].selectedRefNumber = arr[0].selectedRefNumber
+            ? arr[0].selectedRefNumber
             : "";
         }
       }
@@ -856,7 +856,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
                 if (ele.code === fileMeta.docCatCode) index = i;
               });
               this.LOD[index].selectedDocName = "";
-              this.LOD[index].selectedrefNumber = "";
+              this.LOD[index].selectedRefNumber = "";
               this.uiFields.forEach((uiField) => {
                 if (uiField.subType == this.LOD[index].code) {
                   this.userForm.controls[this.LOD[index].id].setValue("");
@@ -1037,7 +1037,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
    */
   selectChange(event, index: number) {
     this.enableBrowseButtonList[index] = true;
-    this.LOD[index].selectedrefNumber = "";
+    this.LOD[index].selectedRefNumber = "";
     let found = false;
     let i = -1;
     this.documentCategory = event.source.placeholder;
@@ -1296,7 +1296,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
                 if (ele.code === "POA") index = i;
               });
               this.LOD[index].selectedDocName = "";
-              this.LOD[index].selectedrefNumber = "";
+              this.LOD[index].selectedRefNumber = "";
               this.uiFields.forEach((uiField) => {
                 if (uiField.subType == this.LOD[index].code) {
                   this.userForm.controls[this.LOD[index].id].setValue("");
@@ -1341,7 +1341,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
               );
               this.documentName = docList[0].code;
               this.LOD[index].selectedDocName = this.documentName;
-              this.LOD[index].selectedrefNumber =
+              this.LOD[index].selectedRefNumber =
                 response["response"]["refNumber"];
               this.sameAsselected = true;  
             } else {
@@ -1552,8 +1552,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.LOD[index].selectedDocName = event.value;
   }
 
-  changerefNumber(event, index: number) {
-    this.LOD[index].selectedrefNumber = event.target.value;
+  changeRefNumber(event, index: number) {
+    this.LOD[index].selectedRefNumber = event.target.value;
   }
 
   ngOnDestroy(): void {
@@ -1581,7 +1581,7 @@ export interface DocumentCategory {
   name: string;
   documentTypes?: DocumentCategory[];
   selectedDocName?: string;
-  selectedrefNumber: string;
+  selectedRefNumber: string;
   labelName: string;
   required: boolean;
   containerStyle: {};
