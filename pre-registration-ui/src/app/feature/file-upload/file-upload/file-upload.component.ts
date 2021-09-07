@@ -87,7 +87,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     docCatCode: "",
     docTypCode: "",
     langCode: "",
-    docRefId: "",
+    refNumber: "",
   };
   files: FilesModel;
   documentCategoryDto: DocumentCategoryDTO = {
@@ -299,8 +299,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
           if (ele.code === fileMetadata[index].docCatCode) {
             indice = index;
             indexLOD = i;
-            ele.selectedDocRefId = fileMetadata[index].docRefId
-              ? fileMetadata[index].docRefId
+            ele.selectedrefNumber = fileMetadata[index].refNumber
+              ? fileMetadata[index].refNumber
               : "";
             arr.push(ele);
           }
@@ -310,8 +310,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
             (ele) => ele.code === fileMetadata[indice].docTypCode
           );
           this.LOD[indexLOD].selectedDocName = temp[0].code;
-          this.LOD[indexLOD].selectedDocRefId = arr[0].selectedDocRefId
-            ? arr[0].selectedDocRefId
+          this.LOD[indexLOD].selectedrefNumber = arr[0].selectedrefNumber
+            ? arr[0].selectedrefNumber
             : "";
         }
       }
@@ -856,7 +856,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
                 if (ele.code === fileMeta.docCatCode) index = i;
               });
               this.LOD[index].selectedDocName = "";
-              this.LOD[index].selectedDocRefId = "";
+              this.LOD[index].selectedrefNumber = "";
               this.uiFields.forEach((uiField) => {
                 if (uiField.subType == this.LOD[index].code) {
                   this.userForm.controls[this.LOD[index].id].setValue("");
@@ -921,7 +921,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     event: any,
     docName: string,
     docCode: string,
-    docRefId: string
+    refNumber: string
   ) {
     const extensionRegex = new RegExp(
       "(?:" + this.allowedFilesHtml.replace(/,/g, "|") + ")"
@@ -954,7 +954,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
             this.fileByteArray = data;
           });
           if (!this.documentType && !this.documentCategory) {
-            this.setJsonString(docName, docCode, docRefId);
+            this.setJsonString(docName, docCode, refNumber);
           }
           this.sendFile(event);
         } else {
@@ -985,19 +985,19 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   /**
-   *@description method gets called when a value in "docRefId" textbox is changed.
+   *@description method gets called when a value in "refNumber" textbox is changed.
    *
    * @param {*} event
    * @memberof FileUploadComponent
    */
   handleDocRefInput(event: any, docCode: string) {
-    const docRefId = event.target.value;
+    const refNumber = event.target.value;
     for (let file of this.users[0].files.documentsMetaData) {
       if (file.docCatCode == docCode) {
         let documentId = file.documentId;
         this.disableNavigation = true;
         const subs = this.dataStorageService
-          .updateDocRefId(documentId, this.preRegId, docRefId)
+          .updateDocRefId(documentId, this.preRegId, refNumber)
           .subscribe(
             (response) => {
               //docRedId saved
@@ -1037,7 +1037,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
    */
   selectChange(event, index: number) {
     this.enableBrowseButtonList[index] = true;
-    this.LOD[index].selectedDocRefId = "";
+    this.LOD[index].selectedrefNumber = "";
     let found = false;
     let i = -1;
     this.documentCategory = event.source.placeholder;
@@ -1107,11 +1107,11 @@ export class FileUploadComponent implements OnInit, OnDestroy {
    * @param {*} event
    * @memberof FileUploadComponent
    */
-  setJsonString(docName: string, docCode: string, docRefId: string) {
+  setJsonString(docName: string, docCode: string, refNumber: string) {
     this.documentUploadRequestBody.docCatCode = docCode;
     this.documentUploadRequestBody.langCode = this.dataCaptureLanguages[0];
     this.documentUploadRequestBody.docTypCode = docName;
-    this.documentUploadRequestBody.docRefId = docRefId;
+    this.documentUploadRequestBody.refNumber = refNumber;
     this.documentRequest = new RequestModel(
       appConstants.IDS.documentUpload,
       this.documentUploadRequestBody,
@@ -1179,7 +1179,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     fileObject.docTypCode = fileResponse.response.docTypCode;
     fileObject.multipartFile = this.fileByteArray;
     fileObject.prereg_id = this.users[0].preRegId;
-    fileObject.docRefId = fileResponse.response.docRefId;
+    fileObject.refNumber = fileResponse.response.refNumber;
     this.uiFields.forEach((uiField) => {
       if (uiField.subType == fileResponse.response.docCatCode) {
         this.userForm.controls[uiField.id].setValue(
@@ -1296,7 +1296,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
                 if (ele.code === "POA") index = i;
               });
               this.LOD[index].selectedDocName = "";
-              this.LOD[index].selectedDocRefId = "";
+              this.LOD[index].selectedrefNumber = "";
               this.uiFields.forEach((uiField) => {
                 if (uiField.subType == this.LOD[index].code) {
                   this.userForm.controls[this.LOD[index].id].setValue("");
@@ -1341,8 +1341,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
               );
               this.documentName = docList[0].code;
               this.LOD[index].selectedDocName = this.documentName;
-              this.LOD[index].selectedDocRefId =
-                response["response"]["docRefId"];
+              this.LOD[index].selectedrefNumber =
+                response["response"]["refNumber"];
               this.sameAsselected = true;  
             } else {
               this.sameAs = this.registration.getSameAs();
@@ -1552,8 +1552,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.LOD[index].selectedDocName = event.value;
   }
 
-  changeDocRefId(event, index: number) {
-    this.LOD[index].selectedDocRefId = event.target.value;
+  changerefNumber(event, index: number) {
+    this.LOD[index].selectedrefNumber = event.target.value;
   }
 
   ngOnDestroy(): void {
@@ -1565,7 +1565,7 @@ export interface DocumentUploadRequestDTO {
   docCatCode: string;
   docTypCode: string;
   langCode: string;
-  docRefId: string;
+  refNumber: string;
 }
 
 export interface DocumentCategoryDTO {
@@ -1581,7 +1581,7 @@ export interface DocumentCategory {
   name: string;
   documentTypes?: DocumentCategory[];
   selectedDocName?: string;
-  selectedDocRefId: string;
+  selectedrefNumber: string;
   labelName: string;
   required: boolean;
   containerStyle: {};
@@ -1605,7 +1605,7 @@ export interface ProofOfAddress {
   docCatCode: string;
   docTypCode: string;
   docFileFormat?: string;
-  docRefId: string;
+  refNumber: string;
 }
 
 export interface DemographicMetaData {
