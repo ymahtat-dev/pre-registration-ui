@@ -56,8 +56,8 @@
                 </mat-form-field>
                 <mat-form-field class="file-upload__docrefid">
                   <mat-label>{{ documentLabels.text_docrefid }}</mat-label>
-                  <input matInput value="{{document.selectedRefNumber}}" (focusout)="changeDocRefId($event, i)"
-                    (input)="changeDocRefId($event, i)" placeholder=""
+                  <input matInput value="{{document.selectedRefNumber}}" (focusout)="changeRefNumber($event, i)"
+                    (input)="changeRefNumber($event, i)" placeholder=""
                     (change)="handleDocRefInput($event, document.code)" [disabled]="readOnlyMode || disableNavigation"
                     #keyboardRef #input />
                 </mat-form-field>
