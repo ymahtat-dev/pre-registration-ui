@@ -56,14 +56,14 @@
                 </mat-form-field>
                 <mat-form-field class="file-upload__docrefid">
                   <mat-label>{{ documentLabels.text_docrefid }}</mat-label>
-                  <input matInput value="{{document.selectedDocRefId}}" (focusout)="changeDocRefId($event, i)"
+                  <input matInput value="{{document.selectedRefNumber}}" (focusout)="changeDocRefId($event, i)"
                     (input)="changeDocRefId($event, i)" placeholder=""
                     (change)="handleDocRefInput($event, document.code)" [disabled]="readOnlyMode || disableNavigation"
                     #keyboardRef #input />
                 </mat-form-field>
                 <span class="file-upload__button">
                   <input #fileUpload type="file" id="file_{{ i }}" (click)="fileUpload.value = null" value=""
-                    (change)="handleFileInput($event, document.selectedDocName, document.code, document.selectedDocRefId)"
+                    (change)="handleFileInput($event, document.selectedDocName, document.code, document.selectedRefNumber)"
                     style="display: none;" />
                   <input class="browseInput" value="{{ documentLabels.action_browse }}" type="button"
                     (click)="clickOnButton(i)" [disabled]="disableNavigation || readOnlyMode || ((document.code === 'POA' && sameAsselected) ||
