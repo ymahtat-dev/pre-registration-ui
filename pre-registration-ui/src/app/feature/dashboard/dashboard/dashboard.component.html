@@ -44,7 +44,7 @@
           <div class="card-header">
             <span class="checkbox"
               ><mat-checkbox
-                *ngIf="user.status !== appStatusCodes.incomplete"
+                *ngIf="user.status !== appStatusCodes.incomplete && user.status !== appStatusCodes.prefetched"
                 (change)="onSelectUser(user, $event)"
               >
               </mat-checkbox
@@ -69,7 +69,7 @@
                 )
               "
               ><img
-                matTooltip="{{ 'helpText.lockIcon' | translate }}"
+                matTooltip="{{ user.status === appStatusCodes.prefetched ? ('helpText.prefetchedLockIcon' | translate) : ('helpText.lockIcon' | translate) }}"
                 [matTooltipDisabled]="false"
                 src="assets\lock.png"
                 class="lock-img"
@@ -116,7 +116,9 @@
                         ? "dashboard.status.pendingAppointment"
                         : user.status === appStatusCodes.cancelled
                         ? "dashboard.status.cancelled"
-                        : "dashboard.status.Application_Incomplete"
+                        : user.status === appStatusCodes.Application_Incomplete
+                        ? "dashboard.status.Application_Incomplete"
+                        : "dashboard.status.prefetched"
                       ) | translate
                     }}
 
@@ -131,7 +133,9 @@
                           ? 'helpText.status.pendingAppointment'
                           : user.status === appStatusCodes.cancelled
                           ? 'helpText.status.cancelled'
-                          : 'helpText.status.Application_Incomplete'
+                          : user.status === appStatusCodes.Application_Incomplete
+                          ? 'helpText.status.Application_Incomplete'
+                          : 'helpText.status.prefetched'
                         ) | translate
                       }}"
                       [inline]="true"
@@ -189,7 +193,8 @@
                 [disabled]="
                   user.status === appStatusCodes.pending ||
                   user.status === appStatusCodes.cancelled ||
-                  user.status === appStatusCodes.incomplete
+                  user.status === appStatusCodes.incomplete||
+                  user.status === appStatusCodes.prefetched
                 "
               >
                 <img src="assets\view.png" class="modifyapp-btn-img" />&nbsp;{{

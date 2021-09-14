@@ -34,6 +34,7 @@ export class PreviewComponent implements OnInit {
   errorlabels: any;
   previewLabels: any;
   helpText: any;
+  appPrefetched = false;
   identityData = [];
   uiFields = [];
   locationHeirarchy = [];
@@ -302,6 +303,9 @@ export class PreviewComponent implements OnInit {
             []
           );
           let resp = response[appConstants.RESPONSE];
+          if (resp["statusCode"] == appConstants.APPLICATION_STATUS_CODES.prefetched) {
+            this.appPrefetched = true;
+          }
           if (resp["statusCode"] !== appConstants.APPLICATION_STATUS_CODES.incomplete &&
             resp["statusCode"] !== appConstants.APPLICATION_STATUS_CODES.pending) {
             this.readOnlyMode = true;
