@@ -116,7 +116,7 @@
                         ? "dashboard.status.pendingAppointment"
                         : user.status === appStatusCodes.cancelled
                         ? "dashboard.status.cancelled"
-                        : user.status === appStatusCodes.Application_Incomplete
+                        : user.status === appStatusCodes.incomplete
                         ? "dashboard.status.Application_Incomplete"
                         : "dashboard.status.prefetched"
                       ) | translate
@@ -133,7 +133,7 @@
                           ? 'helpText.status.pendingAppointment'
                           : user.status === appStatusCodes.cancelled
                           ? 'helpText.status.cancelled'
-                          : user.status === appStatusCodes.Application_Incomplete
+                          : user.status === appStatusCodes.incomplete
                           ? 'helpText.status.Application_Incomplete'
                           : 'helpText.status.prefetched'
                         ) | translate
