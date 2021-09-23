@@ -108,6 +108,7 @@ export class DemographicComponent
   demographiclabels: any;
   apiErrorCodes: any;
   errorlabels: any;
+  validationErrorCodes: any;
   dialoglabels: any;
   dataCaptureLabels: any;
   uppermostLocationHierarchy: any;
@@ -363,6 +364,7 @@ export class DemographicComponent
       .subscribe((response) => {
         this.demographiclabels = response["demographic"];
         this.errorlabels = response["error"];
+        this.validationErrorCodes = response["UI_VALIDATION_ERROR_CODES"];
         this.apiErrorCodes = response[appConstants.API_ERROR_CODES];
         this.dialoglabels = response["dialog"];
         this.dataCaptureLabels = response["dashboard"]["dataCaptureLanguage"];
@@ -646,21 +648,21 @@ export class DemographicComponent
    * @memberof DemographicComponent
    */
   async initForm() {
-    this.uiFields.forEach((control, index) => {
+    this.uiFields.forEach((uiField, index) => {
       this.dataCaptureLanguages.forEach((language, i) => {
-        if (this.isControlInMultiLang(control)) {
-          const controlId = control.id + "_" + language;
+        if (this.isControlInMultiLang(uiField)) {
+          const controlId = uiField.id + "_" + language;
           this.userForm.addControl(controlId, new FormControl(""));
-          this.addValidators(control, controlId, language);
+          this.addValidators(uiField, controlId, language);
         } else if (i == 0) {
-          const controlId = control.id;
+          const controlId = uiField.id;
           this.userForm.addControl(controlId, new FormControl(""));
-          this.addValidators(control, controlId, language);
-          if (control.controlType === "dropdown") {
+          this.addValidators(uiField, controlId, language);
+          if (uiField.controlType === "dropdown") {
             const searchCtrlId = controlId + "_search";
             this.userForm.addControl(searchCtrlId, new FormControl(""));
           }  
-          if (control.controlType === "ageDate") {
+          if (uiField.controlType === "ageDate") {
             this.dateOfBirthFieldId = controlId;
             const dtCtrlId = controlId + "_dateCtrl";
             this.userForm.addControl(dtCtrlId, new FormControl(""));
@@ -670,49 +672,75 @@ export class DemographicComponent
     });
   }
 
-  isControlInMultiLang(control: any) {
+  isControlInMultiLang(uiField: any) {
     if (
-      control.controlType !== "ageDate" &&
-      control.controlType !== "date" &&
-      control.controlType !== "dropdown" &&
-      control.controlType !== "button" &&
-      control.controlType !== "checkbox" &&
-      control.controlType === "textbox" &&
-      control.type !== "string"
+      uiField.controlType !== "ageDate" &&
+      uiField.controlType !== "date" &&
+      uiField.controlType !== "dropdown" &&
+      uiField.controlType !== "button" &&
+      uiField.controlType !== "checkbox" &&
+      uiField.controlType === "textbox" &&
+      uiField.type !== "string"
     ) {
       return true;
     }
     return false;
   }
 
-  addValidators = (control: any, controlId: string, languageCode: string) => {
-    if (control.required) {
+  addValidators = (uiField: any, controlId: string, languageCode: string) => {
+    if (uiField.required) {
       this.userForm.controls[`${controlId}`].setValidators(Validators.required);
     }
-    let validatorRegex = null;
-    if (control.validators !== null && control.validators.length > 0) {
-      let filteredList = control.validators.filter(
-        (validator) => validator.langCode === languageCode
-      );
-      if (filteredList.length > 0) {
-        validatorRegex = filteredList[0].validator;
+    if (uiField.validators !== null && uiField.validators.length > 0) {
+      if (uiField.required) {
+        this.userForm.controls[`${controlId}`].setValidators([
+          Validators.required,
+          (c: FormControl) => this.customValidator(c, uiField.id, languageCode)
+        ]);
       } else {
-        validatorRegex = control.validators[0].validator;
+        this.userForm.controls[`${controlId}`].setValidators([
+          (c: FormControl) => this.customValidator(c, uiField.id, languageCode)
+       ]); 
       }
-    }
-    if (validatorRegex !== null) {
-      this.userForm.controls[`${controlId}`].setValidators([
-        Validators.pattern(validatorRegex),
-      ]);
-    }
-    if (control.required && validatorRegex !== null) {
-      this.userForm.controls[`${controlId}`].setValidators([
-        Validators.required,
-        Validators.pattern(validatorRegex),
-      ]);
     }
   };
 
+  customValidator(control: FormControl, uiFieldId: string, controlLangCode: string){
+    let val = control.value;
+    let filtered = this.uiFields.filter(uiField => uiField.id == uiFieldId);
+    if (val && filtered.length > 0) {
+      let uiField = filtered[0];
+      let msg = "";
+      let isInvalid = false;
+      if (uiField.validators !== null && uiField.validators.length > 0) {
+      uiField.validators.forEach(validatorItem => {
+        if (!isInvalid) {
+          let validatorLang = validatorItem.langCode;
+          if ((validatorLang && validatorLang == controlLangCode) || (!validatorLang) || (validatorLang == "")) {
+            let regex = new RegExp(validatorItem.validator);
+            if (regex.test(val) == false) {
+              isInvalid = true;
+              if (this.validationErrorCodes[validatorItem.errorMessageCode]) {
+                msg = this.validationErrorCodes[validatorItem.errorMessageCode];
+              }
+            }
+          }
+        }   
+      });   
+      console.log(`uiFieldId:${uiFieldId} langCode:${controlLangCode} isInvalid:${isInvalid}`);   
+      if (isInvalid) {
+          return {
+            "customPattern": {
+              "value": val,
+              "msg": msg
+            }
+          }
+        }
+      }
+    }
+    return null;
+  }
+  
   setDropDownArrays() {
     this.getIntialDropDownArrays();
   }
@@ -799,6 +827,9 @@ export class DemographicComponent
       } 
     }  
   }
+  toFormControl(point: AbstractControl): FormControl {
+    return point as FormControl;
+  }
 
   transliterateFieldValue(uiFieldId: string, fromLang: string, event: Event) {
     let filteredList = this.uiFieldsWithTransliteration.filter(
@@ -807,21 +838,24 @@ export class DemographicComponent
     if (filteredList.length > 0) {
       if (event.type === "focusout") {
         let fromFieldName = uiFieldId + "_" + fromLang;
-        this.dataCaptureLanguages.forEach((dataCaptureLanguage) => {
-          if (dataCaptureLanguage !== fromLang) {
-            const toLang = dataCaptureLanguage;
-            const toFieldName = uiFieldId + "_" + toLang;
-            const toFieldValue = this.userForm.controls[toFieldName].value;
-            if (toFieldValue === "") {
-              this.onTransliteration(
-                fromLang,
-                toLang,
-                fromFieldName,
-                toFieldName
-              );
+        let validationErr = this.customValidator(this.toFormControl(this.userForm.controls[fromFieldName]), uiFieldId, fromLang);
+        if (validationErr == null) {
+          this.dataCaptureLanguages.forEach((dataCaptureLanguage) => {
+            if (dataCaptureLanguage !== fromLang) {
+              const toLang = dataCaptureLanguage;
+              const toFieldName = uiFieldId + "_" + toLang;
+              const toFieldValue = this.userForm.controls[toFieldName].value;
+              if (toFieldValue === "") {
+                this.onTransliteration(
+                  fromLang,
+                  toLang,
+                  fromFieldName,
+                  toFieldName
+                );
+              }
             }
-          }
-        });
+          });
+        }
       }
     }
   }
@@ -1664,6 +1698,7 @@ export class DemographicComponent
   ) {
     if (this.userForm.controls[fromFieldName].value !== "") {
       let fromVal = this.userForm.controls[fromFieldName].value;
+     
       const request: any = {
         from_field_lang: fromLang,
         from_field_value: fromVal,
@@ -1672,12 +1707,14 @@ export class DemographicComponent
       this.subscriptions.push(
         this.dataStorageService.getTransliteration(request).subscribe(
           (response) => {
-            if (response[appConstants.RESPONSE])
+            if (response[appConstants.RESPONSE]) {
               this.userForm.controls[toFieldName].patchValue(
                 response[appConstants.RESPONSE].to_field_value
               );
+            }  
           },
           (error) => {
+            //this.userForm.controls[toFieldName].patchValue(fromVal);
             //no error handling required for failed transliteration
             //this.loggerService.error(error);
           }
