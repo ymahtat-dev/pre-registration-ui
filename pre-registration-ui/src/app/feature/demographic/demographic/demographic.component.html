@@ -228,6 +228,7 @@
                               </div>
                             </div>
                           </div>
+                          <br>
                           <div class="mat-error ng-star-inserted user__dob__error" *ngIf="!readOnlyMode && primaryuserForm &&    
                               userForm.get(field.id) &&
                               (userForm.get(field.id).touched &&
@@ -271,14 +272,13 @@
                           {{ field.labelName[userPrefLanguage] }}
                           {{demographiclabels.validation.requiredMessage}}
                         </mat-error>
-                        <mat-error class="primary-errors" *ngIf="
-                        !readOnlyMode && primaryuserForm &&
+                        <mat-error class="primary-errors" *ngIf="!readOnlyMode && primaryuserForm &&
                           userForm.get(field.id + '_' + dataCaptureLanguage) &&
                           userForm.get(field.id + '_' + dataCaptureLanguage).touched &&
                           userForm.get(field.id + '_' + dataCaptureLanguage).dirty &&
-                          userForm.get(field.id + '_' + dataCaptureLanguage).hasError('pattern')">
-                          {{ field.labelName[userPrefLanguage] }}
-                          {{demographiclabels.validation.InvalidMessage}}
+                          userForm.get(field.id + '_' + dataCaptureLanguage).hasError('customPattern')">
+                          {{ field.labelName[userPrefLanguage] }} {{ demographiclabels.validation.InvalidMessage}}<br>
+                          {{ userForm.get(field.id + '_' + dataCaptureLanguage)["errors"]["customPattern"]["msg"] }}<br>
                         </mat-error>
                       </span>
                       <span *ngIf="field.controlType === 'ageDate' || field.controlType === 'date' 
@@ -294,14 +294,13 @@
                             {{ field.labelName[userPrefLanguage] }}
                             {{demographiclabels.validation.requiredMessage}}
                           </mat-error>
-                          <mat-error class="primary-errors" *ngIf="
-                          !readOnlyMode && primaryuserForm &&
+                          <mat-error class="primary-errors" *ngIf="!readOnlyMode && primaryuserForm &&
                           userForm.get(field.id) &&
                           userForm.get(field.id).touched &&
                           userForm.get(field.id).dirty &&
-                          userForm.get(field.id).hasError('pattern')">
-                            {{ field.labelName[userPrefLanguage] }}
-                            {{demographiclabels.validation.InvalidMessage}}
+                          userForm.get(field.id).hasError('customPattern')">
+                            {{ field.labelName[userPrefLanguage] }} {{ demographiclabels.validation.InvalidMessage}}<br>
+                            {{ userForm.get(field.id)["errors"]["customPattern"]["msg"] }}<br>
                           </mat-error>
                         </span>
                       </span>
