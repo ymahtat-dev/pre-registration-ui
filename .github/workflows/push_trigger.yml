@@ -123,7 +123,7 @@ jobs:
           cd "./${{env.SERVICE_LOCATION}}"
           echo "sonar.host.url=https://sonarcloud.io/
                sonar.login=${{ secrets.SONAR_TOKEN }}
-               sonar.projectKey=mosip_pre-registration-ui
+               sonar.projectKey=mosip_${{ github.event.repository.name }}
                sonar.organization=${{ secrets.ORG_KEY }}
                sonar.sourceEncoding=UTF-8
                sonar.sources=src
