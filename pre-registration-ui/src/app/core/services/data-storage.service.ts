@@ -393,6 +393,13 @@ export class DataStorageService {
       data
     );
   }
+  
+  sendCancelNotification(data: FormData) {
+    return this.httpClient.post(
+      this.BASE_URL + this.PRE_REG_URL + appConstants.APPEND_URL.send_notification,
+      data
+    );
+  }
 
   getLocationOnLocationCodeAndLangCode(locationCode, langCode) {
     const url =
