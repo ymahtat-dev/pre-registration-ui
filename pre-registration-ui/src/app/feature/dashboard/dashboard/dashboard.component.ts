@@ -568,9 +568,14 @@ export class DashBoardComponent implements OnInit, OnDestroy {
   }
 
   cancelAppointment(element: any) {
+    let appointmentDate;
+    let appointmentTime;
     if (element.regDto) {
       element.regDto.pre_registration_id = element.applicationID;
+      appointmentDate = element.regDto['appointment_date'];
+      appointmentTime = element.regDto['time_slot_from'];
     }
+    //console.log(element.regDto);
     const subs = this.dataStorageService
       .cancelAppointment(
         new RequestModel(appConstants.IDS.booking, element.regDto),
@@ -583,7 +588,7 @@ export class DashBoardComponent implements OnInit, OnDestroy {
               this.languagelabels.title_success,
               this.languagelabels.cancelAppointment.msg_deleted
             );
-            // this.sendNotification(preRegId,appointmentDate,appointmentDateTime);
+            this.sendNotification(element.applicationID, appointmentDate, appointmentTime);
             const index = this.users.indexOf(element);
             this.users[index].status =
               appConstants.APPLICATION_STATUS_CODES.cancelled;
@@ -805,42 +810,92 @@ export class DashBoardComponent implements OnInit, OnDestroy {
     });
   }
   
-  async sendNotification(prid, appDate, appDateTime) {
-    let userDetails;
-    this.dataStorageService.getUser(prid).subscribe((response) => {
-      if (response[appConstants.RESPONSE]) {
-        userDetails =
-          response[appConstants.RESPONSE].demographicDetails.identity;
-        console.log(userDetails);
-        const notificationDto = new NotificationDtoModel(
-          userDetails[this.name][0].value,
-          prid,
-          appDate,
-          appDateTime,
-          userDetails.phone,
-          userDetails.email,
-          null,
-          true
-        );
-        console.log(notificationDto);
-        const model = new RequestModel(
-          appConstants.IDS.notification,
-          notificationDto
-        );
-        let notificationRequest = new FormData();
-        notificationRequest.append(
-          appConstants.notificationDtoKeys.notificationDto,
-          JSON.stringify(model).trim()
-        );
-        notificationRequest.append(
-          appConstants.notificationDtoKeys.langCode,
-          localStorage.getItem("langCode")
-        );
-      }
-    },
-    (error) => {
-      this.showErrorMessage(error);
-    });
+  // async sendNotification(prid, appDate, appDateTime) {
+  //   let userDetails;
+  //   this.dataStorageService.getUser(prid).subscribe((response) => {
+  //     if (response[appConstants.RESPONSE]) {
+  //       userDetails =
+  //         response[appConstants.RESPONSE].demographicDetails.identity;
+  //       console.log(userDetails);
+  //       const notificationDto = new NotificationDtoModel(
+  //         userDetails[this.name][0].value,
+  //         prid,
+  //         appDate,
+  //         appDateTime,
+  //         userDetails.phone,
+  //         userDetails.email,
+  //         null,
+  //         true
+  //       );
+  //       console.log(notificationDto);
+  //       const model = new RequestModel(
+  //         appConstants.IDS.notification,
+  //         notificationDto
+  //       );
+  //       let notificationRequest = new FormData();
+  //       notificationRequest.append(
+  //         appConstants.notificationDtoKeys.notificationDto,
+  //         JSON.stringify(model).trim()
+  //       );
+  //       notificationRequest.append(
+  //         appConstants.notificationDtoKeys.langCode,
+  //         localStorage.getItem("langCode")
+  //       );
+  //     }
+  //   },
+  //   (error) => {
+  //     this.showErrorMessage(error);
+  //   });
+  // }
+
+  private sendNotification(prid, appDate, appDateTime)  {
+    let userDetails;    
+    return new Promise((resolve, reject) => {
+      this.subscriptions.push(
+        this.dataStorageService.getUser(prid).subscribe((response) => {
+          if (response[appConstants.RESPONSE]) {
+            userDetails = response[appConstants.RESPONSE].demographicDetails.identity;
+            console.log(userDetails);
+            const notificationDto = new NotificationDtoModel(
+              userDetails[this.name][0].value,
+              prid,
+              appDate,
+              appDateTime,
+              userDetails.phone,
+              userDetails.email,
+              null,
+              true
+            );
+            console.log(notificationDto);
+            const model = new RequestModel(
+              appConstants.IDS.notification,
+              notificationDto
+            );
+            let notificationRequest = new FormData();
+            notificationRequest.append(
+              appConstants.notificationDtoKeys.notificationDto,
+              JSON.stringify(model).trim()
+            );
+            notificationRequest.append(
+              appConstants.notificationDtoKeys.langCode,
+              localStorage.getItem("langCode")
+            );
+            this.dataStorageService
+              .sendCancelNotification(notificationRequest)
+              .subscribe((response) => {
+                resolve(true);
+              },
+              (error) => {
+                resolve(true);
+                this.showErrorMessage(error);
+            });        
+          }
+        },
+        (error) => {
+          this.showErrorMessage(error);
+        })
+      );
+    });  
   }
 
   ngOnDestroy(): void {

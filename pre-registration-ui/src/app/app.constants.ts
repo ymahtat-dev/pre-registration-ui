@@ -52,7 +52,7 @@ export const APPEND_URL = {
   delete_application: 'applications/',
   qr_code: 'qrCode/generate',
   notification: 'notification',
-  send_notification: 'notify',
+  send_notification: 'notification/notify',
   master_data: '/masterdata/',
   auth: 'login/',
   cancelAppointment: 'applications/appointment/',
