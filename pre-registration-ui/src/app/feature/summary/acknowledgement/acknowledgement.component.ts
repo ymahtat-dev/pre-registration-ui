@@ -390,7 +390,7 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
   async apiCalls() {
     return new Promise(async (resolve) => {
       this.formatDateTime();
-      //await this.qrCodeForUser();
+      await this.qrCodeForUser();
       await this.getTemplate();
      
       resolve(true);
@@ -400,6 +400,7 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
   async qrCodeForUser() {
     return new Promise((resolve) => {
       this.usersInfoArr.forEach(async (user) => {
+        //console.log(user);
         await this.generateQRCode(user);
         if (this.usersInfoArr.indexOf(user) === this.usersInfoArr.length - 1) {
           resolve(true);
@@ -521,7 +522,15 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
     try {
       const index = this.usersInfoArr.indexOf(name);
       if (!this.usersInfoArr[index].qrCodeBlob) {
-        return new Promise((resolve) => {});
+        return new Promise((resolve, reject) => {
+          const subs = this.dataStorageService
+            .generateQRCode(name.preRegId)
+            .subscribe((response) => {
+              console.log(response["response"]);
+              this.usersInfoArr[index].qrCodeBlob = response["response"].qrcode;
+              resolve(true);
+            });
+        });
       }
     } catch (ex) {
       console.log("this.usersInfo[index].qrCodeBlob >>> " + ex.messages);
