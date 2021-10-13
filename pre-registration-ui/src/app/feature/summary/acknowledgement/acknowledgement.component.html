@@ -37,6 +37,7 @@
               <td><b>{{ ackData.contactPhone }}</b></td>
             </tr>
             <tr>
+              <td></td>
               <td>
                 <div *ngIf="ackData.qrCodeBlob" id="qr-code-container" class="ack__qr-code">
                   <img id="qr-code" src="data:image/png;base64,{{ ackData.qrCodeBlob }}" />
