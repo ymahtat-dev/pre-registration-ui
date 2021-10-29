@@ -105,6 +105,11 @@ export class DashBoardComponent implements OnInit, OnDestroy {
    */
   async ngOnInit() {
     this.loginId = localStorage.getItem("loginId");
+    this.mandatoryLanguages = Utils.getMandatoryLangs(this.configService);
+    this.optionalLanguages = Utils.getOptionalLangs(this.configService);
+    this.minLanguage = Utils.getMinLangs(this.configService);
+    this.maxLanguage = Utils.getMaxLangs(this.configService);
+
     this.dataStorageService
       .getI18NLanguageFiles(this.userPreferredLangCode)
       .subscribe((response) => {
@@ -133,10 +138,6 @@ export class DashBoardComponent implements OnInit, OnDestroy {
       appConstants.CONFIG_KEYS.preregistartion_identity_name
     );
     await this.getIdentityJsonFormat();
-    this.mandatoryLanguages = Utils.getMandatoryLangs(this.configService);
-    this.optionalLanguages = Utils.getOptionalLangs(this.configService);
-    this.minLanguage = Utils.getMinLangs(this.configService);
-    this.maxLanguage = Utils.getMaxLangs(this.configService);
   }
 
   async getIdentityJsonFormat() {
@@ -537,7 +538,17 @@ export class DashBoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  deletePreregistration(element: any) {
+  async deletePreregistration(element: any) {
+    let appointmentDate;
+    let appointmentTime;
+    if (element.regDto && element.status.toLowerCase() === "booked") {
+      appointmentDate = element.regDto['appointment_date'];
+      appointmentTime = element.regDto['time_slot_from'];
+    }
+    if (element.regDto && element.status.toLowerCase() === "booked") {
+      await this.sendNotification(element.applicationID, appointmentDate, appointmentTime);
+    }
+    
     const subs = this.dataStorageService
       .deleteRegistration(element.applicationID)
       .subscribe(
