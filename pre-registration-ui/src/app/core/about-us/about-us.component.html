@@ -43,6 +43,7 @@
             <li>{{'quick_guide.login.list.line1' | translate}}</li>
             <li>{{'quick_guide.login.list.line2' | translate}}</li>
             <li>{{'quick_guide.login.list.line3' | translate}}</li>
+            <li>{{'quick_guide.login.list.line4' | translate}}</li>
           </ol>
           <span class="note-placer">{{'quick_guide.login.note' | translate}}</span>
           <span class="note-placer">{{'quick_guide.login.line' | translate}}</span>
@@ -53,13 +54,15 @@
             'margin-bottom': panelOpenState === 2 ? '8px' : '0'
           }">
             <mat-panel-title [ngClass]="panelOpenState === 2 ? 'white-text' : 'pink-text'">
-              {{'quick_guide.t&c.name' | translate}}
+              {{'quick_guide.select_data_capture_language.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
           <ol>
-            <li>{{'quick_guide.t&c.list.line1' | translate}}</li>
-            <li>{{'quick_guide.t&c.list.line2' | translate}}</li>
+            <li>{{'quick_guide.select_data_capture_language.list.line1' | translate}}</li>
+            <li>{{'quick_guide.select_data_capture_language.list.line2' | translate}}</li>
+            <li>{{'quick_guide.select_data_capture_language.list.line3' | translate}}</li>
           </ol>
+          <span class="note-placer">{{'quick_guide.select_data_capture_language.note' | translate}}</span>
         </mat-expansion-panel>
         <mat-expansion-panel (opened)="panelOpenState = 3" (closed)="panelOpenState = -1">
           <mat-expansion-panel-header [ngStyle]="{
@@ -67,6 +70,21 @@
             'margin-bottom': panelOpenState === 3 ? '8px' : '0'
           }">
             <mat-panel-title [ngClass]="panelOpenState === 3 ? 'white-text' : 'pink-text'">
+              {{'quick_guide.t&c.name' | translate}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ol>
+            <li>{{'quick_guide.t&c.list.line1' | translate}}</li>
+            <li>{{'quick_guide.t&c.list.line2' | translate}}</li>
+          </ol>
+          <span class="note-placer">{{'quick_guide.t&c.note' | translate}}</span>
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = 4" (closed)="panelOpenState = -1">
+          <mat-expansion-panel-header [ngStyle]="{
+            'background-color': panelOpenState === 4 ? '#FD5D93' : 'white',
+            'margin-bottom': panelOpenState === 4 ? '8px' : '0'
+          }">
+            <mat-panel-title [ngClass]="panelOpenState === 4 ? 'white-text' : 'pink-text'">
               {{'quick_guide.demographic.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -80,12 +98,12 @@
           </ol>
           <span class="note-placer">{{'quick_guide.demographic.line' | translate}}</span>
         </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = 4" (closed)="panelOpenState = -1">
+        <mat-expansion-panel (opened)="panelOpenState = 5" (closed)="panelOpenState = -1">
           <mat-expansion-panel-header [ngStyle]="{
-            'background-color': panelOpenState === 4 ? '#FD5D93' : 'white',
-            'margin-bottom': panelOpenState === 4 ? '8px' : '0'
+            'background-color': panelOpenState === 5 ? '#FD5D93' : 'white',
+            'margin-bottom': panelOpenState === 5 ? '8px' : '0'
           }">
-            <mat-panel-title [ngClass]="panelOpenState === 4 ? 'white-text' : 'pink-text'">
+            <mat-panel-title [ngClass]="panelOpenState === 5 ? 'white-text' : 'pink-text'">
               {{'quick_guide.documents.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -99,12 +117,12 @@
             <li>{{'quick_guide.documents.list.line7' | translate}}</li>
           </ol>
         </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = 5" (closed)="panelOpenState = -1">
+        <mat-expansion-panel (opened)="panelOpenState = 6" (closed)="panelOpenState = -1">
           <mat-expansion-panel-header [ngStyle]="{
-            'background-color': panelOpenState === 5 ? '#FD5D93' : 'white',
-            'margin-bottom': panelOpenState === 5 ? '8px' : '0'
+            'background-color': panelOpenState === 6 ? '#FD5D93' : 'white',
+            'margin-bottom': panelOpenState === 6 ? '8px' : '0'
           }">
-            <mat-panel-title [ngClass]="panelOpenState === 5 ? 'white-text' : 'pink-text'">
+            <mat-panel-title [ngClass]="panelOpenState === 6 ? 'white-text' : 'pink-text'">
               {{'quick_guide.preview.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -117,12 +135,12 @@
             <li>{{'quick_guide.preview.list.line4' | translate}}</li>
           </ol>
         </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = 6" (closed)="panelOpenState = -1">
+        <mat-expansion-panel (opened)="panelOpenState = 7" (closed)="panelOpenState = -1">
           <mat-expansion-panel-header [ngStyle]="{
-            'background-color': panelOpenState === 6 ? '#FD5D93' : 'white',
-            'margin-bottom': panelOpenState === 6 ? '8px' : '0'
+            'background-color': panelOpenState === 7 ? '#FD5D93' : 'white',
+            'margin-bottom': panelOpenState === 7 ? '8px' : '0'
           }">
-            <mat-panel-title [ngClass]="panelOpenState === 6 ? 'white-text' : 'pink-text'">
+            <mat-panel-title [ngClass]="panelOpenState === 7 ? 'white-text' : 'pink-text'">
               {{'quick_guide.CenterSelection.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -139,12 +157,12 @@
             <li>{{'quick_guide.preview.list.line3' | translate}}</li>
           </ol>
         </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = 7" (closed)="panelOpenState = -1">
+        <mat-expansion-panel (opened)="panelOpenState = 8" (closed)="panelOpenState = -1">
           <mat-expansion-panel-header [ngStyle]="{
-            'background-color': panelOpenState === 7 ? '#FD5D93' : 'white',
-            'margin-bottom': panelOpenState === 7 ? '8px' : '0'
+            'background-color': panelOpenState === 8 ? '#FD5D93' : 'white',
+            'margin-bottom': panelOpenState === 8 ? '8px' : '0'
           }">
-            <mat-panel-title [ngClass]="panelOpenState === 7 ? 'white-text' : 'pink-text'">
+            <mat-panel-title [ngClass]="panelOpenState === 8 ? 'white-text' : 'pink-text'">
               {{'quick_guide.Booking.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -159,12 +177,12 @@
             <li>{{'quick_guide.Booking.list.line6' | translate}}</li>
           </ol>
         </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = 8" (closed)="panelOpenState = -1">
+        <mat-expansion-panel (opened)="panelOpenState = 9" (closed)="panelOpenState = -1">
           <mat-expansion-panel-header [ngStyle]="{
-            'background-color': panelOpenState === 8 ? '#FD5D93' : 'white',
-            'margin-bottom': panelOpenState === 8 ? '8px' : '0'
+            'background-color': panelOpenState === 9 ? '#FD5D93' : 'white',
+            'margin-bottom': panelOpenState === 9 ? '8px' : '0'
           }">
-            <mat-panel-title [ngClass]="panelOpenState === 8 ? 'white-text' : 'pink-text'">
+            <mat-panel-title [ngClass]="panelOpenState === 9 ? 'white-text' : 'pink-text'">
               {{'quick_guide.Acknowledgement.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -185,12 +203,12 @@
           </li>
           </ol>
         </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = 9" (closed)="panelOpenState = -1">
+        <mat-expansion-panel (opened)="panelOpenState = 10" (closed)="panelOpenState = -1">
           <mat-expansion-panel-header [ngStyle]="{
-            'background-color': panelOpenState === 9 ? '#FD5D93' : 'white',
-            'margin-bottom': panelOpenState === 9 ? '8px' : '0'
+            'background-color': panelOpenState === 10 ? '#FD5D93' : 'white',
+            'margin-bottom': panelOpenState === 10 ? '8px' : '0'
           }">
-            <mat-panel-title [ngClass]="panelOpenState === 9 ? 'white-text' : 'pink-text'">
+            <mat-panel-title [ngClass]="panelOpenState === 10 ? 'white-text' : 'pink-text'">
               {{'quick_guide.status.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -219,21 +237,14 @@
               </td>
             </tr>
             <tr>
+              <td>{{'quick_guide.status.status.canceled' | translate}}</td>
+              <td>{{'quick_guide.status.explanation.cancelled.line1' | translate}}</td>
+            </tr>
+            <tr>
               <td>{{'quick_guide.status.status.expired' | translate}}</td>
               <td>{{'quick_guide.status.explanation.expired.line1' | translate}}</td>
             </tr>
           </table>
-        </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = 10" (closed)="panelOpenState = -1">
-          <mat-expansion-panel-header [ngStyle]="{
-            'background-color': panelOpenState === 10 ? '#FD5D93' : 'white',
-            'margin-bottom': panelOpenState === 10 ? '8px' : '0'
-          }">
-            <mat-panel-title [ngClass]="panelOpenState === 10 ? 'white-text' : 'pink-text'">
-              {{'quick_guide.addApplicant.name' | translate}}
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <span class="note-placer">{{'quick_guide.addApplicant.line' | translate}}</span>
         </mat-expansion-panel>
         <mat-expansion-panel (opened)="panelOpenState = 11" (closed)="panelOpenState = -1">
           <mat-expansion-panel-header [ngStyle]="{
@@ -241,6 +252,17 @@
             'margin-bottom': panelOpenState === 11 ? '8px' : '0'
           }">
             <mat-panel-title [ngClass]="panelOpenState === 11 ? 'white-text' : 'pink-text'">
+              {{'quick_guide.addApplicant.name' | translate}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <span class="note-placer">{{'quick_guide.addApplicant.line' | translate}}</span>
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = 12" (closed)="panelOpenState = -1">
+          <mat-expansion-panel-header [ngStyle]="{
+            'background-color': panelOpenState === 12 ? '#FD5D93' : 'white',
+            'margin-bottom': panelOpenState === 12 ? '8px' : '0'
+          }">
+            <mat-panel-title [ngClass]="panelOpenState === 12 ? 'white-text' : 'pink-text'">
               {{'quick_guide.modify.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -250,12 +272,12 @@
             <li>{{'quick_guide.modify.list.line3' | translate}}</li>
           </ol>
         </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = 12" (closed)="panelOpenState = -1">
+        <mat-expansion-panel (opened)="panelOpenState = 13" (closed)="panelOpenState = -1">
           <mat-expansion-panel-header [ngStyle]="{
-            'background-color': panelOpenState === 12 ? '#FD5D93' : 'white',
-            'margin-bottom': panelOpenState === 12 ? '8px' : '0'
+            'background-color': panelOpenState === 13 ? '#FD5D93' : 'white',
+            'margin-bottom': panelOpenState === 13 ? '8px' : '0'
           }">
-            <mat-panel-title [ngClass]="panelOpenState === 12 ? 'white-text' : 'pink-text'">
+            <mat-panel-title [ngClass]="panelOpenState === 13 ? 'white-text' : 'pink-text'">
               {{'quick_guide.rebook.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -265,12 +287,12 @@
             <li>{{'quick_guide.rebook.list.line3' | translate}}</li>
           </ol>
         </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = 13" (closed)="panelOpenState = -1">
+        <mat-expansion-panel (opened)="panelOpenState = 14" (closed)="panelOpenState = -1">
           <mat-expansion-panel-header [ngStyle]="{
-            'background-color': panelOpenState === 13 ? '#FD5D93' : 'white',
-            'margin-bottom': panelOpenState === 13 ? '8px' : '0'
+            'background-color': panelOpenState === 14 ? '#FD5D93' : 'white',
+            'margin-bottom': panelOpenState === 14 ? '8px' : '0'
           }">
-            <mat-panel-title [ngClass]="panelOpenState === 13 ? 'white-text' : 'pink-text'">
+            <mat-panel-title [ngClass]="panelOpenState === 14 ? 'white-text' : 'pink-text'">
               {{'quick_guide.cancelAppointment.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -280,12 +302,12 @@
             <li>{{'quick_guide.cancelAppointment.list.line3' | translate}}</li>
           </ol>
         </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = 14" (closed)="panelOpenState = -1">
+        <mat-expansion-panel (opened)="panelOpenState = 15" (closed)="panelOpenState = -1">
           <mat-expansion-panel-header [ngStyle]="{
-            'background-color': panelOpenState === 14 ? '#FD5D93' : 'white',
-            'margin-bottom': panelOpenState === 14 ? '8px' : '0'
+            'background-color': panelOpenState === 15 ? '#FD5D93' : 'white',
+            'margin-bottom': panelOpenState === 15 ? '8px' : '0'
           }">
-            <mat-panel-title [ngClass]="panelOpenState === 14 ? 'white-text' : 'pink-text'">
+            <mat-panel-title [ngClass]="panelOpenState === 15 ? 'white-text' : 'pink-text'">
               {{'quick_guide.discard.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -295,12 +317,12 @@
             <li>{{'quick_guide.discard.list.line3' | translate}}</li>
           </ol>
         </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = 15" (closed)="panelOpenState = -1">
+        <mat-expansion-panel (opened)="panelOpenState = 16" (closed)="panelOpenState = -1">
           <mat-expansion-panel-header [ngStyle]="{
-            'background-color': panelOpenState === 15 ? '#FD5D93' : 'white',
-            'margin-bottom': panelOpenState === 15 ? '8px' : '0'
+            'background-color': panelOpenState === 16 ? '#FD5D93' : 'white',
+            'margin-bottom': panelOpenState === 16 ? '8px' : '0'
           }">
-            <mat-panel-title [ngClass]="panelOpenState === 15 ? 'white-text' : 'pink-text'">
+            <mat-panel-title [ngClass]="panelOpenState === 16 ? 'white-text' : 'pink-text'">
               {{'quick_guide.Logout.name' | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
