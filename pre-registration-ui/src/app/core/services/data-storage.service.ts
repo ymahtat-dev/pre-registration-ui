@@ -689,13 +689,13 @@ export class DataStorageService {
     const requesturl =
       this.BASE_URL +
       this.PRE_REG_URL +
-      `applications/status/${prid}?statusCode=${statusCode}`;
+      `applications/prereg/status/${prid}?statusCode=${statusCode}`;
     return this.httpClient.put(requesturl, {});
   }
 
   getApplicationStatus(prid: String) {
     const requesturl =
-      this.BASE_URL + this.PRE_REG_URL + `applications/status/${prid}`;
+      this.BASE_URL + this.PRE_REG_URL + `applications/prereg/status/${prid}`;
     return this.httpClient.get(requesturl);
   }
 }
