@@ -582,15 +582,12 @@ export class LoginComponent implements OnInit {
    * @memberof DemographicComponent
    */
    private showErrorMessage(error: any, customMsg?: string) {
-     console.log("showErrorMessage");
     let errorlabels = this.Languagelabels[appConstants.ERROR];
     let apiErrorCodes = this.Languagelabels[appConstants.API_ERROR_CODES];
     const titleOnError = errorlabels.errorLabel;
 
     const errorCode = Utils.getErrorCode(error);
-    console.log("showErrorMessage");
     let message = "";
-    console.log(errorCode);
     if (apiErrorCodes[errorCode]) {
       message = apiErrorCodes[errorCode];
     } else {
