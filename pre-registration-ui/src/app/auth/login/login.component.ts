@@ -585,7 +585,6 @@ export class LoginComponent implements OnInit {
     let errorlabels = this.Languagelabels[appConstants.ERROR];
     let apiErrorCodes = this.Languagelabels[appConstants.API_ERROR_CODES];
     const titleOnError = errorlabels.errorLabel;
-
     const errorCode = Utils.getErrorCode(error);
     let message = "";
     if (apiErrorCodes[errorCode]) {
