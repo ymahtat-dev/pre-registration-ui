@@ -225,7 +225,7 @@ export class DemographicComponent
       }  
     });
     this.checkToShowLangChangeBtn();
-    console.log("exiting");
+    //console.log("exiting");
     this.primaryuserForm = true;
   }
 
@@ -283,7 +283,7 @@ export class DemographicComponent
     ); 
     this.dateAdapter.setLocale(localeId);
     let localeDtFormat = moment.localeData(localeId).longDateFormat('L');
-    console.log(`locale for datePicker: ${localeId} : ${localeDtFormat}`);
+    //console.log(`locale for datePicker: ${localeId} : ${localeDtFormat}`);
     this.translate.get('demographic.date_yyyy').subscribe((year: string) => {
       const yearLabel = year;
       this.translate.get('demographic.date_mm').subscribe((month: string) => {
@@ -309,7 +309,7 @@ export class DemographicComponent
             localeDtFormat = localeDtFormat.replace(/D/g, dayLabel);
           }
           this.localeDtFormat = localeDtFormat;
-          console.log(`locale for datePicker: ${localeId} : ${this.localeDtFormat}`);
+          //console.log(`locale for datePicker: ${localeId} : ${this.localeDtFormat}`);
         });  
       });  
     });
@@ -355,7 +355,7 @@ export class DemographicComponent
         }
       });
     }
-    console.log(this.dataCaptureLanguages);
+    //console.log(this.dataCaptureLanguages);
   };
 
   private getPrimaryLabels() {
@@ -382,7 +382,7 @@ export class DemographicComponent
               "templates"
             ][0].fileText.split("\n");*/
             this.consentMessage = response[appConstants.RESPONSE]["templates"];
-            console.log(this.consentMessage);
+            //console.log(this.consentMessage);
             resolve(true);
           },
           (error) => {
@@ -474,7 +474,7 @@ export class DemographicComponent
     }  else {
       allLangs = [...this.dataCaptureLanguages];
     }
-    console.log(allLangs);
+    //console.log(allLangs);
     return allLangs;
   }
 
@@ -487,7 +487,7 @@ export class DemographicComponent
         allLangsDir.push("rtl");
       }
     });  
-    console.log(allLangsDir);
+    //console.log(allLangsDir);
     return allLangsDir;
   }
 
@@ -557,6 +557,7 @@ export class DemographicComponent
       this.dataStorageService.getIdentityJson().subscribe(
         async (response) => {
           //response = identityStubJson;
+          //console.log(identityStubJson);
           let identityJsonSpec =
             response[appConstants.RESPONSE]["jsonSpec"]["identity"];
           this.identityData = identityJsonSpec["identity"];
@@ -565,7 +566,7 @@ export class DemographicComponent
           ];
           this.identitySchemaVersion =
             response[appConstants.RESPONSE]["idSchemaVersion"];
-          console.log(`identitySchemaVersion: ${this.identitySchemaVersion}`);
+          //console.log(`identitySchemaVersion: ${this.identitySchemaVersion}`);
           //console.log(this.identityData);
           if (Array.isArray(locationHeirarchiesFromJson[0])) {
             this.locationHeirarchies = locationHeirarchiesFromJson;
@@ -727,7 +728,7 @@ export class DemographicComponent
           }
         }   
       });   
-      console.log(`uiFieldId:${uiFieldId} langCode:${controlLangCode} isInvalid:${isInvalid}`);   
+      //console.log(`uiFieldId:${uiFieldId} langCode:${controlLangCode} isInvalid:${isInvalid}`);   
       if (isInvalid) {
           return {
             "customPattern": {
@@ -821,7 +822,7 @@ export class DemographicComponent
           }
           this.searchInDropdown(controlId);
           this.resetLocationFields(controlId);
-          console.log(`done`);
+          //console.log(`done`);
           return;
         });
       } 
@@ -885,7 +886,7 @@ export class DemographicComponent
    * and fields are shown/hidden in the UI form.
    */
   async onChangeHandler(selectedFieldId: string) {
-    console.log("onChangeHandler " + selectedFieldId);
+    //console.log("onChangeHandler " + selectedFieldId);
     //if (!this.dataModification || (this.dataModification && this.userForm.valid) ) {
     //populate form data in json for json-rules-engine to evalatute the conditions
     const identityFormData = this.createIdentityJSONDynamic(true);
@@ -1230,9 +1231,9 @@ export class DemographicComponent
           let dynamicField = response[appConstants.RESPONSE]["data"];
           this.dynamicFields.forEach((field) => {
             dynamicField.forEach((res) => {
-              if (field.id === res.name) {
+              if (field.subType === res.name || field.id === res.name) {
                 this.populateSelectOptsDataArr(
-                  res.name,
+                  field.id,
                   res["fieldVal"],
                   res["langCode"]
                 );
@@ -1362,7 +1363,7 @@ export class DemographicComponent
           }
         });
         Promise.all(promisesResolved).then((values) => {
-          console.log(`done fetching locations`);
+          //console.log(`done fetching locations`);
           resolve(true);
         });
       }
@@ -1981,7 +1982,7 @@ export class DemographicComponent
       }
       identityRequest = { identity: newIdentityObj };
     }
-    console.log(identityRequest);
+    //console.log(identityRequest);
     return identityRequest;
   }
 
@@ -2144,7 +2145,7 @@ export class DemographicComponent
         } else {
           let reorderedArr = Utils.reorderLangsForUserPreferredLang(res, this.userPrefLanguage);
           localStorage.setItem(appConstants.DATA_CAPTURE_LANGUAGES, JSON.stringify(reorderedArr));
-          console.log("done");
+          //console.log("done");
           this.isNavigateToDemographic = true;
         }
         resolve(true);

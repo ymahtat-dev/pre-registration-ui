@@ -11,6 +11,7 @@ import * as appConstants from "../../../app.constants";
 import { ConfigService } from "src/app/core/services/config.service";
 import { CodeValueModal } from "src/app/shared/models/demographic-model/code.value.modal";
 import { DialougComponent } from "src/app/shared/dialoug/dialoug.component";
+import identityStubJson from "../../../../assets/identity-spec.json";
 
 @Component({
   selector: "app-preview",
@@ -211,6 +212,7 @@ export class PreviewComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.dataStorageService.getIdentityJson().subscribe((response) => {
         //console.log(response);
+        //response = identityStubJson;
         let identityJsonSpec = response[appConstants.RESPONSE]["jsonSpec"]["identity"];
         //console.log(jsonSpec)
         this.identityData = identityJsonSpec["identity"];
@@ -412,9 +414,9 @@ export class PreviewComponent implements OnInit {
           let dynamicField = response[appConstants.RESPONSE]["data"];
           this.dynamicFields.forEach((field) => {
             dynamicField.forEach((res) => {
-              if (field.id === res.name) {
+              if (field.subType === res.name || field.id === res.name) {
                 this.filterOnLangCode(
-                  res.name,
+                  field.id,
                   res["fieldVal"],
                   res["langCode"]
                 );
