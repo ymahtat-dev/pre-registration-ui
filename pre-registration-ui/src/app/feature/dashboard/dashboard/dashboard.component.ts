@@ -48,7 +48,7 @@ export class DashBoardComponent implements OnInit, OnDestroy {
   errorLanguagelabels: any;
   apiErrorCodes: any;
   disableModifyDataButton = false;
-  disableModifyAppointmentButton = false;
+  disableModifyAppointmentButton = true;
   fetchedDetails = true;
   modify = false;
   isNewApplication = false;
