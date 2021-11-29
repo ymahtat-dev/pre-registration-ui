@@ -143,14 +143,15 @@ export class LoginComponent implements OnInit {
       //console.log(`otpSentTime: ${otpSentTime}`);
       let currentTime = moment().toISOString();
       //console.log(`currentTime: ${currentTime}`);
-      let otpExpiryIntervalInSeconds = Number(
-        this.configService.getConfigByKey(
-          appConstants.CONFIG_KEYS.mosip_kernel_otp_expiry_time
-        )
-      );
-      if (isNaN(otpExpiryIntervalInSeconds)) {
-        otpExpiryIntervalInSeconds = 120; //2 mins by default
-      }
+      // let otpExpiryIntervalInSeconds = Number(
+      //   this.configService.getConfigByKey(
+      //     appConstants.CONFIG_KEYS.mosip_kernel_otp_expiry_time
+      //   )
+      // );
+      // if (isNaN(otpExpiryIntervalInSeconds)) {
+      //   otpExpiryIntervalInSeconds = 120; //2 mins by default
+      // }
+      let otpExpiryIntervalInSeconds = 300;
       //console.log(`otpExpiryIntervalInSeconds: ${otpExpiryIntervalInSeconds}`);
       var timeLapsedInSeconds = moment(currentTime).diff(
         moment(otpSentTime),
