@@ -94,6 +94,7 @@ export default class Utils {
     let mandatoryLanguages = configService
       .getConfigByKey(appConstants.CONFIG_KEYS.mosip_mandatory_languages)
       .split(",");
+      mandatoryLanguages = ['hin'];  
     mandatoryLanguages = mandatoryLanguages.filter((item) => item != "");
     return mandatoryLanguages;
   }
@@ -102,6 +103,7 @@ export default class Utils {
     let optionalLanguages = configService
       .getConfigByKey(appConstants.CONFIG_KEYS.mosip_optional_languages)
       .split(",");
+      optionalLanguages = ['tam'];
     optionalLanguages = optionalLanguages.filter((item) => item != "");
     return optionalLanguages;
   }
