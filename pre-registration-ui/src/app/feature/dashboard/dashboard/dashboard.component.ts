@@ -355,7 +355,10 @@ export class DashBoardComponent implements OnInit, OnDestroy {
         });  
       }
     } else {
+      if (nameField)
       applicantName = nameField;
+      else 
+      applicantName = "";
     }
     let dataCaptureLanguagesLabels = Utils.getLanguageLabels(JSON.stringify(dataAvailableLanguages), 
           localStorage.getItem(appConstants.LANGUAGE_CODE_VALUES));
