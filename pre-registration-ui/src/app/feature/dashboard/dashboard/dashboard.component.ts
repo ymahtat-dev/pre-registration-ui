@@ -135,7 +135,7 @@ export class DashBoardComponent implements OnInit, OnDestroy {
     }
     this.regService.setSameAs("");
     this.name = this.configService.getConfigByKey(
-      appConstants.CONFIG_KEYS.preregistartion_identity_name
+      appConstants.CONFIG_KEYS.preregistration_identity_name
     );
     await this.getIdentityJsonFormat();
   }
@@ -355,7 +355,10 @@ export class DashBoardComponent implements OnInit, OnDestroy {
         });  
       }
     } else {
+      if (nameField)
       applicantName = nameField;
+      else 
+      applicantName = "";
     }
     let dataCaptureLanguagesLabels = Utils.getLanguageLabels(JSON.stringify(dataAvailableLanguages), 
           localStorage.getItem(appConstants.LANGUAGE_CODE_VALUES));
