@@ -231,6 +231,8 @@
                 "arguments": []
               }
             ],
+            "parentLocCode": "MOR",
+				    "locationHierarchyLevel": 1,
             "required": true
           },
           {
@@ -252,6 +254,7 @@
                 "arguments": []
               }
             ],
+            "locationHierarchyLevel": 2,
             "required": true
           },
           {
@@ -273,6 +276,7 @@
                 "arguments": []
               }
             ],
+            "locationHierarchyLevel": 3,
             "required": true
           },
           {
@@ -288,6 +292,7 @@
             "fieldType": "default",
             "type": "simpleType",
             "validators": [],
+            "locationHierarchyLevel": 4,
             "required": true
           },
           {
@@ -309,6 +314,7 @@
                 "arguments": []
               }
             ],
+            "locationHierarchyLevel": 5,
             "required": true
           },
           {

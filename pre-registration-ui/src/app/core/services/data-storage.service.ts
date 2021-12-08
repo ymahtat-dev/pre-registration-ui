@@ -227,7 +227,7 @@ export class DataStorageService {
       locType +
       "/" +
       encodeURIComponent(text) +
-      "/?" +
+      "?" +
       "pageNumber=" +
       pageNumber +
       "&pageSize=" +
@@ -243,7 +243,7 @@ export class DataStorageService {
         this.PRE_REG_URL +
         "proxy" +
         appConstants.APPEND_URL.master_data +
-        "locations/" +
+        "locationHierarchyLevels/" +
         localStorage.getItem("langCode")
     );
   }

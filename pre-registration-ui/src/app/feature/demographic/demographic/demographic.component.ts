@@ -43,7 +43,7 @@ import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import identityStubJson from "../../../../assets/identity-spec.json";
+import identityStubJson from "../../../../assets/identity-spec1.json";
 import { RouterExtService } from "src/app/shared/router/router-ext.service";
 
 /**
@@ -809,6 +809,13 @@ export class DemographicComponent
           locationIndex - 1
         );
         let locationCode = this.userForm.controls[`${parentLocationName}`].value;
+        if (!locationCode) {
+          this.identityData.forEach((obj) => {
+              if (obj.id == controlId) {
+                locationCode = obj.parentLocCode;
+              }
+          });
+        }
         //console.log(`${parentLocationName} : ${locationCode}`);
         let promisesArr = await this.loadLocationData(locationCode, controlId);
         Promise.all(promisesArr).then((values) => {
@@ -1132,12 +1139,29 @@ export class DemographicComponent
    * @memberof DemographicComponent
    */
   private async setLocations() {
-    await this.getLocationMetadataHirearchy();
-    this.locationHeirarchies.forEach(async (locationHeirarchy) => {
-      await this.loadLocationData(
-        this.uppermostLocationHierarchy,
-        locationHeirarchy[0]
-      );
+    this.locationHeirarchies.forEach(async (locationHeirarchyArr) => {
+      locationHeirarchyArr.forEach(async (locationHeirarchy, index) => {
+        let parentLocCode = null;
+        this.identityData.forEach((obj) => {
+          if (
+            obj.inputRequired === true &&
+            obj.controlType !== null &&
+            !(obj.controlType === "fileupload")
+          ) {
+            if (obj.id == locationHeirarchy) {
+              parentLocCode = obj.parentLocCode;
+            }
+          }
+        });
+        if (!parentLocCode && index == 0) {
+          parentLocCode = this.dataStorageService.getLocationMetadataHirearchy();
+        }
+        if (parentLocCode)
+        await this.loadLocationData(
+          parentLocCode,
+          locationHeirarchy
+        );
+      }, this);  
     }, this);
   }
   /**
@@ -1669,6 +1693,7 @@ export class DemographicComponent
     return new Promise((resolve) => {
       const uppermostLocationHierarchy = this.dataStorageService.getLocationMetadataHirearchy();
       this.uppermostLocationHierarchy = uppermostLocationHierarchy;
+      //this.locationHeirarchies
       resolve(this.uppermostLocationHierarchy);
     });
   }
