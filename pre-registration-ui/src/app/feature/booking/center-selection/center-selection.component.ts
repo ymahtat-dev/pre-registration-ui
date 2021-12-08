@@ -13,7 +13,7 @@ import { ConfigService } from "src/app/core/services/config.service";
 import * as appConstants from "./../../../app.constants";
 import { BookingDeactivateGuardService } from "src/app/shared/can-deactivate-guard/booking-guard/booking-deactivate-guard.service";
 import { Subscription } from "rxjs";;
-
+import identityStubJson from "../../../../assets/identity-spec1.json";
 
 @Component({
   selector: "app-center-selection",
@@ -28,6 +28,7 @@ export class CenterSelectionComponent
   isWorkingDaysAvailable = false;
   canDeactivateFlag = true;
   locationTypes = [];
+  identityData = [];
   allLocationTypes = [];
   locationType = null;
   searchText = null;
@@ -51,6 +52,7 @@ export class CenterSelectionComponent
   userPreferredLangCode = localStorage.getItem("userPrefLanguage");
   workingDays: string;
   preRegId = [];
+  recommendedCenterLocCode = 1;
   locationNames = [];
   locationCodes = [];
   // MatPaginator Inputs
@@ -85,28 +87,30 @@ export class CenterSelectionComponent
     await this.getUserInfo(this.preRegId);
     this.REGISTRATION_CENTRES = [];
     this.selectedCentre = null;
+    this.recommendedCenterLocCode = Number(this.configService.getConfigByKey(
+      appConstants.CONFIG_KEYS.preregistration_recommended_centers_locCode
+    ));
+    console.log(`recommendedCenterLocCode: ${this.recommendedCenterLocCode}`);
+    await this.getIdentityJsonFormat();
     const subs = this.dataService
       .getLocationTypeData()
       .subscribe((response) => {
         //get all location types from db
-        this.allLocationTypes = response[appConstants.RESPONSE]["locations"];
-        console.log(`allLocationTypes: ${this.allLocationTypes}`);        
-        //get the recommended loc hierachy code to which booking centers are mapped
-        const recommendedLocCode = this.configService.getConfigByKey(
-          appConstants.CONFIG_KEYS.preregistration_recommended_centers_locCode
-        );
-        console.log(`recommendedLocCode: ${recommendedLocCode}`);
+        this.allLocationTypes = response[appConstants.RESPONSE]["locationHierarchyLevels"];
+        console.log(this.allLocationTypes);        
+        //get the recommended loc hierachy code to which booking centers are mapped        
         //now filter out only those hierachies which are higher than the recommended loc hierachy code
         //ex: if locHierachy is ["Country","Region","Province","City","PostalCode"] and the
         //recommended loc hierachy code is 3 for "City", then show only "Country","Region","Province"
         //in the Search dropdown. There are no booking centers mapped to "PostalCode", so don't include it.
         this.locationTypes = this.allLocationTypes.filter(
           (locType) =>
-            locType.locationHierarchylevel <= Number(recommendedLocCode)
+            locType.hierarchyLevel <= this.recommendedCenterLocCode
         );
+        //console.log(this.locationTypes);
         //sort the filtered array in ascending order of hierarchyLevel
         this.locationTypes.sort(function (a, b) {
-          return a.locationHierarchylevel - b.locationHierarchylevel;
+          return a.hierarchyLevel - b.hierarchylevel;
         });
         this.getRecommendedCenters();
       });
@@ -146,42 +150,77 @@ export class CenterSelectionComponent
       this.apiErrorCodes = response[appConstants.API_ERROR_CODES];
     });
   }
+/**
+   * @description This method will get the Identity Schema Json
+   */
+ async getIdentityJsonFormat() {
+  return new Promise((resolve, reject) => {
+    this.dataService.getIdentityJson().subscribe(
+      async (response) => {
+        //response = identityStubJson;
+        //console.log(identityStubJson);
+        let identityJsonSpec =
+          response[appConstants.RESPONSE]["jsonSpec"]["identity"];
+        this.identityData = identityJsonSpec["identity"];
+        resolve(true);
+      },
+      (error) => {
+        this.showErrorMessage(error);
+      }
+    );
+  });
+}
 
   async getRecommendedCenters() {
+    //console.log("getRecommendedCenters");
     this.totalItems = 0;
     this.nearbyClicked = false;
-    const locationHierarchy = JSON.parse(
-      localStorage.getItem("locationHierarchy")
-    );
-    const locationHierarchyLevel = this.configService.getConfigByKey(
-      appConstants.CONFIG_KEYS.preregistration_recommended_centers_locCode
-    );
-    let minusValue = this.allLocationTypes.length - locationHierarchy.length;
-    const locationType = locationHierarchy[Number(locationHierarchyLevel) - minusValue];
-    this.users.forEach((user) => {
+    let uiFieldName = null;
+    this.identityData.forEach((obj) => {
       if (
-        typeof user.request.demographicDetails.identity[locationType] ===
-        "object"
+        obj.inputRequired === true &&
+        obj.controlType !== null &&
+        !(obj.controlType === "fileupload")
       ) {
-        this.locationCodes.push(
-          user.request.demographicDetails.identity[locationType][0].value
-        );
-      } else if (
-        typeof user.request.demographicDetails.identity[locationType] ===
-        "string"
-      ) {
-        this.locationCodes.push(
-          user.request.demographicDetails.identity[locationType]
-        );
+        if (obj.locationHierarchyLevel && this.recommendedCenterLocCode == obj.locationHierarchyLevel) {
+          uiFieldName = obj.id;
+        }
       }
     });
-    await this.getLocationNamesByCodes();
-    this.getRecommendedCentersApiCall();
+    if (!uiFieldName) {
+      this.showErrorMessage(null, this.errorlabels.error);
+    } else {
+      console.log(`uiFieldName: ${uiFieldName}`);
+      this.users.forEach((user) => {
+        //console.log(typeof user.request.demographicDetails.identity[uiFieldName]);
+        if (
+          typeof user.request.demographicDetails.identity[uiFieldName] ===
+          "object"
+        ) {
+          //console.log(user.request.demographicDetails.identity[uiFieldName][0].value);
+          this.locationCodes.push(
+            user.request.demographicDetails.identity[uiFieldName][0].value
+          );
+        } else if (
+          typeof user.request.demographicDetails.identity[uiFieldName] ===
+          "string"
+        ) {
+          //console.log(user.request.demographicDetails.identity[uiFieldName]);
+          this.locationCodes.push(
+            user.request.demographicDetails.identity[uiFieldName]
+          );
+        }
+      });
+      //console.log(this.locationCodes);
+      await this.getLocationNamesByCodes();
+      this.getRecommendedCentersApiCall();
+    }
   }
 
   getLocationNamesByCodes() {
     return new Promise((resolve) => {
       this.locationCodes.forEach(async (pins,index) => {
+        //console.log(pins);
         await this.getLocationNames(pins);
         if(index===this.locationCodes.length-1){
           resolve(true);
@@ -195,9 +234,7 @@ export class CenterSelectionComponent
     const subs = this.dataService
       .recommendedCenters(
         this.userPreferredLangCode,
-        this.configService.getConfigByKey(
-          appConstants.CONFIG_KEYS.preregistration_recommended_centers_locCode
-        ),
+        this.recommendedCenterLocCode,
         this.locationNames
       )
       .subscribe((response) => {
@@ -267,9 +304,10 @@ export class CenterSelectionComponent
         this.pageSize = pageEvent.pageSize;
         this.pageIndex = pageEvent.pageIndex;
       }
+      //console.log(this.locationType);
       const subs = this.dataService
         .getRegistrationCentersByNamePageWise(
-          this.locationType.locationHierarchylevel,
+          this.locationType.hierarchyLevel,
           this.searchText,
           this.pageIndex,
           this.pageSize
