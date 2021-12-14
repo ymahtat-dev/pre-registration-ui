@@ -197,7 +197,7 @@
             "id": "permanentAddressLine1",
             "description": "permanent AddressLine1",
             "labelName": {
-              "eng": "Address Line",
+              "eng": "Permanent Address Line 1",
               "ara": "العنوان السطر 1",
               "fra": "Adresse 1"
             },
@@ -247,7 +247,7 @@
             "id": "permanentAddressLine2",
             "description": "permanent AddressLine2",
             "labelName": {
-              "eng": "Add. Address",
+              "eng": "Permanent Address Line 2",
               "ara": "العنوان السطر 2",
               "fra": "Adresse 2"
             },
@@ -277,7 +277,7 @@
             "id": "permanentAddressLine3",
             "description": "permanent AddressLine3",
             "labelName": {
-              "eng": "Add.Address",
+              "eng": "Permanent Address Line 3",
               "ara": "العنوان السطر 3",
               "fra": "Adresse 3"
             },
@@ -307,7 +307,7 @@
             "id": "permanentAddressLine4",
             "description": "permanent AddressLine4",
             "labelName": {
-              "eng": "Add.Address",
+              "eng": "Permanent Address Line 4",
               "ara": "العنوان السطر 3",
               "fra": "Adresse 3"
             },
@@ -360,6 +360,8 @@
             "headerStyle": {
               "width": "300px"
             },
+            "parentLocCode": "RSK",
+				    "locationHierarchyLevel": 2,
             "required": false,
             "changeAction": "copyto:permanentProvince,presentProvince,addressCopy"
           },
@@ -389,6 +391,7 @@
             "headerStyle": {
               "width": "300px"
             },
+            "locationHierarchyLevel": 3,
             "required": false,
             "changeAction": "copyto:permanentCity,presentCity,addressCopy"
           },
@@ -418,6 +421,7 @@
             "headerStyle": {
               "width": "300px"
             },
+            "locationHierarchyLevel": 4,
             "required": false,
             "changeAction": "copyto:permanentBarangay,presentBarangay,addressCopy"
           },
@@ -441,6 +445,7 @@
             "headerStyle": {
               "width": "300px"
             },
+            "locationHierarchyLevel": 5,
             "required": false,
             "changeAction": "copyto:permanentZipcode,presentZipcode,addressCopy"
           },
@@ -467,13 +472,13 @@
               "border-bottom": "1px solid #fd518c",
               "background-color": "#fd518c"
             },
-            "changeAction": "copy&disable:permanentCountry=presentCountry,permanentAddressLine1=presentAddressLine1,permanentAddressLine2=presentAddressLine2,permanentAddressLine3=presentAddressLine3,permanentAddressLine4=presentAddressLine4,permanentCity=presentCity,permanentProvince=presentProvince,permanentBarangay=presentBarangay,permanentZipcode=presentZipcode"
+            "changeAction": "copy&disable:permanentAddressLine1=presentAddressLine1,permanentAddressLine2=presentAddressLine2,permanentAddressLine3=presentAddressLine3,permanentAddressLine4=presentAddressLine4,permanentProvince=presentProvince,permanentCity=presentCity,permanentBarangay=presentBarangay,permanentZipcode=presentZipcode"
           },
           {
             "id": "presentAddressLine1",
             "description": "present AddressLine1",
             "labelName": {
-              "eng": "Present Address Line",
+              "eng": "Present Address Line 1",
               "ara": "العنوان السطر 1",
               "fra": "Adresse 1"
             },
@@ -501,7 +506,7 @@
             "id": "presentAddressLine2",
             "description": " Present AddressLine2",
             "labelName": {
-              "eng": "Present Add.Address",
+              "eng": "Present Address Line 2",
               "ara": "العنوان السطر 2",
               "fra": "Adresse 2"
             },
@@ -527,7 +532,7 @@
           },
           {
             "id": "presentAddressLine3",
-            "description": "Present AddressLine3",
+            "description": "Present Address Line 3",
             "labelName": {
               "eng": "Present Add.Address",
               "ara": "العنوان السطر 3",
@@ -557,7 +562,7 @@
             "id": "presentAddressLine4",
             "description": "Present AddressLine4",
             "labelName": {
-              "eng": "Present Add.Address",
+              "eng": "Present Address Line 4",
               "ara": "العنوان السطر 3",
               "fra": "Adresse 3"
             },
@@ -607,6 +612,8 @@
             "headerStyle": {
               "width": "300px"
             },
+            "parentLocCode": "RSK",
+				    "locationHierarchyLevel": 2,
             "required": false
           },
           {
@@ -635,6 +642,7 @@
             "headerStyle": {
               "width": "300px"
             },
+				    "locationHierarchyLevel": 3,
             "required": false
           },
           {
@@ -663,6 +671,7 @@
             "headerStyle": {
               "width": "300px"
             },
+				    "locationHierarchyLevel": 4,
             "required": false
           },
           {
@@ -685,6 +694,7 @@
             "headerStyle": {
               "width": "300px"
             },
+				    "locationHierarchyLevel": 5,
             "required": false
           },
           {
