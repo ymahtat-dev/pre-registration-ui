@@ -407,6 +407,7 @@ export class TimeSelectionComponent
     const subs = this.dataService.getAvailabilityData(id).subscribe(
       (response) => {
         this.spinner = false;
+        //console.log(response[appConstants.RESPONSE]);
         if (response[appConstants.RESPONSE]) {
           //console.log(response[appConstants.RESPONSE]);
           if (response[appConstants.RESPONSE].centerDetails.length > 0) {
@@ -417,7 +418,9 @@ export class TimeSelectionComponent
         }
       },
       (error) => {
-        this.showErrorMessage(error);
+        //console.log(error);
+        //this.showErrorMessage(error);
+        this.showErrorMessage(null, this.errorlabels.centerDetailsNotAvailable);
       }
     );
     this.subscriptions.push(subs);
