@@ -1,4 +1,10 @@
-# Angular Build &amp; Deployment Guide
+# Pre-Registration Portal
+
+This repository contains UI code for Pre-Registration portal. Refer [here](https://docs.mosip.io/1.2.0/modules/pre-registration/pre-registration-user-guide) for details about the functions that a resident can perform via this portal.
+
+## Build &amp; Deployment Guide
+
+The code is written in Angular JS. 
 
 To start off we will be needing a Virtual Machine (VM) of at least 1 core processor and 4 GB memory with Red Hat OS installed. Please follow the following steps after the pre-requisites are met.
 
