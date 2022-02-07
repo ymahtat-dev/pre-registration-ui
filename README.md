@@ -1,3 +1,6 @@
+[![Maven Package upon a push](https://github.com/mosip/pre-registration-ui/actions/workflows/push_trigger.yml/badge.svg?branch=release-1.2.0)](https://github.com/mosip/pre-registration-ui/actions/workflows/push_trigger.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=release-1.2.0&project=mosip_pre-registration-ui&metric=alert_status)](https://sonarcloud.io/dashboard?branch=release-1.2.0&id=mosip_pre-registration-ui)
+
 # Pre-Registration Portal
 
 This repository contains UI code for Pre-Registration portal. Refer [here](https://docs.mosip.io/1.2.0/modules/pre-registration/pre-registration-user-guide) for details about the functions that a resident can perform via this portal.
