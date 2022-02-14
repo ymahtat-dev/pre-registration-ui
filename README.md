@@ -1,4 +1,13 @@
-# Angular Build &amp; Deployment Guide
+[![Maven Package upon a push](https://github.com/mosip/pre-registration-ui/actions/workflows/push_trigger.yml/badge.svg?branch=develop)](https://github.com/mosip/pre-registration-ui/actions/workflows/push_trigger.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=develop&project=mosip_pre-registration-ui&metric=alert_status)](https://sonarcloud.io/dashboard?branch=develop&id=mosip_pre-registration-ui)
+
+# Pre-Registration Portal
+
+This repository contains UI code for Pre-Registration portal. Refer [here](https://docs.mosip.io/1.2.0/modules/pre-registration/pre-registration-user-guide) for details about the functions that a resident can perform via this portal.
+
+## Build &amp; Deployment Guide
+
+The code is written in Angular JS. 
 
 To start off we will be needing a Virtual Machine (VM) of at least 1 core processor and 4 GB memory with Red Hat OS installed. Please follow the following steps after the pre-requisites are met.
 

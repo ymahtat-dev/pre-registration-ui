@@ -4,11 +4,14 @@ name: Maven Package upon a push
 on:
   push:
     branches:
+      - '!release-branch'
+      - release-1*
       - master
       - 1.0.*
       - develop
       - 1.1.*
       - MOSIP-11719
+      - 1.2.*
   
 jobs:
   # This workflow contains a single job called "build"
@@ -77,7 +80,11 @@ jobs:
           IMAGE_ID=$NAMESPACE/$SERVICE_NAME
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          VERSION=$BRANCH_NAME
+          if [[ $BRANCH_NAME == master ]]; then
+            VERSION=latest
+          else
+            VERSION=$BRANCH_NAME
+          fi
           echo "push version $VERSION"
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
