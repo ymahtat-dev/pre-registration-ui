@@ -54,12 +54,7 @@
 }
 
 .ack__guidelines {
-  /* margin-bottom: 10px; */
-  padding-top: 10px; 
-  margin-bottom: 10px;
-  padding-right: 10%;
-  word-break: break-word;
-  page-break-after: always;
+  text-align: justify;
 }
 .inner-guideline-content {
   padding: 2px !important;

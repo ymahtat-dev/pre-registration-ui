@@ -3,10 +3,11 @@
 </div>
 <div *ngIf="!showSpinner" class="wrapper">
   <div class="spacer"></div>
-  <div class="ack-container">
-    <div id="print-section">
-      <div class="print-section-inner-div" *ngFor="let ackData of ackDataArr; index as i">
-        <div id="message-container" class="ack__message-container">
+  <div id="print-section">
+  <div class="ack-container" *ngFor="let ackData of ackDataArr; index as i">
+    <div id="{{'pdf-section-' + ackData.preRegId}}">
+      <div class="print-section-inner-div" >
+        <div [id]="message-container" class="ack__message-container">
           <p *ngFor="let ackMessage of ackData.messages">
             <img style="vertical-align: middle;" src="assets/img/done.png" />&nbsp;&nbsp;{{ackMessage.preRegId}} :
             {{ackMessage.message}}
@@ -68,12 +69,15 @@
                 <td class="inner-guideline-content">{{ guideline }}</td>
               </tr>
             </table>
+            <p></p>
           </span>
+          <p></p>
         </div>
         <!-- <div class="endOfAck" *ngIf="i + 1 !== ackDataArr.length"></div>
         <div class="lastAck" *ngIf="i + 1 == ackDataArr.length"></div> -->
       </div>
     </div>
+  </div>
   </div>
 </div>
 <div *ngIf="!showSpinner">
