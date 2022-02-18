@@ -91,6 +91,7 @@ export class PreviewComponent implements OnInit {
     this.formatDob(this.previewData.dateOfBirth);
     this.files = this.user.files ? this.user.files : [];
     this.documentsMapping();
+    this.docReqCheck();
     //remove blank fields
     let updatedUIFields = [],
       tempObj = {};
@@ -247,6 +248,21 @@ export class PreviewComponent implements OnInit {
       },
       (error) => {
         this.showErrorMessage(error);
+      });
+    });
+  }
+
+  docReqCheck() {
+    this.documentMapObject.forEach((ob) => {
+      this.identityData.forEach((obj) => {
+        if (obj.subType === ob.code) {
+          if (obj.required == true && ob.fileName === undefined) {
+            ob["class"] = "error"
+          }
+          else {
+            ob["class"] = "default"
+          }
+        }
       });
     });
   }

@@ -28,6 +28,10 @@ header {
   font-weight: bold !important;
 }
 
+.default {
+  color: rgb(124, 128, 120);
+}
+
 .right {
   direction: rtl;
 }
