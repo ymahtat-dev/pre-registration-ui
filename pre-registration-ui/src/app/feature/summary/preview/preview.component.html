@@ -82,7 +82,7 @@
             <tr class="preview__file__table__data">
               <td *ngFor="let object of documentMapObject">
                 <p *ngIf="object.fileName !== undefined">{{ object.fileName }}</p>
-                <p class="error" *ngIf="object.fileName === undefined">{{ previewLabels.text_not_uploaded }}</p>
+                <p class="{{object.class}}" *ngIf="object.fileName === undefined">{{ previewLabels.text_not_uploaded }}</p>
               </td>
             </tr>
           </table>
