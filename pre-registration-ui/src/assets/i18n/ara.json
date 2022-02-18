@@ -579,7 +579,8 @@
     "action_back": "الى الخلف",
     "action_book_later": "كتاب لاحقا",
     "action_continue": "استمر",
-    "noResult_found": "لا توجد نتائج"
+    "noResult_found": "لا توجد نتائج",
+    "lunch_hours": "غداء"
   },
   "autologout": {
     "preview": "ستنتهي مهلة 60 ثانية بسبب عدم النشاط. يرجى النقر في أي مكان لإعادة تنشيط جلستك",

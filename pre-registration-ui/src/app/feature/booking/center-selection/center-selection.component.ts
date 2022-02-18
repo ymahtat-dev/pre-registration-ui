@@ -483,13 +483,10 @@ export class CenterSelectionComponent
             center.workingDays = "";
             if (response[appConstants.RESPONSE] && response[appConstants.RESPONSE]["workingdays"]) {
               response[appConstants.RESPONSE]["workingdays"].forEach((day) => {
-                if (
-                  day.working === true ||
-                  ((day.working === null || day.working === undefined) &&
-                    day.globalWorking === true)
-                ) {
-                  center.workingDays = center.workingDays + day.name + ", ";
-                }
+                    if (center.workingDays != "") {
+                      center.workingDays += ", ";
+                    }
+                    center.workingDays = center.workingDays + day.name;
               });
             }
             this.isWorkingDaysAvailable = true;
