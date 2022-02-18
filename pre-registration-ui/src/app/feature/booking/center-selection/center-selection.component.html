@@ -129,50 +129,63 @@
                 name="center"
               />
               <div>
-                <div class="inline-flex">
+                <div class="inline-flex" [dir]="textDir">
                   <div><img src="assets\address.png" /></div>
                   <div>
-                    <strong>
-                      {{
-                        center.name +
-                          ', ' +
-                          center.addressLine1 +
-                          ', ' +
-                          center.addressLine2 +
-                          ', ' +
-                          center.addressLine3
-                      }}</strong
-                    >
+                    <strong>{{center.name}}</strong>
+                    <strong *ngIf="center.addressLine1 != null && center.addressLine1 != ''">
+                      {{ ', ' + center.addressLine1}}
+                    </strong>
+                    <strong *ngIf="center.addressLine2 != null && center.addressLine2 != ''">
+                      {{ ', ' + center.addressLine2}}
+                    </strong>
+                    <strong *ngIf="center.addressLine3 != null && center.addressLine3 != ''">
+                      {{ ', ' + center.addressLine3}}
+                    </strong>
                   </div>
                 </div>
                 <div>
                   <span><img src="assets\contact number.png"/></span>
-                  <span>{{ center.contactPerson + ', ' + center.contactPhone }}</span>
+                  <span  *ngIf="center.contactPerson !== ''">
+                    {{ center.contactPerson}}
+                  </span>
+                  <span  *ngIf="center.contactPerson !== '' && center.contactPhone !== ''">
+                    {{ ', ' +  center.contactPhone }}
+                  </span>
+                  <span  *ngIf="center.contactPerson == '' && center.contactPhone !== ''">
+                    {{ center.contactPhone }}
+                  </span>
                 </div>
               </div>
               <span class="spacer"></span>
               <div>
-                <div>
+                <div >
                   <span>
-                    <div>
+                    <div [dir]="textDir">
                       {{ 'centerSelection.text_timing' | translate }} :
+                      <span dir="ltr">
                       {{
                         changeTimeFormat(center.centerStartTime.substring(0, 5)) +
                           ' - ' +
                           changeTimeFormat(center.centerEndTime.substring(0, 5))
                       }}
+                    </span>
                     </div>
-                    <div *ngIf="!(center.lunchStartTime === null || center.lunchEndTime === null)">
-                      Lunch:
+                    <div [dir]="textDir">
+                    <span *ngIf="!(center.lunchStartTime === null && center.lunchEndTime === null)">
+                      {{ 'centerSelection.lunch_hours' | translate }}:
+                      <span dir="ltr">
                       {{
                         changeTimeFormat(center.lunchStartTime.substring(0, 5)) +
                           ' - ' +
                           changeTimeFormat(center.lunchEndTime.substring(0, 5))
                       }}
-                    </div>
+                    </span>
+                    </span>
+                  </div>
                   </span>
                 </div>
-                <div>
+                <div [dir]="textDir">
                   <span>{{ 'centerSelection.text_open' | translate }}: {{ center.workingDays }}</span>
                 </div>
               </div>
@@ -180,7 +193,8 @@
           </li>
         </ul>
       </div>
-      <span  *ngIf="this.totalItems !== 0">
+      <div  dir="ltr">
+      <span *ngIf="this.totalItems !== 0">
         <mat-paginator 
           [length]="this.totalItems"
           [pageSize]="this.pageSize"
@@ -189,6 +203,7 @@
           >
         </mat-paginator>
       </span>
+    </div>
     </div>
 
     <div class="map" *ngIf="showMap">
