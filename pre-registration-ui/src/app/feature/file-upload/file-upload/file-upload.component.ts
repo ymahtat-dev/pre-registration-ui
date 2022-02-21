@@ -992,22 +992,33 @@ export class FileUploadComponent implements OnInit, OnDestroy {
    */
   handleDocRefInput(event: any, docCode: string) {
     const refNumber = event.target.value;
-    for (let file of this.users[0].files.documentsMetaData) {
-      if (file.docCatCode == docCode) {
-        let documentId = file.documentId;
-        this.disableNavigation = true;
-        const subs = this.dataStorageService
-          .updateDocRefId(documentId, this.preRegId, refNumber)
-          .subscribe(
-            (response) => {
-              //docRedId saved
-              this.disableNavigation = false;
-            },
-            (error) => {
-              this.disableNavigation = false;
-              this.showErrorMessage(error);
-            });
-        this.subscriptions.push(subs);
+    const validRegex = new RegExp("^[a-zA-Z0-9_.-\\s]*$");
+    const validRegex1 = new RegExp("^(?=.{0,50}$).*");
+    if (validRegex.test(refNumber) == false) {
+      event.target.value = "";
+      this.showErrorMessage(null, this.messagelabels.uploadDocuments.msg12);
+    }
+    else if (validRegex1.test(refNumber) == false) {
+      event.target.value = "";
+      this.showErrorMessage(null, this.messagelabels.uploadDocuments.msg13);
+    } else { 
+      for (let file of this.users[0].files.documentsMetaData) {
+        if (file.docCatCode == docCode) {
+          let documentId = file.documentId;
+          this.disableNavigation = true;
+          const subs = this.dataStorageService
+            .updateDocRefId(documentId, this.preRegId, refNumber)
+            .subscribe(
+              (response) => {
+                //docRedId saved
+                this.disableNavigation = false;
+              },
+              (error) => {
+                this.disableNavigation = false;
+                this.showErrorMessage(error);
+              });
+          this.subscriptions.push(subs);
+        }
       }
     }
   }
