@@ -172,7 +172,7 @@
                     </span>
                     </div>
                     <div [dir]="textDir">
-                    <span *ngIf="!((center.lunchStartTime === null && center.lunchEndTime === null) || (center.lunchStartTime === center.lunchEndTime))">
+                    <span *ngIf="!((center.lunchStartTime === null && center.lunchEndTime === null) && (center.lunchStartTime === center.lunchEndTime))">
                       {{ 'centerSelection.lunch_hours' | translate }}:
                       <span dir="ltr">
                       {{
