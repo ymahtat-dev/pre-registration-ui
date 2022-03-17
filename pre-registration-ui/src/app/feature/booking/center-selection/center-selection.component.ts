@@ -416,7 +416,16 @@ export class CenterSelectionComponent
       formattedTime = Number(inputTime[0]) - 12;
       formattedTime += ":" + inputTime[1] + " pm";
     }
+    return formattedTime;
+  }
 
+  showTime(startTime: string, endTime: string): string | Number {
+    let formattedStartTime = this.changeTimeFormat(startTime);
+    let formattedEndTime = this.changeTimeFormat(endTime);
+    let formattedTime = formattedStartTime + ' - ' + formattedEndTime;
+    if (this.textDir == "rtl") {
+      formattedTime = formattedEndTime + ' - ' + formattedStartTime;
+    }
     return formattedTime;
   }
 

@@ -24,13 +24,21 @@
               <td
                 *ngIf="ackData.bookingTimePrimary && ackData.bookingTimePrimary.length > 0 && ackData.bookingTimePrimary[0].langAvailable">
                 <span *ngFor="let bookingTime of ackData.bookingTimePrimary; index as i;">
-                  <b *ngIf="bookingTime.langCode == langCode">{{ bookingTime.time
-                    }}, {{ ackData.bookingDataPrimary[i].date }}</b>
+                  
+                  <b *ngIf="bookingTime.langCode == langCode">
+                    <span [dir]="ackData.appLangCodeDir">
+                      {{ ackData.bookingDataPrimary[i].date }}, {{ bookingTime.time }}
+                    </span>
+                  </b>
                 </span>
               </td>
               <td
                 *ngIf="ackData.bookingTimePrimary && ackData.bookingTimePrimary.length > 0 && !ackData.bookingTimePrimary[0].langAvailable">
-                <b>{{ ackData.bookingTimePrimary[0].time}}, {{ ackData.bookingDataPrimary[0].date }}</b>
+                <b>
+                  <span [dir]="ackData.appLangCodeDir">
+                    {{ ackData.bookingDataPrimary[0].date }}, {{ ackData.bookingTimePrimary[0].time}}
+                  </span>
+                  </b>
               </td>
             </tr>
             <tr>
