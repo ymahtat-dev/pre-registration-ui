@@ -164,24 +164,21 @@
                     <div [dir]="textDir">
                       {{ 'centerSelection.text_timing' | translate }} :
                       <span dir="ltr">
-                      {{
-                        changeTimeFormat(center.centerStartTime.substring(0, 5)) +
-                          ' - ' +
-                          changeTimeFormat(center.centerEndTime.substring(0, 5))
-                      }}
-                    </span>
+                        {{
+                        showTime(center.centerStartTime.substring(0, 5), center.centerEndTime.substring(0, 5))
+                        }}
+                      </span>
                     </div>
                     <div [dir]="textDir">
-                    <span *ngIf="center.lunchStartTime !== null && center.lunchEndTime !== null && center.lunchStartTime !== center.lunchEndTime">
-                      {{ 'centerSelection.lunch_hours' | translate }}:
-                      <span dir="ltr">
-                      {{
-                        changeTimeFormat(center.lunchStartTime.substring(0, 5)) +
-                          ' - ' +
-                          changeTimeFormat(center.lunchEndTime.substring(0, 5))
-                      }}
-                    </span>
-                    </span>
+                      <span
+                        *ngIf="center.lunchStartTime !== null && center.lunchEndTime !== null && center.lunchStartTime !== center.lunchEndTime">
+                        {{ 'centerSelection.lunch_hours' | translate }}:
+                        <span dir="ltr">
+                          {{
+                          showTime(center.lunchStartTime.substring(0, 5),center.lunchEndTime.substring(0, 5))
+                          }}
+                        </span>
+                      </span>
                   </div>
                   </span>
                 </div>
