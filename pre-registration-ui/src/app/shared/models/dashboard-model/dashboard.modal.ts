@@ -7,12 +7,13 @@
  */
 export interface Applicant {
   applicationID: string;
+  bookingType: string;
   name: string;
   appointmentDateTime: string;
   appointmentDate: string;
   appointmentTime: string;
   status: string;
-  regDto: any;
-  postalCode: string;
+  //regDto: any;
+  //postalCode: string;
   dataCaptureLangs: string[];
 }
