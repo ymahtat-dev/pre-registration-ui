@@ -34,9 +34,23 @@
       >
       <span>
         <!-- class="create-app-btn" -->
-        <button class="btn_axn-pri page_btn" (click)="onNewLostUinApplication()">
+        <button  style="margin-right: 20px" class="btn_axn-pri page_btn" (click)="onNewLostUinApplication()">
           <img src="assets\Create new application.png" class="create-app-img" />
           {{ "dashboard.action_lost_uin" | translate }}
+        </button></span
+      >
+      <span>
+        <!-- class="create-app-btn" -->
+        <button  style="margin-right: 20px" class="btn_axn-pri page_btn" (click)="onNewUpdateApplication()">
+          <img src="assets\Create new application.png" class="create-app-img" />
+          {{ "dashboard.action_update_registration" | translate }}
+        </button></span
+      >
+      <span>
+        <!-- class="create-app-btn" -->
+        <button class="btn_axn-pri page_btn" (click)="onNewMiscApplication()">
+          <img src="assets\Create new application.png" class="create-app-img" />
+          {{ "dashboard.action_misc_purpose" | translate }}
         </button></span
       >
     </div>
@@ -98,7 +112,7 @@
             <div class="card-content">
               <table>
                 <tr>
-                  <td class="column1">{{ "dashboard.card.type" | translate }}</td>
+                  <td class="column1">{{ "dashboard.card.text_type" | translate }}</td>
                   <td
                     [ngClass]="
                       user.name.length > 30

@@ -1048,6 +1048,14 @@ export class DashBoardComponent implements OnInit, OnDestroy {
     );
   }
 
+  onNewUpdateApplication() {
+   alert("TODO");
+  } 
+
+  onNewMiscApplication() {
+    alert("TODO");
+   } 
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
