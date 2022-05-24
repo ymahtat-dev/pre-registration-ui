@@ -58,7 +58,7 @@
         <div [dir]="ackData.appLangCodeDir">
           <div id="body-container" *ngIf="ackData.regCntrNames" class="ack__body-container">
             <table id="table-container">
-              <tr>
+              <tr *ngIf="ackData.nameValues.trim() != ''">
                 <td>{{ ackData.labelNames }} : </td>
                 <td><b>{{ ackData.nameValues }}</b></td>
               </tr>

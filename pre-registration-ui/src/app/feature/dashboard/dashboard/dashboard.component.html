@@ -179,7 +179,7 @@
                   user.status === appStatusCodes.pending ||
                   user.status === appStatusCodes.incomplete
                 "
-                [disabled]="disableModifyDataButton"
+                [disabled]="disableModifyDataButton || user.bookingType != newPreRegApplication"
                 (click)="onModifyInformation(user)"
               >
                 <img
@@ -195,6 +195,7 @@
                   !(user.status === appStatusCodes.pending ||
                   user.status === appStatusCodes.incomplete)
                 "
+                [disabled]="user.bookingType != newPreRegApplication"
                 (click)="onModifyInformation(user)"
               >
                 <img

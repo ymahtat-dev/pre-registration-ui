@@ -13,7 +13,7 @@ export interface Applicant {
   appointmentDate: string;
   appointmentTime: string;
   status: string;
-  //regDto: any;
+  regDto: any;
   //postalCode: string;
   dataCaptureLangs: string[];
 }

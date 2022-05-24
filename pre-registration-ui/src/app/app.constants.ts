@@ -150,6 +150,7 @@ export const DASHBOARD_RESPONSE_KEYS = {
     appointmentDate: 'appointmentDate',
     slotFromTime: 'slotFromTime',
     slotToTime: 'slotToTime',
+    registrationCenterId: 'registrationCenterId',
     allApplications: 'allApplications',
     bookingStatusCode: 'bookingStatusCode',
     bookingType: 'bookingType'

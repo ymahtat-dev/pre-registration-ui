@@ -398,6 +398,7 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
           ] = this.guidelines[j].fileText.split("\n");
         }
       }
+      console.log(this.ackDataItem);
       this.ackDataArr.push(this.ackDataItem);
       this.ackDataItem = {};
     });

@@ -207,6 +207,7 @@ export class CenterSelectionComponent
     } else {
       console.log(`uiFieldName: ${uiFieldName}`);
       this.users.forEach((user) => {
+        console.log(user);
         if (user.request && user.request.demographicDetails && user.request.demographicDetails.identity) {
           //console.log(typeof user.request.demographicDetails.identity[uiFieldName]);
           if (
@@ -263,7 +264,9 @@ export class CenterSelectionComponent
         } 
       },
       (error) => {
-        this.showErrorMessage(error, this.errorlabels.regCenterNotavailabe);
+        if (this.locationNames.length != 0) {
+          this.showErrorMessage(error, this.errorlabels.regCenterNotavailabe);
+        }
         this.pageLoaded = true;
       });
     this.subscriptions.push(subs);
@@ -552,20 +555,20 @@ export class CenterSelectionComponent
     };
     const dialogRef = this.openDialog(body, "400px");
     dialogRef.afterClosed().subscribe(() => {
-      // if (body.message === this.errorlabels.regCenterNotavailabe) {
-      //   this.canDeactivateFlag = false;
-      //   if (
-      //     this.router.url.includes("multiappointment") ||
-      //     localStorage.getItem("modifyMultipleAppointment") === "true"
-      //   ) {
-      //     this.routeDashboard();
-      //   } else {
-      //     localStorage.setItem(appConstants.MODIFY_USER, "true");
-      //     this.router.navigate([
-      //       `${this.userPreferredLangCode}/pre-registration/demographic/${this.preRegId[0]}`,
-      //     ]);
-      //   }
-      //}
+      if (body.message === this.errorlabels.regCenterNotavailabe) {
+        this.canDeactivateFlag = false;
+        if (
+          this.router.url.includes("multiappointment") ||
+          localStorage.getItem("modifyMultipleAppointment") === "true"
+        ) {
+          this.routeDashboard();
+        } else {
+          localStorage.setItem(appConstants.MODIFY_USER, "true");
+          this.router.navigate([
+            `${this.userPreferredLangCode}/pre-registration/demographic/${this.preRegId[0]}`,
+          ]);
+        }
+      }
     });
   }
 

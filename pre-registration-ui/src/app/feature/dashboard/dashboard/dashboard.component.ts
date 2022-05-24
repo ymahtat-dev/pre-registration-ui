@@ -70,6 +70,7 @@ export class DashBoardComponent implements OnInit, OnDestroy {
   maxLanguage: Number;
   isNavigateToDemographic = false;
   appStatusCodes = appConstants.APPLICATION_STATUS_CODES;
+  newPreRegApplication = appConstants.NEW_PREREGISTRATION;
   /**
    * @description Creates an instance of DashBoardComponent.
    * @param {Router} router
@@ -337,7 +338,6 @@ export class DashBoardComponent implements OnInit, OnDestroy {
     if (applicantResponse.bookingType == appConstants.NEW_PREREGISTRATION) {
       let preregData = await this.getUserInfo(applicationId);
       if (preregData) {
-        console.log(preregData);
         let dataAvailableLanguages = [];
         const identityObj = preregData["demographicDetails"]["identity"];
         if (identityObj) {
@@ -358,16 +358,13 @@ export class DashBoardComponent implements OnInit, OnDestroy {
         } else if (identityObj.langCode) {
           dataAvailableLanguages = [identityObj.langCode];
         }
-        if (Array.isArray(applicantResponse["dataCaptureLanguage"])) {
-          dataAvailableLanguages = applicantResponse["dataCaptureLanguage"];
-          dataAvailableLanguages.sort(function (a, b) {
-            return a - b;
-          });
-          dataAvailableLanguages = Utils.reorderLangsForUserPreferredLang(
-            dataAvailableLanguages,
-            this.userPreferredLangCode
-          );
-        }
+        dataAvailableLanguages.sort(function (a, b) {
+          return a - b;
+        });
+        dataAvailableLanguages = Utils.reorderLangsForUserPreferredLang(
+          dataAvailableLanguages,
+          this.userPreferredLangCode
+        );
         const nameField = identityObj[this.name];
         if (Array.isArray(nameField)) {
           nameField.forEach((fld) => {
@@ -417,8 +414,25 @@ export class DashBoardComponent implements OnInit, OnDestroy {
         applicantResponse[
           appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.bookingStatusCode
         ],
-        dataCaptureLangs: dataCaptureLanguagesLabels,
+      regDto: applicantResponse[
+        appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.appointmentDate
+      ] != null ? {
+        "registration_center_id": applicantResponse[
+          appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.registrationCenterId
+        ],
+        "appointment_date": applicantResponse[
+          appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.appointmentDate
+        ],
+        "time_slot_from": applicantResponse[
+          appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.slotFromTime
+        ],
+        "time_slot_to": applicantResponse[
+          appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.slotToTime
+        ]
+      } : null,
+      dataCaptureLangs: dataCaptureLanguagesLabels,
     };
+    console.log(applicant);
     return applicant;
   }
 
@@ -611,10 +625,9 @@ export class DashBoardComponent implements OnInit, OnDestroy {
     let appointmentDate;
     let appointmentTime;
     console.log(element);
-    if (element[appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.appointmentDate] 
-      && element["status"].toLowerCase() === "booked") {
-      appointmentDate = element[appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.appointmentDate];
-      appointmentTime = element[appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.slotFromTime];
+    if (element.regDto && element.status.toLowerCase() === "booked") {
+      appointmentDate = element.regDto['appointment_date'];
+      appointmentTime = element.regDto['time_slot_from'];
     }
     if (element.regDto && element.status.toLowerCase() === "booked") {
       await this.sendNotification(
@@ -660,12 +673,14 @@ export class DashBoardComponent implements OnInit, OnDestroy {
   cancelAppointment(element: any) {
     let appointmentDate;
     let appointmentTime;
+    console.log(element.regDto);
     if (element.regDto) {
       element.regDto.pre_registration_id = element.applicationID;
       appointmentDate = element.regDto["appointment_date"];
       appointmentTime = element.regDto["time_slot_from"];
     }
-    //console.log(element.regDto);
+    console.log(element.regDto);
+    
     const subs = this.dataStorageService
       .cancelAppointment(
         new RequestModel(appConstants.IDS.booking, element.regDto),

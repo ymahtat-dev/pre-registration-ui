@@ -22,7 +22,9 @@
             >
             <div class="center_selection-center-available-text">
               ( {{ 'centerSelection.text_found' | translate }} {{ REGISTRATION_CENTRES.length }}
-              {{ 'centerSelection.text_centers' | translate }} )
+              {{ 'centerSelection.text_centers' | translate }} 
+              <span *ngIf="REGISTRATION_CENTRES.length == 0">{{'centerSelection.use_search_option' | translate}})</span>
+              <span *ngIf="REGISTRATION_CENTRES.length != 0">)</span>
             </div>
           </span>
           <button mat-button class="center_selection-nearby-btn" (click)="getLocation()">
