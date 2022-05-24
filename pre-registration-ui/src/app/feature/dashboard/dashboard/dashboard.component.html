@@ -27,9 +27,16 @@
       >
       <span>
         <!-- class="create-app-btn" -->
-        <button class="btn_axn-pri page_btn" (click)="onNewApplication()">
+        <button  style="margin-right: 20px" class="btn_axn-pri page_btn" (click)="onNewApplication()">
           <img src="assets\Create new application.png" class="create-app-img" />
           {{ "dashboard.action_cre_application" | translate }}
+        </button></span
+      >
+      <span>
+        <!-- class="create-app-btn" -->
+        <button class="btn_axn-pri page_btn" (click)="onNewLostUinApplication()">
+          <img src="assets\Create new application.png" class="create-app-img" />
+          {{ "dashboard.action_lost_uin" | translate }}
         </button></span
       >
     </div>
@@ -91,6 +98,16 @@
             <div class="card-content">
               <table>
                 <tr>
+                  <td class="column1">{{ "dashboard.card.type" | translate }}</td>
+                  <td
+                    [ngClass]="
+                      user.name.length > 30
+                        ? 'application-value user__name--wordwrap'
+                        : 'application-value'
+                    "
+                  >{{ user.bookingType }}</td>
+                </tr>
+                <tr *ngIf="user.name != ''">
                   <td class="column1">{{ "dashboard.card.text_name" | translate }}</td>
                   <td
                     [ngClass]="
@@ -143,7 +160,7 @@
                     >
                   </td>
                 </tr>
-                <tr>
+                <tr *ngIf="user.dataCaptureLangs.length > 0">
                   <td class="column1">{{ "dashboard.card.data_capture_langs" | translate }}</td>
                   <span *ngFor="let lang of user.dataCaptureLangs">
                     <td class="application-value">{{lang}}</td>
@@ -162,7 +179,7 @@
                   user.status === appStatusCodes.pending ||
                   user.status === appStatusCodes.incomplete
                 "
-                [disabled]="disableModifyDataButton"
+                [disabled]="disableModifyDataButton || user.bookingType != newPreRegApplication"
                 (click)="onModifyInformation(user)"
               >
                 <img
@@ -178,6 +195,7 @@
                   !(user.status === appStatusCodes.pending ||
                   user.status === appStatusCodes.incomplete)
                 "
+                [disabled]="user.bookingType != newPreRegApplication"
                 (click)="onModifyInformation(user)"
               >
                 <img

@@ -109,8 +109,15 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
           await this.getAppointmentDetails(prid).then((appointmentDetails) => {
             regDto = appointmentDetails;
           });
-          const demographicData = user["request"].demographicDetails.identity;
-          let applicationLanguages = Utils.getApplicationLangs(user["request"]);
+          let demographicData = {};
+          let applicationLanguages = [];
+          if (user["request"] && user["request"].demographicDetails) {
+            demographicData = user["request"].demographicDetails.identity;
+            applicationLanguages = Utils.getApplicationLangs(user["request"]);
+          }
+          if (applicationLanguages.length == 0) {
+            applicationLanguages = [this.langCode];
+          }
           applicationLanguages = Utils.reorderLangsForUserPreferredLang(applicationLanguages, this.langCode);
           applicationLanguages.forEach(applicationLang => {
             const nameListObj: NameList = {
@@ -125,7 +132,11 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
               labelDetails: [],
               userLangLabelDetails: []
             };
-            nameListObj.preRegId = user["request"].preRegistrationId;
+            if (user["request"].preRegistrationId) {
+              nameListObj.preRegId = user["request"].preRegistrationId;
+            } else {
+              nameListObj.preRegId = user["request"].applicationId;
+            }
             nameListObj.status = user["request"].statusCode;
             if (demographicData[this.name]) {
               let nameValues = demographicData[this.name];
@@ -172,7 +183,19 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
-        this.showErrorMessage(error);
+        this.dataStorageService.getApplicationDetails(prid.toString()).subscribe((response) => {
+          resolve(
+            new UserModel(
+              prid.toString(),
+              response[appConstants.RESPONSE],
+              undefined,
+              []
+            )
+          );
+        },
+        (error) => {
+          this.showErrorMessage(error);
+        });
       });
     });
   }
@@ -375,6 +398,7 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
           ] = this.guidelines[j].fileText.split("\n");
         }
       }
+      console.log(this.ackDataItem);
       this.ackDataArr.push(this.ackDataItem);
       this.ackDataItem = {};
     });

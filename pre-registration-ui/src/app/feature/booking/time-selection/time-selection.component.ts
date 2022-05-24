@@ -124,8 +124,11 @@ export class TimeSelectionComponent
   getUserInfo(preRegId) {
     return new Promise(async (resolve) => {
       for (let i = 0; i < preRegId.length; i++) {
-        await this.getUserDetails(preRegId[i]).then((user) =>
+        await this.getUserDetails(preRegId[i]).then((user) => {
+          console.log(user);  
           this.userInfo.push(user)
+        }
+        
         );
       }
       resolve(true);
@@ -145,7 +148,20 @@ export class TimeSelectionComponent
         );
       },
       (error) => {
-        this.showErrorMessage(error);
+        //this.showErrorMessage(error);
+        this.dataService.getApplicationDetails(prid.toString()).subscribe((response) => {
+          resolve(
+            new UserModel(
+              prid.toString(),
+              response[appConstants.RESPONSE],
+              undefined,
+              []
+            )
+          );
+        },
+        (error) => {
+          this.showErrorMessage(error);
+        });
       });
     });
   }
@@ -184,8 +200,13 @@ export class TimeSelectionComponent
         bookingData: "",
         postalCode: "",
       };
-      const demographicData = user["request"].demographicDetails.identity;
-      const applicationLanguages = Utils.getApplicationLangs(user["request"]);
+      let demographicData = {};
+      let applicationLanguages = [];
+      if (user["request"] && user["request"].demographicDetails) {
+        demographicData = user["request"].demographicDetails.identity;
+        applicationLanguages = Utils.getApplicationLangs(user["request"]);
+      }
+      
       let filteredLangs = applicationLanguages.filter(applicationLang => 
         applicationLang == this.userPreferredLangCode
       );
@@ -197,10 +218,17 @@ export class TimeSelectionComponent
           }
         });  
       } else {
-        nameList.fullName =
-        demographicData[this.name][0].value;
+        if (demographicData[this.name] && demographicData[this.name].length > 0) {
+          nameList.fullName = demographicData[this.name][0].value;
+        } else {
+          nameList.fullName = user.request.applicationId;
+        }
       }
-      nameList.preRegId = user.request.preRegistrationId;
+      if (user.request.preRegistrationId) {
+        nameList.preRegId = user.request.preRegistrationId;
+      } else {
+        nameList.preRegId = user.request.applicationId;
+      }
       nameList.status = user.request.statusCode;
       nameList.postalCode = demographicData["postalCode"];
       nameList.registrationCenter = regCenterInfo;

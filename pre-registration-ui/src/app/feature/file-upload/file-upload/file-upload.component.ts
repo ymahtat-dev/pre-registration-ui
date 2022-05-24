@@ -60,6 +60,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   dataCaptureLanguages = [];
   dataCaptureLanguagesLabels = [];
   dataCaptureLangsDir = [];
+  
   ltrLangs = this.config
     .getConfigByKey(appConstants.CONFIG_KEYS.mosip_left_to_right_orientation)
     .split(",");

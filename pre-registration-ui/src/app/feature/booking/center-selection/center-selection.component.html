@@ -1,7 +1,7 @@
-<div class="spinner" *ngIf="!isWorkingDaysAvailable">
+<div class="spinner" *ngIf="!pageLoaded">
   <mat-spinner></mat-spinner>
 </div>
-<div [dir]="textDir" class="center_selection-wrapper" *ngIf="isWorkingDaysAvailable">
+<div [dir]="textDir" class="center_selection-wrapper" *ngIf="pageLoaded">
   <!-- Header -->
   <mat-card class="center-selection__title-card">
     <mat-card-header>
@@ -22,7 +22,9 @@
             >
             <div class="center_selection-center-available-text">
               ( {{ 'centerSelection.text_found' | translate }} {{ REGISTRATION_CENTRES.length }}
-              {{ 'centerSelection.text_centers' | translate }} )
+              {{ 'centerSelection.text_centers' | translate }} 
+              <span *ngIf="REGISTRATION_CENTRES.length == 0">{{'centerSelection.use_search_option' | translate}})</span>
+              <span *ngIf="REGISTRATION_CENTRES.length != 0">)</span>
             </div>
           </span>
           <button mat-button class="center_selection-nearby-btn" (click)="getLocation()">
@@ -209,7 +211,7 @@
   </div>
 </div>
   <!-- Footer navigation -->
-  <div [dir]="textDir" *ngIf="isWorkingDaysAvailable">
+  <div [dir]="textDir" *ngIf="pageLoaded">
     <mat-card class="center-selection__button-container">
       <button (click)="routeBack()" class="user__btn user__btn-back">
         {{ 'centerSelection.action_back' | translate }}

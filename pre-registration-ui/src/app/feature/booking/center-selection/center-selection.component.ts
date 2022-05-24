@@ -25,7 +25,7 @@ export class CenterSelectionComponent
   implements OnInit, OnDestroy {
   REGISTRATION_CENTRES: RegistrationCentre[] = [];
   searchClick: boolean = true;
-  isWorkingDaysAvailable = false;
+  pageLoaded = false;
   canDeactivateFlag = true;
   locationTypes = [];
   identityData = [];
@@ -140,6 +140,21 @@ export class CenterSelectionComponent
             []
           )
         );
+      },
+      (error) => {
+        this.dataService.getApplicationDetails(prid.toString()).subscribe((response) => {
+          resolve(
+            new UserModel(
+              prid.toString(),
+              response[appConstants.RESPONSE],
+              undefined,
+              []
+            )
+          );
+        },
+        (error) => {
+          this.showErrorMessage(error);
+        });
       });
     });
   }
@@ -192,26 +207,29 @@ export class CenterSelectionComponent
     } else {
       console.log(`uiFieldName: ${uiFieldName}`);
       this.users.forEach((user) => {
-        //console.log(typeof user.request.demographicDetails.identity[uiFieldName]);
-        if (
-          typeof user.request.demographicDetails.identity[uiFieldName] ===
-          "object"
-        ) {
-          //console.log(user.request.demographicDetails.identity[uiFieldName][0].value);
-          this.locationCodes.push(
-            user.request.demographicDetails.identity[uiFieldName][0].value
-          );
-        } else if (
-          typeof user.request.demographicDetails.identity[uiFieldName] ===
-          "string"
-        ) {
-          //console.log(user.request.demographicDetails.identity[uiFieldName]);
-          this.locationCodes.push(
-            user.request.demographicDetails.identity[uiFieldName]
-          );
+        console.log(user);
+        if (user.request && user.request.demographicDetails && user.request.demographicDetails.identity) {
+          //console.log(typeof user.request.demographicDetails.identity[uiFieldName]);
+          if (
+            typeof user.request.demographicDetails.identity[uiFieldName] ===
+            "object"
+          ) {
+            //console.log(user.request.demographicDetails.identity[uiFieldName][0].value);
+            this.locationCodes.push(
+              user.request.demographicDetails.identity[uiFieldName][0].value
+            );
+          } else if (
+            typeof user.request.demographicDetails.identity[uiFieldName] ===
+            "string"
+          ) {
+            //console.log(user.request.demographicDetails.identity[uiFieldName]);
+            this.locationCodes.push(
+              user.request.demographicDetails.identity[uiFieldName]
+            );
+          }
         }
       });
-      //console.log(this.locationCodes);
+      console.log(this.locationCodes);
       await this.getLocationNamesByCodes();
       this.getRecommendedCentersApiCall();
     }
@@ -219,6 +237,9 @@ export class CenterSelectionComponent
 
   getLocationNamesByCodes() {
     return new Promise((resolve) => {
+      if (this.locationCodes.length == 0) {
+        resolve(true);
+      }
       this.locationCodes.forEach(async (pins,index) => {
         //console.log(pins);
         await this.getLocationNames(pins);
@@ -243,7 +264,10 @@ export class CenterSelectionComponent
         } 
       },
       (error) => {
-        this.showErrorMessage(error, this.errorlabels.regCenterNotavailabe);
+        if (this.locationNames.length != 0) {
+          this.showErrorMessage(error, this.errorlabels.regCenterNotavailabe);
+        }
+        this.pageLoaded = true;
       });
     this.subscriptions.push(subs);
   }
@@ -498,11 +522,12 @@ export class CenterSelectionComponent
                     center.workingDays = center.workingDays + day.name;
               });
             }
-            this.isWorkingDaysAvailable = true;
+            this.pageLoaded = true;
             resolve(true);
           },
           (error) => {
             this.showErrorMessage(error);
+            resolve(true);
           });
       });
     });

@@ -46,6 +46,12 @@ export class DataStorageService {
     return this.httpClient.get<Applicant[]>(url);
   }
 
+  getApplicationDetails(applicationId: string) {
+    let url =
+      this.BASE_URL + this.PRE_REG_URL + "applications/" + applicationId;
+    return this.httpClient.get<Applicant[]>(url);
+  }
+
   /**
    * @description This method returns the user details for the given pre-registration id.
    *
@@ -697,5 +703,18 @@ export class DataStorageService {
     const requesturl =
       this.BASE_URL + this.PRE_REG_URL + `applications/prereg/status/${prid}`;
     return this.httpClient.get(requesturl);
+  }
+
+  getAllApplications(userId: string) {
+    let url =
+      this.BASE_URL + this.PRE_REG_URL + appConstants.APPEND_URL.allApplicants;
+    return this.httpClient.get<Applicant[]>(url);
+  }
+
+  addlostUin(request: any) {
+    const obj = new RequestModel(appConstants.IDS.newLostUin, request);
+    let url =
+      this.BASE_URL + this.PRE_REG_URL + appConstants.APPEND_URL.applicantsLostUIn;
+    return this.httpClient.post(url, obj);
   }
 }
