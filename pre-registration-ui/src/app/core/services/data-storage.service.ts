@@ -162,12 +162,39 @@ export class DataStorageService {
     );
   }
 
-  deleteRegistration(preId: string) {
+  deletePreRegistration(preId: string) {
     return this.httpClient.delete(
       this.BASE_URL +
         this.PRE_REG_URL +
-        appConstants.APPEND_URL.delete_application +
+        appConstants.APPEND_URL.delete_prereg +
         preId
+    );
+  }
+
+  deleteLostUin(appId: string) {
+    return this.httpClient.delete(
+      this.BASE_URL +
+        this.PRE_REG_URL +
+        appConstants.APPEND_URL.delete_lostuin +
+        appId
+    );
+  }
+
+  deleteUpdateRegistration(appId: string) {
+    return this.httpClient.delete(
+      this.BASE_URL +
+        this.PRE_REG_URL +
+        appConstants.APPEND_URL.delete_updateregistration +
+        appId
+    );
+  }
+
+  deleteMiscellaneousPurpose(appId: string) {
+    return this.httpClient.delete(
+      this.BASE_URL +
+        this.PRE_REG_URL +
+        appConstants.APPEND_URL.delete_miscpurpose +
+        appId
     );
   }
 
@@ -715,6 +742,13 @@ export class DataStorageService {
     const obj = new RequestModel(appConstants.IDS.newLostUin, request);
     let url =
       this.BASE_URL + this.PRE_REG_URL + appConstants.APPEND_URL.applicantsLostUIn;
+    return this.httpClient.post(url, obj);
+  }
+
+  addMiscPurpose(request: any) {
+    const obj = new RequestModel(appConstants.IDS.newMiscPurpose, request);
+    let url =
+      this.BASE_URL + this.PRE_REG_URL + appConstants.APPEND_URL.applicantsMiscPurpose;
     return this.httpClient.post(url, obj);
   }
 }

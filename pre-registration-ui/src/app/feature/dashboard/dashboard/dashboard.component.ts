@@ -389,11 +389,12 @@ export class DashBoardComponent implements OnInit, OnDestroy {
         );
       }
     }
+    let bookingType = applicantResponse[
+      appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.bookingType
+    ].split("-")
     const applicant: Applicant = {
       applicationID: applicationId,
-      bookingType: applicantResponse[
-        appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.bookingType
-      ],
+      bookingType: bookingType.length > 0 ? bookingType[0] : '',
       name: applicantName,
       appointmentDateTime: applicantResponse[
         appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.appointmentDate
@@ -431,8 +432,9 @@ export class DashBoardComponent implements OnInit, OnDestroy {
         ]
       } : null,
       dataCaptureLangs: dataCaptureLanguagesLabels,
+      purpose: bookingType.length > 1 ? bookingType[1] : '',
     };
-    console.log(applicant);
+    //console.log(applicant);
     return applicant;
   }
 
@@ -442,7 +444,7 @@ export class DashBoardComponent implements OnInit, OnDestroy {
         .getUser(preRegId)
         .subscribe((response) => {
           let resp = response[appConstants.RESPONSE];
-          console.log(resp);
+          //console.log(resp);
           resolve(resp);
         },
         (error) => {
@@ -636,27 +638,13 @@ export class DashBoardComponent implements OnInit, OnDestroy {
         appointmentTime
       );
     }
-
-    const subs = this.dataStorageService
-      .deleteRegistration(element.applicationID)
+    if (element.bookingType == appConstants.NEW_PREREGISTRATION) {
+      const subs = this.dataStorageService
+      .deletePreRegistration(element.applicationID)
       .subscribe(
         (response) => {
           if (!response["errors"]) {
-            this.removeApplicant(element.applicationID);
-            let index = this.users.indexOf(element);
-            this.users.splice(index, 1);
-            index = this.selectedUsers.indexOf(element);
-            this.selectedUsers.splice(index, 1);
-            if (this.users.length == 0) {
-              localStorage.setItem("noOfApplicant", "0");
-              this.onNewApplication();
-              localStorage.setItem(appConstants.NEW_APPLICANT, "true");
-            } else {
-              this.displayMessage(
-                this.languagelabels.title_success,
-                this.languagelabels.deletePreregistration.msg_deleted
-              );
-            }
+            this.showSuccessMsg(element)
           }
         },
         (error) => {
@@ -667,9 +655,85 @@ export class DashBoardComponent implements OnInit, OnDestroy {
           );
         }
       );
-    this.subscriptions.push(subs);
+      this.subscriptions.push(subs);
+    }  
+    if (element.bookingType == appConstants.LOST_FORGOTTEN_UIN) {
+      const subs = this.dataStorageService
+      .deleteLostUin(element.applicationID)
+      .subscribe(
+        (response) => {
+          if (!response["errors"]) {
+            this.showSuccessMsg(element)
+          }
+        },
+        (error) => {
+          this.showErrorMessage(
+            error,
+            this.languagelabels.title_error,
+            this.languagelabels.deletePreregistration.msg_could_not_deleted
+          );
+        }
+      );
+      this.subscriptions.push(subs);
+    } 
+    if (element.bookingType == appConstants.MISCELLANEOUS_PURPOSE) {
+      const subs = this.dataStorageService
+      .deleteMiscellaneousPurpose(element.applicationID)
+      .subscribe(
+        (response) => {
+          if (!response["errors"]) {
+            this.showSuccessMsg(element)
+          }
+        },
+        (error) => {
+          this.showErrorMessage(
+            error,
+            this.languagelabels.title_error,
+            this.languagelabels.deletePreregistration.msg_could_not_deleted
+          );
+        }
+      );
+      this.subscriptions.push(subs);
+    } 
+    if (element.bookingType == appConstants.UPDATE_REGISTRATION) {
+      const subs = this.dataStorageService
+      .deleteUpdateRegistration(element.applicationID)
+      .subscribe(
+        (response) => {
+          if (!response["errors"]) {
+            this.showSuccessMsg(element)
+          }
+        },
+        (error) => {
+          this.showErrorMessage(
+            error,
+            this.languagelabels.title_error,
+            this.languagelabels.deletePreregistration.msg_could_not_deleted
+          );
+        }
+      );
+      this.subscriptions.push(subs);
+    }  
+    
   }
 
+  showSuccessMsg(element) {
+    this.removeApplicant(element.applicationID);
+    let index = this.users.indexOf(element);
+    this.users.splice(index, 1);
+    index = this.selectedUsers.indexOf(element);
+    this.selectedUsers.splice(index, 1);
+    if (this.users.length == 0) {
+      localStorage.setItem("noOfApplicant", "0");
+      this.onNewApplication();
+      localStorage.setItem(appConstants.NEW_APPLICANT, "true");
+    } else {
+      this.displayMessage(
+        this.languagelabels.title_success,
+        this.languagelabels.deletePreregistration.msg_deleted
+      );
+    }
+  }
   cancelAppointment(element: any) {
     let appointmentDate;
     let appointmentTime;
@@ -1029,7 +1093,6 @@ export class DashBoardComponent implements OnInit, OnDestroy {
   }
 
   onNewLostUinApplication() {
-    localStorage.setItem(appConstants.APPLICATION_TYPE, appConstants.LOST_UIN);
     const request = {
       langCode: this.userPreferredLangCode,
     };
@@ -1053,7 +1116,14 @@ export class DashBoardComponent implements OnInit, OnDestroy {
   } 
 
   onNewMiscApplication() {
-    alert("TODO");
+    if (this.loginId) {
+      this.router.navigateByUrl(
+        `${this.userPreferredLangCode}/other-purpose/new`
+      );
+      this.isNewApplication = true;
+    } else {
+      this.router.navigate(["/"]);
+    }
    } 
 
   ngOnDestroy(): void {

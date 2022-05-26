@@ -14,7 +14,7 @@ const appRoutes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'contact', component: ContactComponent },
-
+  { path: ':userPreferredLanguage/other-purpose/new', loadChildren: './feature/other-purpose/other-purpose.module#OtherPurposeModule' },      
   {
     path: ':userPreferredLanguage/pre-registration',
     component: ParentComponent,
