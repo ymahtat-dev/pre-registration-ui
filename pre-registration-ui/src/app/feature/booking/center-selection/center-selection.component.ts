@@ -486,10 +486,16 @@ export class CenterSelectionComponent
     ) {
       this.routeDashboard();
     } else {
-      let url = "";
-      url = Utils.getURL(this.router.url, "summary", 3);
-      this.canDeactivateFlag = false;
-      this.router.navigateByUrl(url + `/${this.preRegId[0]}/preview`);
+      this.users.forEach((user) => {
+        console.log(user);
+        if (user.preRegId == this.preRegId[0] && user.request && user.request.demographicDetails && user.request.demographicDetails.identity) {
+          let url = "";
+          url = Utils.getURL(this.router.url, "summary", 3);
+          this.canDeactivateFlag = false;
+          this.router.navigateByUrl(url + `/${this.preRegId[0]}/preview`);
+        }
+      });   
+      this.routeDashboard();
     }
   }
 

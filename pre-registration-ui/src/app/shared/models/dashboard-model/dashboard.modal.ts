@@ -16,4 +16,5 @@ export interface Applicant {
   regDto: any;
   //postalCode: string;
   dataCaptureLangs: string[];
+  purpose:string; 
 }

@@ -39,13 +39,14 @@
           {{ "dashboard.action_lost_uin" | translate }}
         </button></span
       >
+      <!-- 
       <span>
-        <!-- class="create-app-btn" -->
+        class="create-app-btn" 
         <button  style="margin-right: 20px" class="btn_axn-pri page_btn" (click)="onNewUpdateApplication()">
           <img src="assets\Create new application.png" class="create-app-img" />
           {{ "dashboard.action_update_registration" | translate }}
         </button></span
-      >
+      >-->
       <span>
         <!-- class="create-app-btn" -->
         <button class="btn_axn-pri page_btn" (click)="onNewMiscApplication()">
@@ -179,6 +180,10 @@
                   <span *ngFor="let lang of user.dataCaptureLangs">
                     <td class="application-value">{{lang}}</td>
                   </span>
+                </tr>
+                <tr *ngIf="user.purpose != ''">
+                  <td class="column1">{{ "otherPurpose.textLbl" | translate }}</td>
+                  <td class="application-value">{{ user.purpose }}</td>
                 </tr>
               </table>
             </div>
