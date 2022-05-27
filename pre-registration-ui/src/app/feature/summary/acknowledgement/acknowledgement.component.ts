@@ -153,12 +153,31 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
             nameListObj.langCode = applicationLang;
             nameListObj.regDto = regDto;
             this.usersInfoArr.push(nameListObj);
-            //console.log(this.usersInfoArr);
-            this.applicantContactDetails.push({
-              "preRegId": user["request"].preRegistrationId,
-              "phone": demographicData["phone"],
-              "email": demographicData["email"]
-            });
+            console.log(this.usersInfoArr);
+            if (user["request"] && user["request"].demographicDetails) {
+              this.applicantContactDetails.push({
+                "preRegId": user["request"].preRegistrationId,
+                "phone": demographicData["phone"],
+                "email": demographicData["email"]
+              });
+            } else {
+              const emailRegex = new RegExp(
+                this.configService.getConfigByKey(
+                  appConstants.CONFIG_KEYS.mosip_regex_email
+                )
+              );
+              const loginId = localStorage.getItem("loginId");
+              console.log(loginId);
+              let isloginIdEmail = false;
+              if (emailRegex.test(loginId)) {
+                isloginIdEmail = true;
+              }
+              this.applicantContactDetails.push({
+                "preRegId": user["request"].applicationId,
+                "phone": !isloginIdEmail? loginId: null,
+                "email": isloginIdEmail? loginId: null
+              });
+            } 
           });
         });
         if (index === preRegIds.length - 1) {
@@ -579,7 +598,7 @@ export class AcknowledgementComponent implements OnInit, OnDestroy {
             }
           });
           notificationObject[user.langCode] = new NotificationDtoModel(
-            user.fullName,
+            user.fullName != "" ?user.fullName:user.preRegId,
             user.preRegId,
             user.bookingData
               ? user.bookingData.split(",")[0]

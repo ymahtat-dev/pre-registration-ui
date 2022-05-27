@@ -632,11 +632,19 @@ export class DashBoardComponent implements OnInit, OnDestroy {
       appointmentTime = element.regDto['time_slot_from'];
     }
     if (element.regDto && element.status.toLowerCase() === "booked") {
-      await this.sendNotification(
-        element.applicationID,
-        appointmentDate,
-        appointmentTime
-      );
+      if (element.bookingType == appConstants.NEW_PREREGISTRATION) {
+        await this.sendNotification(
+          element.applicationID,
+          appointmentDate,
+          appointmentTime
+        );
+      } else {
+        await this.sendOtherNotification(
+          element.applicationID,
+          appointmentDate,
+          appointmentTime
+        );
+      }
     }
     if (element.bookingType == appConstants.NEW_PREREGISTRATION) {
       const subs = this.dataStorageService
@@ -751,17 +759,25 @@ export class DashBoardComponent implements OnInit, OnDestroy {
         element.applicationID
       )
       .subscribe(
-        (response) => {
+        async (response) => {
           if (!response["errors"]) {
             this.displayMessage(
               this.languagelabels.title_success,
               this.languagelabels.cancelAppointment.msg_deleted
             );
-            this.sendNotification(
-              element.applicationID,
-              appointmentDate,
-              appointmentTime
-            );
+            if (element.bookingType == appConstants.NEW_PREREGISTRATION) {
+              await this.sendNotification(
+                element.applicationID,
+                appointmentDate,
+                appointmentTime
+              );
+            } else {
+              await this.sendOtherNotification(
+                element.applicationID,
+                appointmentDate,
+                appointmentTime
+              );
+            }
             const index = this.users.indexOf(element);
             this.users[index].status =
               appConstants.APPLICATION_STATUS_CODES.cancelled;
@@ -1040,7 +1056,7 @@ export class DashBoardComponent implements OnInit, OnDestroy {
   private sendNotification(prid, appDate, appDateTime) {
     let userDetails;
     return new Promise((resolve, reject) => {
-      this.subscriptions.push(
+      this.subscriptions.push(  
         this.dataStorageService.getUser(prid).subscribe(
           (response) => {
             if (response[appConstants.RESPONSE]) {
@@ -1054,6 +1070,69 @@ export class DashBoardComponent implements OnInit, OnDestroy {
                 appDateTime,
                 userDetails.phone,
                 userDetails.email,
+                null,
+                true
+              );
+              console.log(notificationDto);
+              const model = new RequestModel(
+                appConstants.IDS.notification,
+                notificationDto
+              );
+              let notificationRequest = new FormData();
+              notificationRequest.append(
+                appConstants.notificationDtoKeys.notificationDto,
+                JSON.stringify(model).trim()
+              );
+              notificationRequest.append(
+                appConstants.notificationDtoKeys.langCode,
+                localStorage.getItem("langCode")
+              );
+              this.dataStorageService
+                .sendCancelNotification(notificationRequest)
+                .subscribe(
+                  (response) => {
+                    resolve(true);
+                  },
+                  (error) => {
+                    resolve(true);
+                    this.showErrorMessage(error);
+                  }
+                );
+            }
+          },
+          (error) => {
+            this.showErrorMessage(error);
+          }
+        )
+      );
+    });
+  }
+
+  private sendOtherNotification(prid, appDate, appDateTime) {
+    let userDetails;
+    return new Promise((resolve, reject) => {
+      this.subscriptions.push(  
+        this.dataStorageService.getApplicationDetails(prid).subscribe(
+          (response) => {
+            if (response[appConstants.RESPONSE]) {
+              const emailRegex = new RegExp(
+                this.configService.getConfigByKey(
+                  appConstants.CONFIG_KEYS.mosip_regex_email
+                )
+              );
+              const loginId = localStorage.getItem("loginId");
+              console.log(loginId);
+              let isloginIdEmail = false;
+              if (emailRegex.test(loginId)) {
+                isloginIdEmail = true;
+              }
+              const notificationDto = new NotificationDtoModel(
+                prid,
+                prid,
+                appDate,
+                appDateTime,
+                !isloginIdEmail? loginId: null,
+                isloginIdEmail? loginId: null,
                 null,
                 true
               );
