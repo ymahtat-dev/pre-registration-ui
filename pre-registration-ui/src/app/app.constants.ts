@@ -13,7 +13,7 @@ export const IDSchemaVersionLabel = 'IDSchemaVersion';
 export const IDS = {
   newUser: 'mosip.pre-registration.demographic.create',
   newLostUin: 'mosip.pre-registration.lostuin.create',
-  newMiscPurpose: 'mosip.pre-registration.miscellaneouspurpose.create',
+  newUpdateRegistration: 'mosip.pre-registration.updateregistration.create',
   updateUser: 'mosip.pre-registration.demographic.update',
   transliteration: 'mosip.pre-registration.transliteration.transliterate',
   notification: 'mosip.pre-registration.notification.notify',
@@ -37,7 +37,7 @@ export const APPEND_URL = {
   applicants: 'applications/prereg',
   allApplicants: 'applications',
   applicantsLostUIn: 'applications/lostuin',
-  applicantsMiscPurpose: 'applications/miscpurpose',
+  applicantsUpdateRegistration: 'applications/updateregistration',
   location: '/masterdata/',
   gender: '/masterdata/gendertypes',
   resident: '/masterdata/individualtypes',
@@ -56,7 +56,6 @@ export const APPEND_URL = {
   booking_availability: 'applications/appointment/slots/availability/',
   delete_prereg: 'applications/prereg/',
   delete_lostuin: 'applications/lostuin/',
-  delete_miscpurpose: 'applications/miscpurpose/',
   delete_updateregistration: 'applications/updateregistration/',
   qr_code: 'qrCode/generate',
   notification: 'notification',
@@ -219,5 +218,4 @@ export const FIELD_TYPE_SIMPLE_TYPE = "simpleType";
 export const APPLICATION_TYPE = "applicationType";
 export const NEW_PREREGISTRATION = "NEW_PREREGISTRATION";
 export const LOST_FORGOTTEN_UIN = "LOST_FORGOTTEN_UIN";
-export const MISCELLANEOUS_PURPOSE = "MISCELLANEOUS_PURPOSE";
 export const UPDATE_REGISTRATION = "UPDATE_REGISTRATION";
