@@ -432,7 +432,6 @@ export class DashBoardComponent implements OnInit, OnDestroy {
         ]
       } : null,
       dataCaptureLangs: dataCaptureLanguagesLabels,
-      purpose: bookingType.length > 1 ? bookingType[1] : '',
     };
     //console.log(applicant);
     return applicant;
@@ -668,25 +667,6 @@ export class DashBoardComponent implements OnInit, OnDestroy {
     if (element.bookingType == appConstants.LOST_FORGOTTEN_UIN) {
       const subs = this.dataStorageService
       .deleteLostUin(element.applicationID)
-      .subscribe(
-        (response) => {
-          if (!response["errors"]) {
-            this.showSuccessMsg(element)
-          }
-        },
-        (error) => {
-          this.showErrorMessage(
-            error,
-            this.languagelabels.title_error,
-            this.languagelabels.deletePreregistration.msg_could_not_deleted
-          );
-        }
-      );
-      this.subscriptions.push(subs);
-    } 
-    if (element.bookingType == appConstants.MISCELLANEOUS_PURPOSE) {
-      const subs = this.dataStorageService
-      .deleteMiscellaneousPurpose(element.applicationID)
       .subscribe(
         (response) => {
           if (!response["errors"]) {
@@ -1191,18 +1171,22 @@ export class DashBoardComponent implements OnInit, OnDestroy {
   }
 
   onNewUpdateApplication() {
-   alert("TODO");
-  } 
-
-  onNewMiscApplication() {
-    if (this.loginId) {
-      this.router.navigateByUrl(
-        `${this.userPreferredLangCode}/other-purpose/new`
-      );
-      this.isNewApplication = true;
-    } else {
-      this.router.navigate(["/"]);
-    }
+    const request = {
+      langCode: this.userPreferredLangCode,
+    };
+    this.subscriptions.push(
+      this.dataStorageService.addUpdateRegistration(request).subscribe(
+        (response) => {
+          let newApplicationId = response[appConstants.RESPONSE].applicationId;
+          this.router.navigateByUrl(
+            `${this.userPreferredLangCode}/pre-registration/booking/${newApplicationId}/pick-center`
+          );
+        },
+        (error) => {
+          this.showErrorMessage(error);
+        }
+      )
+    );
    } 
 
   ngOnDestroy(): void {

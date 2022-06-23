@@ -189,15 +189,6 @@ export class DataStorageService {
     );
   }
 
-  deleteMiscellaneousPurpose(appId: string) {
-    return this.httpClient.delete(
-      this.BASE_URL +
-        this.PRE_REG_URL +
-        appConstants.APPEND_URL.delete_miscpurpose +
-        appId
-    );
-  }
-
   cancelAppointment(data: RequestModel, preRegId: string) {
     return this.httpClient.put(
       this.BASE_URL +
@@ -745,10 +736,10 @@ export class DataStorageService {
     return this.httpClient.post(url, obj);
   }
 
-  addMiscPurpose(request: any) {
-    const obj = new RequestModel(appConstants.IDS.newMiscPurpose, request);
+  addUpdateRegistration(request: any) {
+    const obj = new RequestModel(appConstants.IDS.newUpdateRegistration, request);
     let url =
-      this.BASE_URL + this.PRE_REG_URL + appConstants.APPEND_URL.applicantsMiscPurpose;
+      this.BASE_URL + this.PRE_REG_URL + appConstants.APPEND_URL.applicantsUpdateRegistration;
     return this.httpClient.post(url, obj);
   }
 }
