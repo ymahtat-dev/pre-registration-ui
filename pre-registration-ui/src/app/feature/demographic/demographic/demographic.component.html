@@ -4,8 +4,9 @@
 <div>
   <div class="wrapper">
     <div class="user" *ngIf="primaryuserForm">
-      <header>{{demographiclabels.title}}
-        <span>
+      <header layout="row"> {{demographiclabels.title}}
+        <span style="display: inline-block;
+        height: 30px;">
           (
           <span *ngFor="let dataCaptureLang of dataCaptureLanguagesLabels;index as labelsIndex">
             <span [dir]="userPrefLanguageDir">&nbsp;{{dataCaptureLang}}&nbsp;</span>
