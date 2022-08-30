@@ -60,6 +60,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   dataCaptureLanguages = [];
   dataCaptureLanguagesLabels = [];
   dataCaptureLangsDir = [];
+  applicationStatus: string;
   
   ltrLangs = this.config
     .getConfigByKey(appConstants.CONFIG_KEYS.mosip_left_to_right_orientation)
@@ -238,8 +239,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
               undefined
             )
           );
-          this.user.request = response[appConstants.RESPONSE];
           let resp = response[appConstants.RESPONSE];
+          this.applicationStatus = resp["statusCode"];
           if (resp["statusCode"] !== appConstants.APPLICATION_STATUS_CODES.incomplete &&
             resp["statusCode"] !== appConstants.APPLICATION_STATUS_CODES.pending) {
             this.readOnlyMode = true;
