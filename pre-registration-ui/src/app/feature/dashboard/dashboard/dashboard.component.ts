@@ -312,8 +312,24 @@ export class DashBoardComponent implements OnInit, OnDestroy {
     applicant[
         appConstants.DASHBOARD_RESPONSE_KEYS.allApplicationsResp.slotToTime
       ];
-    let appointmentTime = " ( " + fromTime + " - " + toTime + " ) ";
+    const fromTimeF = this.formatTime(fromTime);
+    const toTimeF = this.formatTime(toTime);
+    let appointmentTime = " ( " + fromTimeF + " - " + toTimeF + " ) ";
     return appointmentTime;
+  }
+
+    /**
+   * @description This method formats time from 24 hour format to 12 hour.
+   *
+   * @param {*} time
+   * @returns formattedTime
+   */
+   private formatTime(time : any) {
+    const formattedTime = new Date('1970-01-01T' + time + 'Z' )
+    .toLocaleTimeString('en-US',
+       {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
+   );
+   return formattedTime;
   }
 
   /**
