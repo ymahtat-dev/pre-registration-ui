@@ -238,6 +238,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
               undefined
             )
           );
+          this.user.request = response[appConstants.RESPONSE];
           let resp = response[appConstants.RESPONSE];
           if (resp["statusCode"] !== appConstants.APPLICATION_STATUS_CODES.incomplete &&
             resp["statusCode"] !== appConstants.APPLICATION_STATUS_CODES.pending) {
