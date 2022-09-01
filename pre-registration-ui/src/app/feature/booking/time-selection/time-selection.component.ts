@@ -508,7 +508,15 @@ export class TimeSelectionComponent
         }
       });
     });
-    if (this.bookingDataList.length === 0) {
+    if (this.bookingDataList.length === 0 && this.selectedCard > 0 ) {
+      this.disableContinueButton = false;
+      this.showErrorMessage(
+        null,
+        this.languagelabels.noApplicantSelected
+      );
+      return;
+    }
+    else if (this.bookingDataList.length === 0 ) {
       this.disableContinueButton = false;
       this.showErrorMessage(
         null,
