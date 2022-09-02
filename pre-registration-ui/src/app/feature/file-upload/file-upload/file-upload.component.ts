@@ -941,7 +941,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     if (extensionRegex.test(this.fileExtension)) {
       allowedFileUploaded = true;
       if (
-        event.target.files[0].name.length <
+        event.target.files[0].name.length <=
         this.config.getConfigByKey(
           appConstants.CONFIG_KEYS
             .preregistration_document_alllowe_file_name_lenght
