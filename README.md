@@ -19,7 +19,7 @@ To start off we will be needing a Virtual Machine (VM) of at least 1 core proces
   - yum install docker (to install docker)
   - docker --version (to verify if docker is installed on your system)
 - Install node.js – To build the angular code using angular cli that runs on node. Follow the following steps to install node.js on your system.
-  - yum install rh-nodejs8 (to install node )
+  - yum install rh-nodejs8 (install node js)
   - scl enable rh-nodejs8 bash (to add node.js to environment)
   - node --version (to verify node.js is working)
 - Install angular cli – To install angular cli for building the code into deployable artifacts. Follow the following steps to install angular cli on your system.
@@ -29,10 +29,13 @@ To start off we will be needing a Virtual Machine (VM) of at least 1 core proces
   - git clone https://github.com/mosip/mosip.git (to clone the source code repository from git)
 - Build the code – Follow the following steps to build the source code on your system.
   - Navigate to the pre-registration-ui directory inside the cloned repository. Then run the following command in that directory
-  - ng build --prod --base-href . (to build the code)
+  - ng build "--prod" "--base-href" "." "--output-path=dist" (to build the code)
 - Build Docker Image – Follow the following steps to build docker image on your system.
   - docker build -t \&lt;name\&gt; . (to build the docker image, replace \&lt;name\&gt; with the name of the image you want, &quot;.&quot; Signifies the current directory from where the docker file has to be read.
+  - Example: docker build -t preregui .
 - Run the docker image – Follow the following steps to build docker image on your system.
   - docker run –d –p 80:80 --name \&lt;container name\&gt; \&lt;image name\&gt; (to run the docker image created with the previous step,-d signifies to run the container in detached mode, -p signifies the port mapping left side of the&quot;:&quot; is the external port that will be exposed to the outside world and right side is the internal port of the container that is mapped with the external port. Replace \&lt;container name\&gt; with the name of your choice for the container, replace \&lt;image name\&gt; with the name of the image specified in .the previous step)
+  - Example: docker run -d -p 8080:8080 --name nginx preregui
 
 Now you can access the user interface over the internet by accessing the public IP of VM via browser.
+- Example: http://localhost:8080/pre-registration-ui/#/eng
