@@ -508,6 +508,26 @@ export class LoginComponent implements OnInit {
             this.showVerify = false;
             let optInvalidMsg = this.Languagelabels["message"]["login"]["msg3"];
             this.showErrorMessage(error, optInvalidMsg);
+            const errCode = Utils.getErrorCode(error);
+            if (errCode === appConstants.ERROR_CODES.otpAttemptExceeded){
+              this.showContactDetails = true;
+              this.showSendOTP = true;
+              this.showOTP = false;
+              this.showVerify = false;
+              this.enableSendOtp = true;
+              if (this.enableCaptcha) {
+                this.showCaptcha = true;
+                this.enableSendOtp = false;
+              }
+              if (document.getElementById("minutesSpan")) {
+                document.getElementById("minutesSpan").innerText = this.minutes;
+              }
+              if (document.getElementById("timer")) {
+                document.getElementById("timer").style.visibility = "hidden";
+              }
+              clearInterval(this.timer);
+              return;
+            }
           }
         );
     }

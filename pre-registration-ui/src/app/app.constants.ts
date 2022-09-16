@@ -91,7 +91,8 @@ export const ERROR_CODES = {
   authenticationFailed: 'KER-401',
   invalidateToken: 'PRG_PAM_LGN_003',
   slotNotAvailable: 'PRG_BOOK_RCI_002',
-  timeExpired: 'PRG_BOOK_RCI_026'
+  timeExpired: 'PRG_BOOK_RCI_026',
+  otpAttemptExceeded : 'PRE-REG-OTP-409'
 };
 
 export const CONFIG_KEYS = {
