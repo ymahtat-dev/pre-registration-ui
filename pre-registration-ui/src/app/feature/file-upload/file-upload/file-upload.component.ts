@@ -582,22 +582,36 @@ export class FileUploadComponent implements OnInit, OnDestroy {
               documentCategories.forEach((documentCategory) => {
                 this.uiFields.forEach((uiField) => {
                   if (uiField.subType == documentCategory.code) {
-                    if (uiField.inputRequired) {
+                    if (uiField.inputRequired && uiField.required) { 
                       documentCategory["required"] = uiField.required;
                       documentCategory["labelName"] = uiField.labelName;
                       documentCategory["containerStyle"] = uiField.containerStyle;
                       documentCategory["headerStyle"] = uiField.headerStyle;
                       documentCategory["id"] = uiField.id;
                       this.userForm.addControl(uiField.id, new FormControl(""));
-                      if (uiField.required) {
-                        this.userForm.controls[uiField.id].setValidators(
+                      this.userForm.controls[uiField.id].setValidators(
                           Validators.required
                         );
-                      }
                       this.userForm.controls[uiField.id].setValue("");
                       this.LOD.push(documentCategory);
                     }
                   }
+                });
+              });
+              documentCategories.forEach((documentCategory) => {
+                this.uiFields.forEach((uiField) => {
+                   if (uiField.subType == documentCategory.code) {
+                    if (uiField.inputRequired && !uiField.required) {
+                      documentCategory["required"] = uiField.required;
+                      documentCategory["labelName"] = uiField.labelName;
+                      documentCategory["containerStyle"] = uiField.containerStyle;
+                      documentCategory["headerStyle"] = uiField.headerStyle;
+                      documentCategory["id"] = uiField.id;
+                      this.userForm.addControl(uiField.id, new FormControl(""));
+                      this.userForm.controls[uiField.id].setValue("");
+                      this.LOD.push(documentCategory);
+                    }
+                  } 
                 });
               });
               if (this.userFiles && this.userFiles["documentsMetaData"]) {
