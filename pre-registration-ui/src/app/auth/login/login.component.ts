@@ -526,6 +526,10 @@ export class LoginComponent implements OnInit {
                 document.getElementById("timer").style.visibility = "hidden";
               }
               clearInterval(this.timer);
+              console.log("otp validation attempt exceeded");
+              localStorage.removeItem("otp_sent_time");
+              localStorage.removeItem("user_email_or_phone");
+              localStorage.removeItem("show_captcha");
               return;
             }
           }
