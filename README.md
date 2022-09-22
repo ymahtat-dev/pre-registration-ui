@@ -27,7 +27,7 @@ To start off we will be needing a Virtual Machine (VM) of at least 1 core proces
   - npm install -g @angular/cli (to install angular cli)
   - ng --version (to verify angular is installed in system)
 - Check out the source code from GIT – To download the source code from git. Follow the following steps to download source code on your system.
-  - git clone https://github.com/mosip/mosip.git (to clone the source code repository from git)
+  - git clone https://github.com/mosip/pre-registration-ui.git (to clone the source code repository from git)
 - Build the code – Follow the following steps to build the source code on your system.
   - Navigate to the pre-registration-ui directory inside the cloned repository. Then run the following command in that directory
   - ng build "--prod" "--base-href" "." "--output-path=dist" (to build the code)
