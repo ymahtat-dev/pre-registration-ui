@@ -1504,6 +1504,7 @@ export class DemographicComponent
         const newMomentObj = moment(newDate, this.serverDtFormat);
         this.userForm.controls[dateFieldId].setValue(newDate);
         this.userForm.controls[`${dateFieldId}_dateCtrl`].setValue(newMomentObj);
+        this.userForm.controls[dateFieldId].markAsDirty();
         this.userForm.controls[dateFieldId].setErrors(null);
         if (this.dataModification) {
           this.hasDobChangedFromChildToAdult(dateFieldId);
