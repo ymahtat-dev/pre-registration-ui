@@ -9,11 +9,6 @@ This repository contains UI code for Pre-Registration portal. Refer [here](https
 ## Build &amp; Deployment Guide
 
 The code is written in Angular JS. 
-
-- Install GIT – GIT is a version control software, we will be using it to download the source code on our system. 
-  
-- Install Docker – Docker is the software used to create a runnable image from the existing source code.
-  (This is optional if you are running on local machine)
   
 - Install node.js – To build the angular code using angular cli that runs on node. 
   We recommend Node: 14.17.3, Package Manager: npm 6.14.13
