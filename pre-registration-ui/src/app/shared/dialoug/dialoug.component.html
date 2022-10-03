@@ -86,7 +86,7 @@
   </mat-dialog-actions>
 </div>
 <div *ngIf="input.case === 'CONSENTPOPUP'">
-  <h2 mat-dialog-title [dir]="input.textDirectionArr[0]">{{ input.title }}</h2>
+  <h2 [dir]="input.textDirectionArr[0]">{{ input.title }}</h2>
   <mat-dialog-content>
     <mat-accordion multi>
       <mat-expansion-panel *ngFor="let item of input.data; index as i; let isFirst = first;" [expanded]="isFirst">
