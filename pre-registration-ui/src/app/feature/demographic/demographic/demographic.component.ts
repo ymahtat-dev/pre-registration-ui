@@ -518,7 +518,6 @@ export class DemographicComponent
         case: "CONSENTPOPUP",
         data: newDataStructure,
         textDirectionArr: allLangsDir,
-        title: this.demographiclabels.consent.title,
         cancelBtn: this.demographiclabels.consent.cancelButton,
         alertMessageFirst: this.demographiclabels.consent.alertMessageFirst,
         alertMessageSecond: this.demographiclabels.consent.alertMessageSecond,
