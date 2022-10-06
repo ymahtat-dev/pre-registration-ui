@@ -484,7 +484,7 @@ export class TimeSelectionComponent
       x.push(name.fullName);
     });
 
-    return x.join(", ");
+    return x.join(" \n - ");
   }
 
   async makeBooking() {
@@ -598,9 +598,9 @@ export class TimeSelectionComponent
         case: "CONFIRMATION",
         message:
           this.languagelabels.deletedApplicant1[0] +
-          ' - "' +
+          ' - ' +
           this.getNames() +
-          ' ". ' +
+          ' \n ' +
           this.languagelabels.deletedApplicant1[1] +
           "?",
         yesButtonText: this.languagelabels.yesButtonText,
@@ -613,7 +613,7 @@ export class TimeSelectionComponent
         disableClose: true,
       });
       const subs = dialogRef.afterClosed().subscribe((selectedOption) => {
-        if (selectedOption) {
+        if (selectedOption === true ) {
           this.bookingOperation(request);
         } else {
           this.disableContinueButton = false;
