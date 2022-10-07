@@ -74,7 +74,9 @@
                   document.selectedDocName === '')" />
                 </span>
                 <span *ngIf="document.code === 'POA' && allApplicants">
-                  <span *ngIf="allApplicants.length >= 1"> {{ documentLabels.OR }}</span>
+                  <span *ngIf="allApplicants.length >= 1">   
+                    <div style="text-align:center"> {{ documentLabels.OR }} </div>
+                  </span>
                   <span *ngIf="allApplicants.length >= 1">
                     <mat-form-field class="file-upload__or">
                       <mat-select placeholder="{{ documentLabels.sameAs }}"
