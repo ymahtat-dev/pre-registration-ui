@@ -82,6 +82,7 @@ mat-card {
   left: 0;
   padding: 2px 2vw;
   display: flex;
+  flex-wrap: wrap;
   z-index: 22;
 }
 .spacer {

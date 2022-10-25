@@ -99,7 +99,7 @@ button {
 
 @media (max-width: 500px) {
   .form_fields_padding {
-    margin-left: 16%;
+    padding: 3px
   }
 }
 .captcha{
