@@ -65,3 +65,4 @@ The code is written in Angular JS.
   ```
   - Now start the server by typing <code>ng serve --proxy-config proxy.conf.json --ssl true</code>
   - Open the browser, load the app with <code>https://localhost:4200</code>
+  
