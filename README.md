@@ -5,7 +5,7 @@
 
 This repository contains UI code for Pre-Registration portal. Refer [here](https://docs.mosip.io/1.2.0/modules/pre-registration/pre-registration-user-guide) for details about the functions that a resident can perform via this portal.
 
-## Build &amp; Deployment Guide
+## Build and Deployment Guide 
 
 The code is written in Angular JS. 
   
