@@ -3,6 +3,14 @@ name: Pre-registration-ui build upon a push
 on:
   release:
     types: [published]
+  pull_request:
+    types: [opened]
+    branches:
+      - '!release-branch'
+      - release-1*
+      - 1.*
+      - develop
+      - MOSIP*
   push:
     branches:
       - '!release-branch'
@@ -32,6 +40,8 @@ jobs:
             SERVICE_NAME: 'pre-registration-ui'
             NPM_BUILD: true
             BUILD_ARTIFACT: 'pre-registration-ui'
+      fail-fast: false
+    name: ${{ matrix.SERVICE_NAME }}
     uses: mosip/kattu/.github/workflows/docker-build.yml@master
     with:
       SERVICE_LOCATION: ${{ matrix.SERVICE_LOCATION }}
@@ -46,6 +56,7 @@ jobs:
 
   sonar-analysis:
     needs: build-pre-registration-ui
+    if: "${{ github.event_name != 'pull_request' }}"
     uses: mosip/kattu/.github/workflows/npm-sonar-analysis.yml@master
     with:
       SERVICE_LOCATION: pre-registration-ui
