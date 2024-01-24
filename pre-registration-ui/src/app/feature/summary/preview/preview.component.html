@@ -23,7 +23,7 @@
         </span>)</span>
         <span [ngStyle]="userPrefLanguageDir == 'ltr'? {'float': 'right'} : {'float': 'left'}">
           <span *ngIf="!readOnlyMode" (click)="modifyDemographic()" class="preview__modify-file"
-            matTooltip="{{ helpText.modify_at_DemoPreview }}"><img src="assets/edit.png" /> {{
+            matTooltip="{{ helpText.modify_at_DemoPreview }}"><img src="assets/edit.png" alt="Edit"/> {{
             previewLabels.action_modify }}</span>
         </span>
       </div>
@@ -68,7 +68,7 @@
       <span>{{ previewLabels.title_document }}</span>
       <span [ngStyle]="userPrefLanguageDir == 'ltr'? {'float': 'right'} : {'float': 'left'}">
         <span *ngIf="!readOnlyMode" (click)="modifyDocument()" class="preview__modify-file"
-          matTooltip="{{ helpText.modify_at_DocumentPreview }}"><img src="assets/edit.png" /> {{
+          matTooltip="{{ helpText.modify_at_DocumentPreview }}"><img src="assets/edit.png" alt="Edit"/> {{
           previewLabels.action_modify }}</span>
       </span>
     </div>

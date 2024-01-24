@@ -42,7 +42,7 @@
           class="search-btn"
           (click)="setSearchClick(false)"
         >
-          <img src="assets\search.png" />
+          <img src="assets\search.png" alt="Search"/>
         </button>
       </div>
 
@@ -90,10 +90,10 @@
                 type="submit"
                 (click)="showResults()"
               >
-                <img src="assets\search_grey.png" />
+                <img src="assets\search_grey.png" alt="Search"/>
               </button>
               <button mat-icon-button class="search-cancel-btn" type="button" (click)="setSearchClick(true);resetPagination();">
-                <img src="assets\close.png" />
+                <img src="assets\close.png" alt="Close"/>
               </button>
             </mat-card>
           </form>
@@ -130,7 +130,7 @@
               />
               <div>
                 <div class="inline-flex" [dir]="textDir">
-                  <div><img src="assets\address.png" /></div>
+                  <div><img src="assets\address.png" alt="Address"/></div>
                   <div>
                     <strong>{{center.name}}</strong>
                     <strong *ngIf="center.addressLine1 != null && center.addressLine1 != ''">
@@ -145,7 +145,7 @@
                   </div>
                 </div>
                 <div>
-                  <span><img src="assets\contact number.png"/></span>
+                  <span><img src="assets\contact number.png" alt="Contact Number"/></span>
                   <span  *ngIf="center.contactPerson !== ''">
                     {{ center.contactPerson}}
                   </span>
