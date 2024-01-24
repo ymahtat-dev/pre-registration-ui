@@ -1,6 +1,6 @@
 ::ng-deep.mat-dialog-container {
   display: block;
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   border-radius: 2px;
   border-color: 1px solid #fd518c;
   box-sizing: border-box;

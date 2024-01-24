@@ -21,6 +21,7 @@
           <img
             src="assets\Book_Modify Appointment.png"
             class="modify-app-img"
+            alt="Modify appointment"
           />
           {{ "dashboard.action_modify_appointment" | translate }}
         </button></span
@@ -28,7 +29,7 @@
       <span>
         <!-- class="create-app-btn" -->
         <button class="btn_axn-pri page_btn" (click)="onNewApplication()">
-          <img src="assets\Create new application.png" class="create-app-img" />
+          <img src="assets\Create new application.png" alt="New application" class="create-app-img" />
           {{ "dashboard.action_cre_application" | translate }}
         </button></span
       >
@@ -73,6 +74,7 @@
                 [matTooltipDisabled]="false"
                 src="assets\lock.png"
                 class="lock-img"
+                alt="Lock"
             /></span>
             <button
               (click)="onDelete(user)"
@@ -84,12 +86,14 @@
                 [matTooltipDisabled]="false"
                 src="assets\delete.png"
                 class="delete-img"
+                alt="Delete"
               />
             </button>
           </div>
           <mat-card-content [ngStyle]="{ marginTop: getMargin(user.name) }">
             <div class="card-content">
               <table>
+                <caption>{{'dashboard.name' | translate}}</caption>
                 <tr>
                   <td class="column1">{{ "dashboard.card.text_name" | translate }}</td>
                   <td
@@ -168,6 +172,7 @@
                 <img
                   src="assets\Modify information_grey.png"
                   class="modifyinfo-btn-img"
+                  alt="Modify information"
                 />&nbsp;{{ "dashboard.card.action_modify_information" | translate }}
               </button>
               <!-- (click)="onSelectUser(user)" -->
@@ -183,6 +188,7 @@
                 <img
                   src="assets\Modify information_grey.png"
                   class="modifyinfo-btn-img"
+                  alt="Modify information"
                 />&nbsp;{{ "dashboard.card.action_view_information" | translate }}
               </button>
               <span class="spacer"></span>
@@ -197,7 +203,7 @@
                   user.status === appStatusCodes.prefetched
                 "
               >
-                <img src="assets\view.png" class="modifyapp-btn-img" />&nbsp;{{
+                <img src="assets\view.png" alt="View" class="modifyapp-btn-img" />&nbsp;{{
                   "dashboard.card.action_view_acknowledgement" | translate
                 }}
               </button>

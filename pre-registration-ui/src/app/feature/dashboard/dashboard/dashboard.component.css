@@ -20,7 +20,7 @@
   flex-wrap: wrap;
 }
 .heading {
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-size: 20px;
   color: #fd518c;
   opacity: 100%;
@@ -40,7 +40,7 @@ img {
   border-radius: 0px;
   margin-left: 15px !important;
   margin-top: 30px;
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-size: 11px !important;
 }
 .modify-app-btn {
@@ -49,12 +49,12 @@ img {
   border-radius: 0px;
   margin-left: 12px;
   margin-top: 30px;
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-size: 11px !important;
 }
 .create-app-btn {
   color: #ffffff;
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   background-color: #ff4081;
   opacity: 90%;
   margin-left: 12px;
@@ -74,7 +74,7 @@ img {
   padding-right: 45px;
 }
 .card-header {
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-size: 0.75rem;
   opacity: 100%;
   display: flex;

@@ -9,12 +9,13 @@
       <div class="print-section-inner-div" >
         <div [id]="message-container" class="ack__message-container">
           <p *ngFor="let ackMessage of ackData.messages">
-            <img style="vertical-align: middle;" src="assets/img/done.png" />&nbsp;&nbsp;{{ackMessage.preRegId}} :
+            <img style="vertical-align: middle;" src="assets/img/done.png" alt="Done"/>&nbsp;&nbsp;{{ackMessage.preRegId}} :
             {{ackMessage.message}}
           </p>
         </div>
         <div class="ack__header-container" [dir]="ackData.appLangCodeDir">
           <table>
+            <caption>{{'quick_guide.Acknowledgement.tablename' | translate}}</caption>
             <tr>
               <td>{{ ackData.preRegIdLabels}} : </td>
               <td><b>{{ ackData.preRegId}}</b></td>
