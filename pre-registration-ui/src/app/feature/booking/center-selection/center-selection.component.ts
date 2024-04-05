@@ -61,6 +61,7 @@ export class CenterSelectionComponent
   pageSize = this.defaultPageSize;
   pageIndex = 0;
   pageSizeOptions: number[] = [5, 10, 15, 20];
+  positions:any
   constructor(
     public dialog: MatDialog,
     private service: BookingService,
@@ -392,9 +393,10 @@ export class CenterSelectionComponent
     this.REGISTRATION_CENTRES = [];
     this.nearbyClicked = true;
     //console.log(navigator.geolocation);
-    if (navigator.geolocation) {
+    if ("geolocation" in navigator) {
       this.showMap = false;
-      navigator.geolocation.getCurrentPosition((position) => {
+      this.positions = navigator.geolocation;
+      this.positions.geolocation.getCurrentPosition((position) => {
         console.log(position.coords);
         //this.searchClick = true;
         const subs = this.dataService
