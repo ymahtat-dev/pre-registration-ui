@@ -124,12 +124,11 @@ table tr td {
   bottom: -1px;
   left: -2px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   /* margin-top: 0.2rem; */
   background-color: white;
   border-top: 5px solid #f4f4f4;
   padding: 0 2vw;
-  justify-content: flex-end;
 }
 
 @media (max-width: 500px) {

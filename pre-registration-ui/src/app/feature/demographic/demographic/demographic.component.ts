@@ -960,7 +960,7 @@ export class DemographicComponent
         this.jsonRulesEngine
           .run(formIdentityData)
           .then((results) => {
-            results.events.map((event) =>
+            results.events.forEach((event) =>
               console.log(
                 "jsonRulesEngine for visibleConditions run successfully",
                 event.params.data
@@ -1114,7 +1114,7 @@ export class DemographicComponent
         this.jsonRulesEngine
           .run(identityFormData)
           .then((results) => {
-            results.events.map((event) =>
+            results.events.forEach((event) =>
               console.log(
                 "jsonRulesEngine for requiredConditions run successfully",
                 event.params.data
