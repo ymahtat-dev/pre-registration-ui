@@ -15,7 +15,7 @@
       <div class="center_selection-intial-recommendation-container" *ngIf="searchClick; else elseBlock">
         <div *ngIf="REGISTRATION_CENTRES" class="center_selection-center_recommendation-display">
           <span (click)="getRecommendedCenters()"
-            ><b>{{ 'centerSelection.display_recommended' | translate }}</b
+            ><strong>{{ 'centerSelection.display_recommended' | translate }}</strong
             >&nbsp;&nbsp;
             <mat-icon matTooltip="{{ 'helpText.recommended_centers' | translate }}" [inline]="true"
               >help_outline</mat-icon

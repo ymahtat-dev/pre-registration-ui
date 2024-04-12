@@ -18,7 +18,7 @@
             <caption>{{'quick_guide.Acknowledgement.tablename' | translate}}</caption>
             <tr>
               <td>{{ ackData.preRegIdLabels}} : </td>
-              <td><b>{{ ackData.preRegId}}</b></td>
+              <td><strong>{{ ackData.preRegId}}</strong></td>
             </tr>
             <tr>
               <td>{{ ackData.appDateLabels }} : </td>
@@ -26,31 +26,31 @@
                 *ngIf="ackData.bookingTimePrimary && ackData.bookingTimePrimary.length > 0 && ackData.bookingTimePrimary[0].langAvailable">
                 <span *ngFor="let bookingTime of ackData.bookingTimePrimary; index as i;">
                   
-                  <b *ngIf="bookingTime.langCode == langCode">
+                  <strong *ngIf="bookingTime.langCode == langCode">
                     <span [dir]="ackData.appLangCodeDir">
                       {{ ackData.bookingDataPrimary[i].date }}, {{ bookingTime.time }}
                     </span>
-                  </b>
+                  </strong>
                 </span>
               </td>
               <td
                 *ngIf="ackData.bookingTimePrimary && ackData.bookingTimePrimary.length > 0 && !ackData.bookingTimePrimary[0].langAvailable">
-                <b>
+                <strong>
                   <span [dir]="ackData.appLangCodeDir">
                     {{ ackData.bookingDataPrimary[0].date }}, {{ ackData.bookingTimePrimary[0].time}}
                   </span>
-                  </b>
+                </strong>
               </td>
             </tr>
             <tr>
               <td>{{ ackData.contactPhoneLabels }} : </td>
-              <td><b>{{ ackData.contactPhone }}</b></td>
+              <td><strong>{{ ackData.contactPhone }}</strong></td>
             </tr>
             <tr>
               <td></td>
               <td>
                 <div *ngIf="ackData.qrCodeBlob" id="qr-code-container" class="ack__qr-code">
-                  <img id="qr-code" src="data:image/png;base64,{{ ackData.qrCodeBlob }}" />
+                  <img id="qr-code" src="data:image/png;base64,{{ ackData.qrCodeBlob }}" alt="acknowledgement-qr-code"/>
                 </div>
               </td>
             </tr>
@@ -58,14 +58,14 @@
         </div>
         <div [dir]="ackData.appLangCodeDir">
           <div id="body-container" *ngIf="ackData.regCntrNames" class="ack__body-container">
-            <table id="table-container">
+            <table id="table-container" aria-describedby="acknowledgement-data">
               <tr *ngIf="ackData.nameValues.trim() != ''">
                 <td>{{ ackData.labelNames }} : </td>
-                <td><b>{{ ackData.nameValues }}</b></td>
+                <td><strong>{{ ackData.nameValues }}</strong></td>
               </tr>
               <tr>
                 <td>{{ ackData.labelRegCntrs }} : </td>
-                <td><b>{{ ackData.regCntrNames }}</b></td>
+                <td><strong>{{ ackData.regCntrNames }}</strong></td>
               </tr>
             </table>
           </div>
@@ -73,7 +73,7 @@
         <div id="guidelines-container" class="ack__guidelines-container" [dir]="ackData.appLangCodeDir">
           <span *ngFor="let langCode of ackData.appLangCode">
             <div class="spacer"></div>
-            <table *ngIf="guidelines.length !== 0" class="ack__guidelines">
+            <table *ngIf="guidelines.length !== 0" class="ack__guidelines" aria-describedby="acknowledgement-guideline">
               <tr *ngFor="let guideline of ackData[langCode]">
                 <td class="inner-guideline-content">{{ guideline }}</td>
               </tr>

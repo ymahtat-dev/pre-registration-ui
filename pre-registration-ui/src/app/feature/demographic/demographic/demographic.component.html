@@ -53,12 +53,12 @@
                               (focusout)="transliterateFieldValue(field.id, dataCaptureLanguage, $event)"
                               (input)="transliterateFieldValue(field.id, dataCaptureLanguage, $event)" #keyboardRef
                               #input />
-                            <i *ngIf="dataCaptureLangsDir[i] === 'ltr'"
+                            <em *ngIf="dataCaptureLangsDir[i] === 'ltr'"
                               style="float: right; color: grey; cursor: pointer;" matSuffix class="material-icons"
-                              (click)="openKeyboard(field.id, dataCaptureLanguage)">keyboard</i>
-                            <i *ngIf="dataCaptureLangsDir[i] === 'rtl'"
+                              (click)="openKeyboard(field.id, dataCaptureLanguage)">keyboard</em>
+                            <em *ngIf="dataCaptureLangsDir[i] === 'rtl'"
                               style="float: left; color: grey; cursor: pointer;" matSuffix class="material-icons"
-                              (click)="openKeyboard(field.id, dataCaptureLanguage)">keyboard</i>
+                              (click)="openKeyboard(field.id, dataCaptureLanguage)">keyboard</em>
                           </mat-form-field>
                         </div>
                         <div *ngIf="readOnlyMode" [dir]="dataCaptureLangsDir[i]">

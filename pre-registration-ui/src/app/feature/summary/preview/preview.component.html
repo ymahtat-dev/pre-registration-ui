@@ -31,13 +31,13 @@
     <mat-card-content [dir]="dataCaptureLangsDir[0]">
       <div class="preview__body-content-container">
         <div class="preview__body-content-div">
-          <table width="100%">
+          <table width="100%" aria-describedby="preview-data">
             <tr *ngFor="let controlId of controlIds" class="row">
               <td width="30%">
                 <span *ngFor="let dataCaptureLanguage of dataCaptureLanguages; let i = index; let first = first; let last = last;">
-                  <b>{{ControlIdLabelObjects[controlId][dataCaptureLanguages[i]]}}</b>
-                  <i *ngIf="!last"> / </i>
-                  <i *ngIf="last"> : </i>
+                  <strong>{{ControlIdLabelObjects[controlId][dataCaptureLanguages[i]]}}</strong>
+                  <em *ngIf="!last"> / </em>
+                  <em *ngIf="last"> : </em>
                 </span>
               </td>  
               <span
@@ -51,7 +51,7 @@
                         <ng-template #displayLabel>{{previewData[controlId][i].label}}</ng-template>
                         <ng-template #displayValue>{{previewData[controlId][i].value}}</ng-template>
                       </td>
-                      <i *ngIf="!last"> / </i>
+                      <em *ngIf="!last"> / </em>
                     </ng-template>
                     <ng-template #other_content>
                       <td *ngIf="i == 0">{{previewData[controlId]}}</td>
@@ -75,7 +75,7 @@
     <mat-card-footer class="preview__footer-container">
       <div class="preview__footer">
         <div class="preview__file-container">
-          <table style="width:100%" *ngIf="documentMapObject">
+          <table style="width:100%" *ngIf="documentMapObject" aria-describedby="preview-data">
             <tr class="preview__file__table__header">
               <td *ngFor="let object of documentMapObject">{{ object.name }}</td>
             </tr>
