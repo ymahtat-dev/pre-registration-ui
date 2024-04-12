@@ -190,7 +190,7 @@
             selectedCard !== undefined
           "
         >
-          <table class="time-selection__name-list">
+          <table class="time-selection__name-list" aria-describedby="time-selection-name-list">
             <tr
               class="time-selection__name-list-item"
               *ngFor="
@@ -216,7 +216,7 @@
           {{ "timeSelection.text_available" | translate }}
         </div>
         <div>
-          <table class="time-selection__name-list">
+          <table class="time-selection__name-list" aria-describedby="time-selection-name-list">
             <tr
               class="time-selection__name-list-item"
               *ngFor="let item of deletedNames; let k = index"

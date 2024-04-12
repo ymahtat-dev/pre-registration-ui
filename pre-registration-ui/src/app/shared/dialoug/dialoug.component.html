@@ -8,7 +8,7 @@
         </mat-label>
         <input #email matInput (keyup)="validateEmail()" type="text" [(ngModel)]="applicantEmail"
           (focusout)="validateEmail();enableButton(email, mobile)" />
-        <i class="material-icons" matSuffix>email</i>
+        <em class="material-icons" matSuffix>email</em>
       </mat-form-field>
       <mat-error class="primary-errors" *ngIf="invalidApplicantEmail">
         {{ "dialog.invalidApplicantEmailId" | translate }}
@@ -21,7 +21,7 @@
         </mat-label>
         <input #mobile matInput (keyup)="validateMobile()" type="text" [(ngModel)]="applicantNumber"
           (focusout)="validateMobile();enableButton(email, mobile)" />
-        <i class="material-icons" matSuffix>chat</i>
+        <em class="material-icons" matSuffix>chat</em>
       </mat-form-field>
       <mat-error class="primary-errors" *ngIf="invalidApplicantNumber">
         {{ "dialog.invalidApplicantNumber" | translate }}

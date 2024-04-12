@@ -26,10 +26,10 @@
     <hr />
   </div>
   <div class="file-upload__message">
-    <b>
+    <strong>
       {{ documentLabels.text_filetype }} : {{ allowedFilesHtml }} &nbsp;{{ documentLabels.text_filesize }} : {{
       allowedFileSize }}
-    </b>
+    </strong>
   </div>
   <div class="file-upload__body" *ngIf="users[0] && LOD.length > 0 && dataLoaded">
     <div class="file-upload__body__1">
@@ -134,7 +134,7 @@
       </div>
       <div *ngIf="flag">
         <img *ngIf="fileUrl && fileExtension.toLowerCase() !== 'pdf'" class="file-uplaoad__body__2__preview"
-          [src]="fileUrl" />
+          [src]="fileUrl" alt="file-upload"/>
       </div>
       <div class="file-buttons" *ngIf="fileIndex >= 0">
         <button class="previousFile" [disabled]="fileIndex <= 0 ? true : false" (click)="previousFile(fileIndex)">
