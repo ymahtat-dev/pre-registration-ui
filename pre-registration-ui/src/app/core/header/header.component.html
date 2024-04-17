@@ -24,7 +24,6 @@
       <a *ngIf="authService.isAuthenticated()" (click)="onLogoClick()" mat-list-item>
         <img src="assets\logo-final.png" alt="MOSIP logo" class="header--logo" style="max-height: 40px"/>
       </a>
-      <!-- <div style="margin-left:5px;"><a routerLink="/" class="logo">logo</a></div> -->
       <mat-nav-list class="list-item">
         <a mat-list-item routerLink="/about-us">{{ 'header.link_about' | translate }}</a>
         <a mat-list-item routerLink="/faq">{{ 'header.link_faq' | translate }}</a>
@@ -45,7 +44,6 @@
     </mat-toolbar>
     <main class="main">
       <router-outlet></router-outlet>
-      <!-- <app-footer></app-footer> -->
     </main>
   </mat-sidenav-content>
 </mat-sidenav-container>

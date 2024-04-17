@@ -49,17 +49,10 @@ export class AutoLogoutService {
    * @memberof AutoLogoutService
    */
   getValues(langCode) {
-    (this.idle = Number(
-      this.configservice.getConfigByKey(appConstants.CONFIG_KEYS.mosip_preregistration_auto_logout_idle)
-    )),
-      (this.timeout = Number(
-        this.configservice.getConfigByKey(appConstants.CONFIG_KEYS.mosip_preregistration_auto_logout_timeout)
-      )),
-      (this.ping = Number(
-        this.configservice.getConfigByKey(appConstants.CONFIG_KEYS.mosip_preregistration_auto_logout_ping)
-      ));
-
-      this.dataStorageService
+    this.idle = Number(this.configservice.getConfigByKey(appConstants.CONFIG_KEYS.mosip_preregistration_auto_logout_idle))
+    this.timeout = Number(this.configservice.getConfigByKey(appConstants.CONFIG_KEYS.mosip_preregistration_auto_logout_timeout))
+    this.ping = Number(this.configservice.getConfigByKey(appConstants.CONFIG_KEYS.mosip_preregistration_auto_logout_ping))
+    this.dataStorageService
       .getI18NLanguageFiles(langCode)
       .subscribe((response) => {
         this.languagelabels = response['autologout'];
@@ -114,8 +107,12 @@ export class AutoLogoutService {
           }
         }
       },
-      () => {},
-      () => {}
+      () => {
+        // This is intentional
+      },
+      () => {
+        // This is intentional
+      }
     );
 
     this.userIdle.onTimeout().subscribe(() => {

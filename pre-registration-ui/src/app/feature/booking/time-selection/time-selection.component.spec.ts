@@ -144,7 +144,6 @@ describe('TimeSelectionComponent', () => {
     component.names = name;
     component.dateSelected(0);
     fixture.detectChanges();
-    // expect(component.enableBookButton).toBeTruthy();
   });
 
   it('should check enable bucket tabs', () => {

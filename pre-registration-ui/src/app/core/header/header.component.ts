@@ -50,8 +50,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ]);
   }
 
-  async doLogout() {
-    await this.showMessage();
+  doLogout() {
+    this.showMessage();
   }
 
   showMessage() {
@@ -73,8 +73,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           data: data,
         })
         .afterClosed()
-        .subscribe((response) => {
-          if (response === true) {
+        .subscribe((res) => {
+          if (res === true) {
             localStorage.removeItem("loggedOutLang");
             localStorage.removeItem("loggedOut");
             this.authService.onLogout();

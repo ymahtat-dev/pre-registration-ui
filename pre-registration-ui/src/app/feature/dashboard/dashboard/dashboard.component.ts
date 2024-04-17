@@ -66,8 +66,8 @@ export class DashBoardComponent implements OnInit, OnDestroy {
   locationHeirarchies: any[];
   mandatoryLanguages: string[];
   optionalLanguages: string[];
-  minLanguage: Number;
-  maxLanguage: Number;
+  minLanguage: number;
+  maxLanguage: number;
   isNavigateToDemographic = false;
   appStatusCodes = appConstants.APPLICATION_STATUS_CODES;
   newPreRegApplication = appConstants.NEW_PREREGISTRATION;

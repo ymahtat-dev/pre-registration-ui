@@ -1,8 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HostListener } from '@angular/core';
-import { Event as NavigationEvent, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Event as NavigationEvent, Router, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { NavigationStart } from '@angular/router';
 
 import { AutoLogoutService } from 'src/app/core/services/auto-logout.service';
 import { ConfigService } from './core/services/config.service';
@@ -21,7 +19,9 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private autoLogout: AutoLogoutService, private router: Router, private configService: ConfigService) {}
 
   ngOnInit() {
-    this.subscriptions.push(this.autoLogout.currentMessageAutoLogout.subscribe(() => {}));
+    this.subscriptions.push(this.autoLogout.currentMessageAutoLogout.subscribe(() => {
+       // This is intentional
+    }));
     this.autoLogout.changeMessage({ timerFired: false });
     this.routerType();
   }
@@ -32,8 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
         .pipe(filter((event: NavigationEvent) => event instanceof NavigationStart))
         .subscribe((event: NavigationStart) => {
           if (event.restoredState) {
-           // this.configService.navigationType = 'popstate';
-            //this.preventBack();
+           // This is intentional
           }
         })
     );

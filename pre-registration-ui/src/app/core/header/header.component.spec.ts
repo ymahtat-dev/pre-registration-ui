@@ -63,12 +63,4 @@ describe('HeaderComponent', () => {
       expect(routerStub.navigate).toHaveBeenCalled();
     });
   });
-  // describe('doLogout', () => {
-  //   it('makes expected calls', () => {
-  //     const authServiceStub: AuthService = fixture.debugElement.injector.get(AuthService);
-  //     spyOn(authServiceStub, 'onLogout');
-  //     component.doLogout();
-  //     expect(authServiceStub.onLogout).toHaveBeenCalled();
-  //   });
-  // });
 });

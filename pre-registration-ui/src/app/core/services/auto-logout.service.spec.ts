@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { UserIdleService } from 'angular-user-idle';
 import { MatDialog } from '@angular/material';
 import { AutoLogoutService } from './auto-logout.service';

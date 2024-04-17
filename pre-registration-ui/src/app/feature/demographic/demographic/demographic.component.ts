@@ -2158,7 +2158,7 @@ export class DemographicComponent
     }
   }
   
-  openLangSelectionPopup(mandatoryLanguages: string[], minLanguage: Number, maxLanguage: Number) {
+  openLangSelectionPopup(mandatoryLanguages: string[], minLanguage: number, maxLanguage: number) {
     return new Promise((resolve) => {
       const popupAttributes = Utils.getLangSelectionPopupAttributes(this.userPrefLanguageDir,
         this.dataCaptureLabels, mandatoryLanguages, minLanguage, maxLanguage, this.userPrefLanguage);

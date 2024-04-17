@@ -63,15 +63,6 @@ describe('RegistrationService', () => {
     expect(service.getUsers().length).toBe(0);
   }));
 
-  // it('gets the list of files of the user', inject([RegistrationService], (service: RegistrationService) => {
-  //   const x = {
-  //     files: ['hello.txt']
-  //   };
-  //   // service.addUser(x);
-  //   const files = service.getUserFiles(0);
-  //   expect(files).toBe(x.files);
-  // }));
-
   it('sets and gets registration center ID', inject([RegistrationService], (service: RegistrationService) => {
     const x = '12345';
     service.setRegCenterId(x);

@@ -609,7 +609,7 @@ export class PreviewComponent implements OnInit {
     }
   }
   
-  openLangSelectionPopup(mandatoryLanguages: string[], minLanguage: Number, maxLanguage: Number) {
+  openLangSelectionPopup(mandatoryLanguages: string[], minLanguage: number, maxLanguage: number) {
     return new Promise((resolve) => {
       const popupAttributes = Utils.getLangSelectionPopupAttributes(this.dataCaptureLangsDir[0], this.dataCaptureLabels, 
         mandatoryLanguages, minLanguage, maxLanguage, this.userPrefLanguage);

@@ -10,8 +10,6 @@ export class AboutUsComponent implements OnInit {
   langCode = '';
   panelOpenState = -1;
 
-  constructor() { }
-
   ngOnInit() {
     this.langCode = localStorage.getItem('langCode');
   }
