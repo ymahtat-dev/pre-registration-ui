@@ -130,15 +130,6 @@ input[type="radio"] {
   display: flex;
   margin-bottom: 60px;
 }
-.center-selection__button-container {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  padding: 2px 2vw;
-  display: flex;
-  z-index: 22;
-}
 .center_selection-intial-recommendation-container {
   display: flex;
   align-items: center;

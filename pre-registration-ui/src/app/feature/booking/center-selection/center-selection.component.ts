@@ -12,8 +12,7 @@ import Utils from "src/app/app.util";
 import { ConfigService } from "src/app/core/services/config.service";
 import * as appConstants from "./../../../app.constants";
 import { BookingDeactivateGuardService } from "src/app/shared/can-deactivate-guard/booking-guard/booking-deactivate-guard.service";
-import { Subscription } from "rxjs";;
-import identityStubJson from "../../../../assets/identity-spec1.json";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-center-selection",
@@ -142,7 +141,7 @@ export class CenterSelectionComponent
           )
         );
       },
-      (error) => {
+      (err) => {
         this.dataService.getApplicationDetails(prid.toString()).subscribe((response) => {
           resolve(
             new UserModel(
@@ -173,8 +172,6 @@ export class CenterSelectionComponent
   return new Promise((resolve, reject) => {
     this.dataService.getIdentityJson().subscribe(
       async (response) => {
-        //response = identityStubJson;
-        //console.log(identityStubJson);
         let identityJsonSpec =
           response[appConstants.RESPONSE]["jsonSpec"]["identity"];
         this.identityData = identityJsonSpec["identity"];
@@ -188,7 +185,6 @@ export class CenterSelectionComponent
 }
 
   async getRecommendedCenters() {
-    //console.log("getRecommendedCenters");
     this.totalItems = 0;
     this.nearbyClicked = false;
     let uiFieldName = null;
@@ -196,7 +192,7 @@ export class CenterSelectionComponent
       if (
         obj.inputRequired === true &&
         obj.controlType !== null &&
-        !(obj.controlType === "fileupload")
+        (obj.controlType !== "fileupload")
       ) {
         if (obj.locationHierarchyLevel && this.recommendedCenterLocCode == obj.locationHierarchyLevel) {
           uiFieldName = obj.id;
@@ -210,12 +206,10 @@ export class CenterSelectionComponent
       this.users.forEach((user) => {
         console.log(user);
         if (user.request && user.request.demographicDetails && user.request.demographicDetails.identity) {
-          //console.log(typeof user.request.demographicDetails.identity[uiFieldName]);
           if (
             typeof user.request.demographicDetails.identity[uiFieldName] ===
             "object"
           ) {
-            //console.log(user.request.demographicDetails.identity[uiFieldName][0].value);
             this.locationCodes.push(
               user.request.demographicDetails.identity[uiFieldName][0].value
             );
@@ -223,7 +217,6 @@ export class CenterSelectionComponent
             typeof user.request.demographicDetails.identity[uiFieldName] ===
             "string"
           ) {
-            //console.log(user.request.demographicDetails.identity[uiFieldName]);
             this.locationCodes.push(
               user.request.demographicDetails.identity[uiFieldName]
             );
@@ -242,7 +235,6 @@ export class CenterSelectionComponent
         resolve(true);
       }
       this.locationCodes.forEach(async (pins,index) => {
-        //console.log(pins);
         await this.getLocationNames(pins);
         if(index===this.locationCodes.length-1){
           resolve(true);
@@ -329,7 +321,6 @@ export class CenterSelectionComponent
         this.pageSize = pageEvent.pageSize;
         this.pageIndex = pageEvent.pageIndex;
       }
-      //console.log(this.locationType);
       const subs = this.dataService
         .getRegistrationCentersByNamePageWise(
           this.locationType.hierarchyLevel,
@@ -353,7 +344,6 @@ export class CenterSelectionComponent
             this.showMessage = true;
             this.totalItems = 0;
             this.selectedCentre = null;
-            //this.showErrorMessage(error);
           });
       this.subscriptions.push(subs);
     } else {
@@ -364,11 +354,9 @@ export class CenterSelectionComponent
   }
 
   onChangeLocationType() {
-    //console.log('onChangeLocationType');
     this.showMessage = false;
     this.totalItems = 0;
     this.searchText = "";
-    //this.REGISTRATION_CENTRES = [];
     this.selectedCentre = null;
   }
 
@@ -392,25 +380,20 @@ export class CenterSelectionComponent
   getLocation() {
     this.REGISTRATION_CENTRES = [];
     this.nearbyClicked = true;
-    //console.log(navigator.geolocation);
     if ("geolocation" in navigator) {
       this.showMap = false;
       this.positions = navigator.geolocation;
       this.positions.geolocation.getCurrentPosition((position) => {
         console.log(position.coords);
-        //this.searchClick = true;
         const subs = this.dataService
           .getNearbyRegistrationCenters(position.coords)
           .subscribe(
             (response) => {
-              //console.log(response[appConstants.RESPONSE]["registrationCenters"].length);
               if (
                 response[appConstants.RESPONSE]["registrationCenters"].length !== 0
               ) {
-                //this.searchClick = false;
                 this.displayResults(response[appConstants.RESPONSE]);
               } else {
-                //this.searchClick = false;
                 this.showMessage = true;
                 this.selectedCentre = null;
               }
@@ -418,15 +401,13 @@ export class CenterSelectionComponent
             (error) => {
               this.showMessage = true;
               this.selectedCentre = null;
-              //this.showErrorMessage(error);
             });
         this.subscriptions.push(subs);
       });
-    } else {
     }
   }
 
-  changeTimeFormat(time: string): string | Number {
+  changeTimeFormat(time: string): string | number {
     let inputTime = time.split(":");
     let formattedTime: any;
     if (Number(inputTime[0]) < 12 && Number(inputTime[0]) > 0) {
@@ -445,7 +426,7 @@ export class CenterSelectionComponent
     return formattedTime;
   }
 
-  showTime(startTime: string, endTime: string): string | Number {
+  showTime(startTime: string, endTime: string): string | number {
     let formattedStartTime = this.changeTimeFormat(startTime);
     let formattedEndTime = this.changeTimeFormat(endTime);
     let formattedTime = formattedStartTime + ' - ' + formattedEndTime;

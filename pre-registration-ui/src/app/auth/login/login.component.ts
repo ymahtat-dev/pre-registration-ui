@@ -10,7 +10,6 @@ import { ConfigService } from "src/app/core/services/config.service";
 import * as appConstants from "../../app.constants";
 import Utils from "src/app/app.util";
 import moment from "moment";
-import stubConfig from "../../../assets/stub-config.json";
 
 @Component({
   selector: "app-login",
@@ -47,8 +46,8 @@ export class LoginComponent implements OnInit {
   captchaError: boolean;
   mandatoryLanguages: string[];
   optionalLanguages: string[];
-  minLanguage: Number;
-  maxLanguage: Number;
+  minLanguage: number;
+  maxLanguage: number;
   languageSelectionArray = [];
   userPreferredLanguage: string;
   langCode: string;
@@ -74,11 +73,8 @@ export class LoginComponent implements OnInit {
   }
 
   async ngOnInit() {
-    //console.log(`forceLogout: ${localStorage.getItem(appConstants.FORCE_LOGOUT)}`);
-    //console.log("isAuthenticated: " + this.authService.isAuthenticated());
     if (localStorage.getItem(appConstants.FORCE_LOGOUT) != appConstants.FORCE_LOGOUT_YES 
       && this.authService.isAuthenticated()) {
-      //console.log("valid session redirecting to dashboard");
       this.router.navigate([localStorage.getItem("langCode"), "dashboard"]);
     } else {
       if (localStorage.getItem(appConstants.FORCE_LOGOUT) == appConstants.FORCE_LOGOUT_YES) {
@@ -104,7 +100,6 @@ export class LoginComponent implements OnInit {
 
   async loadConfigs() {
     this.dataService.getConfig().subscribe((response) => {
-      //response = stubConfig;
       this.configService.setConfig(response);
       this.appVersion = this.configService.getConfigByKey(
         "preregistration.ui.version"
@@ -144,9 +139,7 @@ export class LoginComponent implements OnInit {
     console.log(`otp_sent_time: ${otp_sent_time}`);
     if (otp_sent_time && user_email_or_phone) {
       let otpSentTime = moment(otp_sent_time).toISOString();
-      //console.log(`otpSentTime: ${otpSentTime}`);
       let currentTime = moment().toISOString();
-      //console.log(`currentTime: ${currentTime}`);
       let otpExpiryIntervalInSeconds = Number(
         this.configService.getConfigByKey(
           appConstants.CONFIG_KEYS.mosip_kernel_otp_expiry_time
@@ -155,15 +148,12 @@ export class LoginComponent implements OnInit {
       if (isNaN(otpExpiryIntervalInSeconds)) {
         otpExpiryIntervalInSeconds = 120; //2 mins by default
       }
-      //console.log(`otpExpiryIntervalInSeconds: ${otpExpiryIntervalInSeconds}`);
       var timeLapsedInSeconds = moment(currentTime).diff(
         moment(otpSentTime),
         "seconds"
       );
-      //console.log(`timeLapsedInSeconds: ${timeLapsedInSeconds}`);
       if (timeLapsedInSeconds <= otpExpiryIntervalInSeconds) {
         console.log("otp interval not yet expired");
-        //console.log(this.timer);
         let newOtpIntervalInSeconds =
           otpExpiryIntervalInSeconds - timeLapsedInSeconds;
         console.log(`newOtpIntervalInSeconds: ${newOtpIntervalInSeconds}`);
@@ -174,7 +164,6 @@ export class LoginComponent implements OnInit {
         }
         this.errorMessage = "";
         this.inputOTP = "";
-        //this.showResend = false;
         this.showOTP = true;
         this.showSendOTP = false;
         this.showContactDetails = false;
@@ -215,9 +204,7 @@ export class LoginComponent implements OnInit {
       ...this.mandatoryLanguages,
       ...this.optionalLanguages,
     ];
-    this.maxLanguage == 1
-      ? (this.showLanguageDropDown = false)
-      : (this.showLanguageDropDown = true);
+    this.showLanguageDropDown = this.maxLanguage == 1 ? false : true;
     localStorage.setItem(
       "availableLanguages",
       JSON.stringify(this.languageSelectionArray)
@@ -354,15 +341,12 @@ export class LoginComponent implements OnInit {
     ) {
       this.errorMessage = "";
       this.showVerify = true;
-      //this.showResend = false;
     } else {
-      //this.showResend = false;
       this.showVerify = false;
     }
   }
 
   verifyInput() {
-    //this.loginIdValidator();
     this.errorMessage ="";
   }
 
@@ -393,7 +377,6 @@ export class LoginComponent implements OnInit {
         // redirecting to initial phase on completion of timer
         this.showContactDetails = true;
         this.showSendOTP = true;
-        //this.showResend = true;
         this.showOTP = false;
         this.showVerify = false;
         this.enableSendOtp = true;
@@ -417,10 +400,11 @@ export class LoginComponent implements OnInit {
     }
     if (document.getElementById("secondsSpan") &&
       document.getElementById("secondsSpan").innerText) {
+      let newSecVal = --secValue;
       if (secValue === 10 || secValue < 10) {
-        document.getElementById("secondsSpan").innerText = "0" + --secValue;
+        document.getElementById("secondsSpan").innerText = "0" + newSecVal;
       } else {
-        document.getElementById("secondsSpan").innerText = --secValue + "";
+        document.getElementById("secondsSpan").innerText = newSecVal + "";
       }
     }
   };
@@ -452,7 +436,6 @@ export class LoginComponent implements OnInit {
               );
               this.errorMessage = undefined;
               this.inputOTP = "";
-              //this.showResend = false;
               this.showOTP = true;
               this.showSendOTP = false;
               this.showContactDetails = false;
@@ -475,9 +458,7 @@ export class LoginComponent implements OnInit {
           },
           (error) => {
             clearInterval(this.timer);
-            //console.log(error);
             if (this.enableCaptcha){
-              //this.inputContactDetails = "";
               this.resetCaptcha = true;
               this.captchaToken = null;
               this.enableSendOtp = false;  
@@ -506,7 +487,6 @@ export class LoginComponent implements OnInit {
             } 
           },
           (error) => {
-            //console.log(error);
             this.inputOTP = "";
             this.disableVerify = false;
             this.showVerify = false;
@@ -534,7 +514,6 @@ export class LoginComponent implements OnInit {
               localStorage.removeItem("otp_sent_time");
               localStorage.removeItem("user_email_or_phone");
               localStorage.removeItem("show_captcha");
-              return;
             }
           }
         );
@@ -591,7 +570,6 @@ export class LoginComponent implements OnInit {
   showOtpMessage() {
     this.inputOTP = "";
     let response = this.Languagelabels;
-    //console.log(response);
     let otpmessage = response["message"]["login"]["msg3"];
     const message = {
       case: "MESSAGE",

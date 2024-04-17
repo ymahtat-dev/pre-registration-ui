@@ -19,8 +19,7 @@ export default class Utils {
         urlSegments.pop();
       }
       urlSegments.push(nextRoute);
-      const url = urlSegments.join("/");
-      return url;
+      return urlSegments.join("/");
     }
   }
 
@@ -40,7 +39,6 @@ export default class Utils {
     language: string,
     ltrLangs: string[]
   ) {
-    //console.log(`language: ${language}`);
     let localeId = language.substring(0, 2);
     JSON.parse(localStorage.getItem(appConstants.LANGUAGE_CODE_VALUES)).forEach((element) => {
       if (language === element.code && element.locale) {
@@ -50,12 +48,10 @@ export default class Utils {
         }
       }
     });
-    //console.log(`getBookingDateTime: ${localeId}`);
     const localeData = localStorage.getItem(localeId);
     let proceed = false;
     if (localeData !== null) {
       registerLocaleData(JSON.parse(localeData));
-      //console.log(`registered localeId: ${localeId}`);
       proceed = true;
     } else {
       registerLocaleData(localeEn, "en");
@@ -73,7 +69,6 @@ export default class Utils {
       }  else {
         appointmentDateTime = date.join(" ");
       }
-      //console.log(appointmentDateTime);
       return appointmentDateTime;
     } else {
       return appointment_date;
@@ -173,7 +168,7 @@ export default class Utils {
     return dataCaptureLanguagesLabels;
   };
 
-  static getLangSelectionPopupAttributes(textDir: string,dataCaptureLabels: any, mandatoryLanguages: string[], minLanguage: Number, maxLanguage: Number, userPrefLanguage : string) {
+  static getLangSelectionPopupAttributes(textDir: string,dataCaptureLabels: any, mandatoryLanguages: string[], minLanguage: number, maxLanguage: number, userPrefLanguage : string) {
     //create string with mandatory Lang Names
     let mandatoryLang = "";
     mandatoryLanguages.forEach((lang) => {
@@ -242,7 +237,6 @@ export default class Utils {
     } else if (userRequest.langCode) {
       applicationLanguages = [userRequest.langCode];
     }
-    //console.log(`applicationLanguages: ${applicationLanguages}`);
     return applicationLanguages;
   }
 

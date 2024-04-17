@@ -212,9 +212,7 @@
   font-weight: 500;
   color: white;
 }
-.circleBase {
-  border-radius: 10%;
-}
+
 .sizing {
   height: 130px;
   display: inline-block;
@@ -312,6 +310,7 @@
   .time-selection__name-list-header {
     min-height: 50px;
     padding: 5px;
+    width: 100%;
   }
 
   .time-selection__name-list-item {
@@ -332,11 +331,6 @@
     flex-wrap: wrap;
     width: 94%;
     margin-top: 24px;
-  }
-
-  .time-selection__name-list-header {
-    height: 70px; 
-    width: 100%;
   }
 
   .user-back-btn,

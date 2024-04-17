@@ -8,8 +8,7 @@ import { AppRoutingModule } from "../app-routing.module";
 import { SharedModule } from "../shared/shared.module";
 import { CoreModule } from "../core/core.module";
 import {
-  RecaptchaModule,
-  RECAPTCHA_LANGUAGE,
+  RecaptchaModule
 } from "ng-recaptcha";
 import { CaptchaComponent } from './captcha/captcha.component';
 @NgModule({

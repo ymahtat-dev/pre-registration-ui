@@ -1,7 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRouteSnapshot } from '@angular/router';
-import { RouterStateSnapshot } from '@angular/router';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { AuthGuardService } from './auth-guard.service';
 describe('AuthGuardService', () => {

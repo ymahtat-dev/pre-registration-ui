@@ -14,7 +14,6 @@ export class BookingService {
   private registrationCenterCoordinatesList = new BehaviorSubject(Array);
   coordinatesList = this.registrationCenterCoordinatesList.asObservable();
 
-  constructor() {}
 
   changeCoordinates(coordinates) {
     this.coordinatesSource.next(coordinates);

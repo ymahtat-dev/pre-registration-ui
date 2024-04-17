@@ -36,7 +36,7 @@ export class TimeSelectionComponent
   @ViewChild("widgetsContent", { read: ElementRef }) public widgetsContent;
   @ViewChild("cardsContent", { read: ElementRef }) public cardsContent;
   textDir = localStorage.getItem("dir");
-  registrationCenter: String;
+  registrationCenter: string;
   selectedCard: number;
   selectedTile = 0;
   showNote = false;
@@ -147,8 +147,7 @@ export class TimeSelectionComponent
           )
         );
       },
-      (error) => {
-        //this.showErrorMessage(error);
+      (err) => {
         this.dataService.getApplicationDetails(prid.toString()).subscribe((response) => {
           resolve(
             new UserModel(
@@ -270,8 +269,6 @@ export class TimeSelectionComponent
 
   dateSelected(index: number) {
     this.selectedTile = index;
-    // this.placeNamesInSlots();
-    // this.cardSelected(0);
   }
 
   cardSelected(index: number): void {
