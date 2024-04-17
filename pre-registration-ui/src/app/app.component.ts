@@ -39,12 +39,13 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
-  preventBack() {
-    window.history.forward();
-    window.onunload = function() {
-      null;
-    };
-  }
+  // preventBack() {
+  //   window.history.forward();
+  //   window.onunload = function() {
+  //     null;
+  //     console.log("Hello")
+  //   };
+  // }
 
   @HostListener('mouseover')
   @HostListener('document:mousemove', ['$event'])

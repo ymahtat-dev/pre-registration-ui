@@ -45,7 +45,7 @@ mat-form-field {
 .error-dialog {
   margin-bottom: 15px;
 }
-:ng-deep .mat-form-field-invalid .mat-input-element {
+::ng-deep .mat-form-field-invalid .mat-input-element {
   caret-color: #ff0000;
   color: #ff0000;
 }

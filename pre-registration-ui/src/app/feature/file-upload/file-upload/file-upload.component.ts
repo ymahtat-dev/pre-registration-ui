@@ -298,7 +298,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
         let arr = [];
         let indice: number;
         let indexLOD: number;
-        this.LOD.filter((ele, i) => {
+         this.LOD.forEach((ele, i) => {
           if (ele.code === fileMetadata[index].docCatCode) {
             indice = index;
             indexLOD = i;
@@ -869,7 +869,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
                 this.users[0].files.documentsMetaData = updatedFiles;
               }
               let index: number;
-              this.LOD.filter((ele, i) => {
+              this.LOD.forEach((ele, i) => {
                 if (ele.code === fileMeta.docCatCode) index = i;
               });
               this.LOD[index].selectedDocName = "";
@@ -1320,7 +1320,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
               this.registration.setSameAs(event.value);
               this.removePOADocument();
               let index: number;
-              this.LOD.filter((ele, i) => {
+              this.LOD.forEach((ele, i) => {
                 if (ele.code === "POA") index = i;
               });
               this.LOD[index].selectedDocName = "";
@@ -1358,7 +1358,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
               await this.changeStatusToPending();
               let index: number;
               let poaTypes = [];
-              this.LOD.filter((ele, i) => {
+              this.LOD.forEach((ele, i) => {
                 if (ele.code === "POA") {
                   index = i;
                   poaTypes.push(ele);
